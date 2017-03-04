@@ -1,0 +1,8 @@
+Requirements for system registered library materials (version 1.0 / 2017.03.04)
+
+Each library material
+
+1. must have 'unique identifier'
+2. must have 'material type' (e.g. book, reference works, periodical articles)
+3. must record material basic information (e.g. title, release year etc)
+4. must record usage (borrowing) history (when, who, for how long)

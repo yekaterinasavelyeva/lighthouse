@@ -1,0 +1,19 @@
+Requirements for system users and their's accounts (version 1.0 / 2017.03.04)
+
+Each user
+
+1. must have account in library system
+2. must have login/password (for entering in account)
+3. 's account must have 'unique identifier'
+4. 's account must have 'user type' (e.g. visitor, admin)
+5. 's account must record user's personal information (name, surname, etc)
+
+
+Each 'user type' 'visitor'
+
+1. must record information about borrowed library materials (what, when, for how long etc)
+
+
+Each 'user type' 'admin'
+
+1. must be able to edit any 'visitor's records about borrowed library materials
