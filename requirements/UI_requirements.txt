@@ -1,24 +1,26 @@
 Requirements for UI
+_____________________________
+_____________________________
 
 For library administrator
 
-1. First UI start window has options in links:
-- Find a book;
-- Add a book;
-- Find a user;
-- Open Overdue Bookings;
+First UI start window has options in links:
+1. Find a book;
+2. Add a book;
+3. Find a user;
+4. Open Overdue Bookings;
 
-	1.1 "Find a book" link will open new window with search mode. 
-	Simple search has mandatory empty fields:
-	- book identifier;
+1 "Find a book" link will open new window with search mode. 
+Simple search has mandatory empty fields:
+- book identifier;
 
-	If search is successful, book name, author name 
-	and two options will appear under search:
-	 - Open a book;
-	 - Delete a book;
-	 - option "Back" will open start window and drop all current unsaved data;
+If search is successful, book name, author name 
+and two options will appear under search:
+- Open a book;
+- Delete a book;
+- option "Back" will open start window and drop all current unsaved data;
  
-	1.2 "Open a book" option will open a window with:
+	1.1 "Open a book" option will open a window with:
 	 - unique identifier;
 	 - type;
 	 - title;
@@ -27,10 +29,9 @@ For library administrator
 	 - Free book will have an option "Book this book";
 	 - Busy book will have an option "End this booking";
 	 - user name, and booking end date, if book is booked.
+	 - option "Back" will open start window.
 	   
-	   * Option "Back" will open start window.
-	   
-		1.2.1 "Book this book" will open a new window, 
+		1.1.1 "Book this book" will open a new window, 
 			  where end date will be pre-written (14 days from current date):
 			  e.g. "End date: 12.12.12". End date can be edited 
 			  (no less than 7 days and no more than 30 days).
@@ -40,50 +41,48 @@ For library administrator
 			  - "Save" option;
 			  - "Back" option to go to the start window.
 			  
-			  1.2.1.1. Option "Save" will write info to the system
+			  1.1.1.1 Option "Save" will write info to the system
 						and will display info: "Book <identifier> is 
 						booked to user <User ID>".
-			  
-			  * Option "Back" will open start window.
+						
+			  1.1.1.2 Option "Back" will open start window.
 		  
-		1.2.2. "End this booking" will remove booking 
+		1.1.2 "End this booking" will remove booking 
 				from the system (user data, booking date);
 				Info to be displayed: "Booking for book <identifier> 
 				is cancelled".
-				
-				* Option "Back" will open start window.
 	   
-	1.3 "Delete a book" will delete a book from the system 
+	1.2 "Delete a book" will delete a book from the system 
 		and will display an info "Book <identifier> has been deleted".
 		But!!! If book is booked, an error info will appear: 
 		"Book <identifier> is booked and can not be deleted".
 		 
-		 * Option "Back" will open start window.
+___________________________________________________________________________________		 
  
-	2.1 "Add a book" will open new window with empty mandatory fields:
-	 - unique identifier;
-	 - type (e.g. book, reference works, periodical articles);
-	 - title;
-	 - author;
-	 - release year;
-	 - button "Save";
-    
-	* Option "Back" will open start window.
+2 "Add a book" will open new window with empty mandatory fields:
+	- unique identifier;
+	- type (e.g. book, reference works, periodical articles);
+	- title;
+	- author;
+	- release year;
+	- button "Save";
+    - option "Back" will open start window.
 	
-		2.1.1 Option "Save" will save book to the system and display info: 
+		2.1 Option "Save" will save book to the system and display info: 
 		"Book <identifier> has been created"
 		
-	3.1 "Find a user" link will open new window with search mode.
-		Mandatory fields for simple search: 
-		- User ID: unique library card identifier;
+___________________________________________________________________________________		
 		
-		If search is successful, info will appear:
-		- User ID: unique library card identifier;;
-		- User Name;
-		- User Second Name;
-		- Option "View Bookings";
+3 "Find a user" link will open new window with search mode.
+Mandatory fields for simple search: 
+User ID: unique library card identifier;
 		
-		* Option "Back" will open start window.
+If search is successful, info will appear:
+	- User ID: unique library card identifier;
+	- User Name;
+	- User Second Name;
+	- Option "View Bookings";
+	- Option "Back" will open start window.
 		
 		3.1.1 "View Bookings" will list down books with info:
 				- book identifier;
@@ -95,13 +94,46 @@ For library administrator
 						Info to be displayed: "Booking for book <identifier> 
 						is cancelled".
 						
-	4.1 "Open Overdue Bookings" option will open the list of books, where
-		booking end date is less than current date (outdated booking).
-		Info displayed:
-		- book identifier;
-		- book title;
-		- booking end date;
-		- User ID: unique library card identifier;
+___________________________________________________________________________________						
+						
+4 "Open Overdue Bookings" option will open the list of books, where
+booking end date is less than current date (outdated booking).
+Info displayed:
+	- book identifier;
+	- book title;
+	- booking end date;
+	- User ID: unique library card identifier;
+	- Option "Back" will open start window.
 	
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
+ For library user
  
+ First user UI start window has options in links:
+ 
+ 1. My Account
+ 2. My Bookings
+ 
+ 1. "My Account" option will open info about account:
+	- User ID: unique library card identifier;
+	- Name and Second Name;
+	- Login and Password;
+	- Option "Back" which will open user start window.
+	
+ 2. "My Bookings" option will list all this user's booked books:
+	- Book identifier;
+	- Book title;
+	- Book author;
+	- Booking end date;
+	- option "Prolong Booking";
+	- option "Back" which will open start window.
+		
+		2.1 "Prolong Booking" will open window with options:
+			- field "Booking end date" with pre-written date 14 days from current.
+				It can be changed to min 7 days or max 30 days.
+			- option "Save".
+			
+			2.1.1 Option "Save" will display info "Booking is prolonged".
+			
+			* Option "Back" will open start window.
