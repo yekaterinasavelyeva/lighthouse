@@ -1,4 +1,15 @@
-Requirements for system users and their's accounts (version 1.0 / 2017.03.04)
+Requirements for system users and their's accounts (version 1.1 / 2017.03.19)
+
+Object "User"
+
+fields:
+
+Long userId - default value;
+String firstName;
+String lastName;
+String accountType - admin or visitor;
+String Login;
+String Password;
 
 Each user
 

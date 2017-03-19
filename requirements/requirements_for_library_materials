@@ -1,6 +1,17 @@
-Requirements for system registered library materials (version 1.0 / 2017.03.04)
+Requirements for system registered library materials (version 1.1 / 2017.03.19)
 
 Each library material
+
+Object "Book"
+
+fields:
+
+ Long bookId - default;
+ String type ("book", "article", etc.);
+ String title;
+ String author;
+ int releaseYear;
+ Reservation reservation;
 
 1. must have 'unique identifier'
 2. must have 'material type' (e.g. book, reference works, periodical articles)

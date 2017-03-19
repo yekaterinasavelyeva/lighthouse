@@ -2,6 +2,8 @@ Requirements for UI
 _____________________________
 _____________________________
 
+***Login page displayed. After successful log in (username&password provided in fields), account page should be open.
+
 For library administrator
 
 First UI start window has options in links:

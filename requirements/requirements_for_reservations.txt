@@ -1,0 +1,11 @@
+Requirements for books reservations (version 1.0 / 2017.03.19)
+
+Object "Reservation"
+
+fields:
+
+ LocalDate fromDate;
+ LocalDate toDate;
+ Reader reader extends User;
+ Book book;
+    public Reservation(LocalDate from, LocalDate to, Reader reader);
