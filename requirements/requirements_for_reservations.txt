@@ -4,8 +4,8 @@ Object "Reservation"
 
 fields:
 
- LocalDate fromDate;
- LocalDate toDate;
- Reader reader extends User;
- Book book;
-    public Reservation(LocalDate from, LocalDate to, Reader reader);
+ private LocalDate fromDate;
+ private LocalDate toDate;
+ private user User;
+ private Book book;
+    public Reservation(LocalDate from, LocalDate to, user User);
