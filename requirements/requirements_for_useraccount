@@ -1,0 +1,31 @@
+Requirements for system users and their's accounts (version 1.1 / 2017.03.19)
+
+Object "UserAccount"
+
+fields:
+
+Long userAccountId - default value;
+String firstName;
+String lastName;
+UserAccountState - admin or visitor;
+
+Each user
+
+3. account must have 'unique identifier'
+4. account must have 'account state' (e.g. visitor, admin)
+5. account must record user's personal information (firstName, lastName)
+
+
+Each 'account state' 'visitor'
+
+1. view booked library materials (booked books - reservations list);
+2. view reservation booking end date
+3. edit booking (reservation) end date.
+
+
+Each 'account state' 'admin'
+
+1. add book reservation and remove book reservation from userAccount;
+2. add and delete books from library list;
+3. view and edit other users accounts (change login, password, name, last name, add and remove users?);
+4. view list of overdued reservations (boookings).
