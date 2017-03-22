@@ -69,7 +69,7 @@ public class DatabaseUtil extends DAOImpl {
 
     private List<String> getTableNames() {
         List<String> tableNames = new ArrayList<String>();
-        tableNames.add("USERS");
+        tableNames.add("ACCOUNTS");
         return tableNames;
     }
 

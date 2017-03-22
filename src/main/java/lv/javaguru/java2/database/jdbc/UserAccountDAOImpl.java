@@ -51,7 +51,7 @@ public class UserAccountDAOImpl extends DAOImpl implements UserAccountDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select * from ACCOUNTS where UserID = ?");
+                    .prepareStatement("select * from ACCOUNTS where AccountID = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             UserAccount account = null;
@@ -103,7 +103,7 @@ public class UserAccountDAOImpl extends DAOImpl implements UserAccountDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("delete from ACCOUNTS where UserID = ?");
+                    .prepareStatement("delete from ACCOUNTS where AccountID = ?");
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
