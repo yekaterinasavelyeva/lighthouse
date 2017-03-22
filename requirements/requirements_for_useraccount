@@ -5,15 +5,17 @@ Object "UserAccount"
 fields:
 
 Long userAccountId - default value;
+User user;
 String firstName;
 String lastName;
 UserAccountState - admin or visitor;
 
 Each user
 
-3. account must have 'unique identifier'
-4. account must have 'account state' (e.g. visitor, admin)
-5. account must record user's personal information (firstName, lastName)
+1. account must have 'unique identifier'
+2. account must have 'account state' (e.g. visitor, admin)
+3. account must record user's personal information (firstName, lastName)
+4. account has User corresponding data.
 
 
 Each 'account state' 'visitor'
