@@ -1,0 +1,4 @@
+<dataset>
+    <RESOURCES ResourceType="BOOK" Title="First" Author="any" ReleaseYear="1900"/>
+    <RESOURCES ResourceType="MAGAZINE" Title="Second" Author="some" ReleaseYear="2000"/>
+</dataset>
