@@ -12,6 +12,8 @@ import static org.junit.Assert.assertTrue;
 
 public class UserDAOImplTest extends DBUnitTestCase {
 
+    // TODO: 30/03/17 update tests when UserDAOImpl will be refactored
+
     private UserDAO userDAO = new UserDAOImpl();
 
     @Override

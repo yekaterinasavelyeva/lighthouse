@@ -13,6 +13,8 @@ import java.util.Optional;
 
 public class UserDAOImpl extends DAOImpl implements UserDAO {
 
+    //// TODO: 30/03/17 update methods after User class will be refactored
+
     public User save(User user) throws DBException {
         Connection connection = null;
 

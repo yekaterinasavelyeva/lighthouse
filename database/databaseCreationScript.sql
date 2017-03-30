@@ -50,6 +50,21 @@ CREATE TABLE IF NOT EXISTS `resources` (
 ENGINE = InnoDB
 AUTO_INCREMENT = 1002;
 
+-- -----------------------------------------------------
+-- Table `Java2_test`.`reservations`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `reservations`;
+
+CREATE TABLE IF NOT EXISTS `reservations` (
+    `ReservationID` INT(11) NOT NULL AUTO_INCREMENT,
+    `DateFrom` DATE NOT NULL,
+    `DateTo` DATE NOT NULL,
+    `LibTicketID` INT(11) NOT NULL,
+    `Status` ENUM('OPEN', 'CLOSED') NOT NULL,
+    PRIMARY KEY (`ReservationID`)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1002;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

@@ -2,6 +2,8 @@ package lv.javaguru.java2.domain;
 
 public class User {
 
+    //// TODO: 30/03/17 delete unnecessary properties and add Login/Password
+
     private Long userId;
     private String firstName;
     private String lastName;

@@ -2,10 +2,28 @@ Requirements for books reservations (version 1.0 / 2017.03.19)
 
 Object "Reservation"
 
+Contains information about:
+ which library material     // via 'resourceID'
+ when                       // via 'dateFrom'
+ for how long               // via 'dateTo'
+ to what person             // via 'libTicketID'
+ was given                  // via 'reservationStatus OPEN'
+ or already returned        // via 'reservationStatus LOSED'
+
 fields:
 
- private LocalDate fromDate;
- private LocalDate toDate;
- private user User;
- private Book book;
-    public Reservation(LocalDate from, LocalDate to, user User);
+ private LocalDate dateFrom;            // implemented
+ private LocalDate dateTo;              // implemented
+ private Long libTicketID;              // implemented
+ private ReservationStatus status       // implemented
+ private Long resourceID;               // todo
+
+
+methods for work with DataBase (DAO):
+ save                                   // done      // tested
+ update                                 // done      // tested
+ getByID                                // done      // tested
+ getAll                                 // done      // tested
+ getByLibTicketID                       // done      // tested
+ getByResourceID                        // todo
+

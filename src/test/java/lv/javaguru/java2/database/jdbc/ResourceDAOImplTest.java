@@ -60,11 +60,6 @@ public class ResourceDAOImplTest  extends DBUnitTestCase {
         assertEquals(a.getAuthor(), b.getAuthor());
         assertEquals(a.getReleaseYear(), b.getReleaseYear());
     }
-    
-
-
-
-
 
     private void getResourceFromDB() {
         resourceFromDB = resourceDAO.getByID(resource.getResourceID());

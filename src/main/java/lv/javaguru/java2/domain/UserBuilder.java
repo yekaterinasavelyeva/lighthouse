@@ -2,6 +2,8 @@ package lv.javaguru.java2.domain;
 
 public class UserBuilder {
 
+    //// TODO: 30/03/17 delete this class when User properties will be refactored
+
     private String firstName;
     private String lastName;
 
