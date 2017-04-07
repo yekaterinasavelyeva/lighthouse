@@ -51,8 +51,6 @@ public class ResourceDAOImplTest  extends DBUnitTestCase {
         assertFalse(resourceFromDB.isPresent());
     }
 
-
-
     private void assertEqualsAllProperties(Resource a, Resource b) {
         assertEquals(a.getResourceID(), b.getResourceID());
         assertEquals(a.getResourceType(), b.getResourceType());

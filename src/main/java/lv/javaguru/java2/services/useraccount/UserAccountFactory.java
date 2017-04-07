@@ -1,4 +1,4 @@
-package lv.javaguru.java2.services;
+package lv.javaguru.java2.services.useraccount;
 
 import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.domain.UserAccountState;

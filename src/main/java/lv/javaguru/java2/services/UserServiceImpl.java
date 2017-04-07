@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
 
+    //// TODO: 01/04/17 update methods after User class will be refactored
+
     private UserDAO userDAO = new UserDAOImpl();
     private UserValidator userValidator = new UserValidatorImpl();
 

@@ -1,9 +1,11 @@
-package lv.javaguru.java2.services;
+package lv.javaguru.java2.services.useraccount;
 
 import lv.javaguru.java2.database.UserAccountDAO;
 import lv.javaguru.java2.database.jdbc.UserAccountDAOImpl;
 import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.domain.UserAccountState;
+import lv.javaguru.java2.services.validate.UserAccountValidator;
+import lv.javaguru.java2.services.validate.UserAccountValidatorImpl;
 
 import static lv.javaguru.java2.domain.UserAccountBuilder.createUserAccount;
 

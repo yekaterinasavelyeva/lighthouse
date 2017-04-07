@@ -8,7 +8,7 @@ Contains information about:
  for how long               // via 'dateTo'
  to what person             // via 'libTicketID'
  was given                  // via 'reservationStatus OPEN'
- or already returned        // via 'reservationStatus LOSED'
+ or already returned        // via 'reservationStatus CLOSED'
 
 fields:
 

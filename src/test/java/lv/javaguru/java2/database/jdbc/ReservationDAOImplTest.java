@@ -55,9 +55,11 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
         assertThatReservationWasSavedWithCorrectProperties();
     }
 
+
     private void assertThatReservationGottenFromDatabase() {
         assertTrue(reservationFromDatabase.isPresent());
     }
+
 
     private void assertThatReservationWasSavedWithCorrectProperties() {
         Reservation a = reservation;

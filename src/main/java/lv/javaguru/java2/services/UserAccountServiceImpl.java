@@ -4,8 +4,9 @@ import lv.javaguru.java2.database.UserAccountDAO;
 import lv.javaguru.java2.database.jdbc.UserAccountDAOImpl;
 import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.domain.UserAccountState;
+import lv.javaguru.java2.services.validate.UserAccountValidator;
+import lv.javaguru.java2.services.validate.UserAccountValidatorImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,13 +21,13 @@ public class UserAccountServiceImpl implements UserAccountService{
     @Override
     public void edit(Long accountId,
                      String newFirstName,
-                     String newLastName, UserAccountState state) {
+                     String newLastName, UserAccountState newState) {
         Optional<UserAccount> userAccOpt = userAccountDAO.getById(accountId);
         if (!userAccOpt.isPresent()) {
             throw new IllegalArgumentException("User account not found by id = " + accountId);
         }
 
-        userAccountValidator.validate(newFirstName, newLastName, state);
+        userAccountValidator.validate(newFirstName, newLastName, newState);
 
         UserAccount account = userAccOpt.get();
         account.setFirstName(newFirstName);

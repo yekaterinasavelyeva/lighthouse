@@ -6,6 +6,8 @@ import org.junit.rules.ExpectedException;
 
 public class UserValidatorImplTest {
 
+    //// TODO: 01/04/17 update methods after User class will be refactored
+
     private UserValidator validator = new UserValidatorImpl();
 
     @Rule

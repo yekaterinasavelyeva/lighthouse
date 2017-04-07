@@ -1,11 +1,11 @@
-package lv.javaguru.java2.services;
+package lv.javaguru.java2.services.validate;
 
 import lv.javaguru.java2.domain.UserAccountState;
+import lv.javaguru.java2.services.validate.UserAccountValidator;
+import lv.javaguru.java2.services.validate.UserAccountValidatorImpl;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by user on 26.03.2017.
