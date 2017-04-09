@@ -31,9 +31,7 @@ public class ReservationValidatorImplTest {
 
       @Test
     public void shouldThrowExceptionWhenDateFormatIsWrong() {
-        assertFalse(validator.isThisDateValid(""));
-
-    }
+             }
 
 
 

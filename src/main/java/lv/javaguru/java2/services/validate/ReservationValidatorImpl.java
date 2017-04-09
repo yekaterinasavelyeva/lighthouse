@@ -24,6 +24,8 @@ public class ReservationValidatorImpl implements ReservationValidator {
         validateDateTo(dateTo);
         validateDateToHronology(dateTo);
         validateTicketId(libTicketID);
+        validateDate(dateTo);
+        validateDate(dateFrom);
 
     }
 
@@ -66,24 +68,20 @@ public class ReservationValidatorImpl implements ReservationValidator {
     private String dateFormat = "yyyy-MM-dd";
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
 
-    private void checkIfDatesConformToFormat(LocalDate date) {
+    /**private void checkIfDatesConformToFormat(LocalDate date) {
         if(!isThisDateValid(date.toString())){
             throw new IllegalArgumentException("Reservation dates format do not " +
                     "conform to yyyy-MM-dd");
         }
-    }
+    } **/
 
-    @Override
-    public boolean isThisDateValid(String dateToValidate){
-        try {
-            LocalDate validatedDate= LocalDate.parse(dateToValidate, formatter);
-            System.out.println(validatedDate);
-        } catch (DateTimeParseException ex){
-            ex.printStackTrace();
-            System.out.println(ex.getMessage());
-            return false;
-        }
-        return true;
+
+    public void validateDate(LocalDate dateForValidation){
+        String dateToValidate = dateForValidation.toString();
+
+        if(!dateToValidate.matches("([0-9]{4})-([0-9]{2})-([0-9]{2})"))
+        throw new IllegalArgumentException("Reservation dates format do not " +
+                "conform to yyyy-MM-dd");
     }
 
 }

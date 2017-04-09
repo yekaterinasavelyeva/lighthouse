@@ -9,5 +9,4 @@ public interface ReservationValidator {
 
     void validate(LocalDate dateFrom, LocalDate dateTo, Long libTicketID);
 
-    public boolean isThisDateValid(String dateToValidate);
 }
