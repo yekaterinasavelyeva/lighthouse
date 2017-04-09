@@ -16,7 +16,7 @@ import java.util.Optional;
 /**
  * Created by VBarbasins on 30/03/17.
  */
-class ReservationDAOImpl extends DAOImpl  implements ReservationDAO {
+public class ReservationDAOImpl extends DAOImpl  implements ReservationDAO {
     @Override
     public Reservation save(Reservation reservation) throws DBException {
         Connection connection = null;

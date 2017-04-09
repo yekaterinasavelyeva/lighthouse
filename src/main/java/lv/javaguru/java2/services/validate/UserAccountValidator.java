@@ -8,4 +8,5 @@ import lv.javaguru.java2.domain.UserAccountState;
 
 public interface UserAccountValidator {
     void validate(String firstName, String lastName, UserAccountState state);
+
 }
