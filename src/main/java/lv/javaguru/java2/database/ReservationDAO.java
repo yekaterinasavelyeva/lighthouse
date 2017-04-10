@@ -18,6 +18,8 @@ public interface ReservationDAO {
 
     List<Reservation> getByLibTicketID(Long libTicketID);
 
+    List<Reservation> getByResourceID(Long resourceID);
+
     List<Reservation> getAll();
 
 }

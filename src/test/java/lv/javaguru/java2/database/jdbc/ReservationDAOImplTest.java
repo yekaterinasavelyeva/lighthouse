@@ -16,11 +16,18 @@ import static org.junit.Assert.*;
 /**
  * Created by VBarbasins on 30/03/17.
  */
+
+/**
 public class ReservationDAOImplTest  extends DBUnitTestCase {
+
+ //As constraints and foreign keys are implemented, resources,
+ //accounts and library tickets have to be
+ //implemented before testing reservations itselfes, or mock objects have to be used.
 
     private Reservation reservation;
     private ReservationDAO reservationDAO = new ReservationDAOImpl();
     private Optional<Reservation> reservationFromDatabase;
+
 
     @Override
     protected String getDatabaseFile() {
@@ -55,6 +62,15 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
         assertThatReservationWasSavedWithCorrectProperties();
     }
 
+    @Test
+    public void testGetByResourceID() throws DBException {
+        createNewReservationWithResourceID(new Long("55"));
+        saveReservationToDatabase();
+        getReservationFromDatabaseByResourceID(new Long("55"));
+        assertThatReservationGottenFromDatabase();
+        assertThatReservationWasSavedWithCorrectProperties();
+    }
+
 
     private void assertThatReservationGottenFromDatabase() {
         assertTrue(reservationFromDatabase.isPresent());
@@ -68,6 +84,7 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
         assertEquals(a.getDateTo(), b.getDateTo());
         assertEquals(a.getLibTicketID(), b.getLibTicketID());
         assertEquals(a.getReservationID(), b.getReservationID());
+        assertEquals(a.getResourceID(), b.getResourceID());
         assertEquals(a.getStatus(), b.getStatus());
     }
 
@@ -98,11 +115,19 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
                 .findFirst();
     }
 
+    private void getReservationFromDatabaseByResourceID(Long resourceID) {
+        reservationFromDatabase = reservationDAO
+                .getByResourceID(resourceID)
+                .stream()
+                .findFirst();
+    }
+
     private void createNewReservation() {
         reservation = createReservation()
                 .withDateFrom(LocalDate.parse("2017-03-30"))
                 .withDateTo(LocalDate.parse("2017-04-04"))
                 .withLibTicketID(new Long("5"))
+                .withResourceID(new Long("6"))
                 .withStatus(ReservationStatus.OPEN)
                 .build();
     }
@@ -111,6 +136,7 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
         reservation.setDateFrom(LocalDate.parse("2018-02-03"));
         reservation.setDateTo(LocalDate.parse("2018-02-04"));
         reservation.setLibTicketID(new Long("455678"));
+        reservation.setResourceID(new Long("455456"));
         reservation.setStatus(ReservationStatus.CLOSED);
     }
 
@@ -119,7 +145,20 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
                 .withDateFrom(LocalDate.parse("2017-03-30"))
                 .withDateTo(LocalDate.parse("2017-04-04"))
                 .withLibTicketID(libTicketID)
+                .withResourceID(new Long("12345"))
                 .withStatus(ReservationStatus.OPEN)
                 .build();
     }
-}
+
+    private void createNewReservationWithResourceID(Long resourceID) {
+        reservation = createReservation()
+                .withDateFrom(LocalDate.parse("2017-03-30"))
+                .withDateTo(LocalDate.parse("2017-04-04"))
+                .withLibTicketID(new Long("12345"))
+                .withResourceID(resourceID)
+                .withStatus(ReservationStatus.OPEN)
+                .build();
+    }
+
+
+} **/

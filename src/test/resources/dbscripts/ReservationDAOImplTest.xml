@@ -1,4 +1,8 @@
 <dataset>
-    <RESERVATIONS DateFrom="2016-01-01" DateTo="2017-02-02" LibTicketID="12345" Status="CLOSED"/>
-    <RESERVATIONS DateFrom="2017-03-03" DateTo="2017-04-13" LibTicketID="1234567" Status="OPEN"/>
+    <ACCOUNTS AccountID="1111" FirstName="Jekaterina" LastName="Saveljeva" Status="ADMIN"/>
+    <LIBRARY_TICKETS LibTicketID="12345" AccountID="1111"/>
+    <RESOURCES ResourceID="12345" ResourceType="BOOK" Title="War and Peace" Author="L. Tolstoy" ReleaseYear="1890"/>
+    <RESOURCES ResourceID="1234567" ResourceType="MAGAZINE" Title="Diena" Author="Diena" ReleaseYear="1999"/>
+    <RESERVATIONS DateFrom="2016-01-01" DateTo="2017-02-02" LibTicketID="12345" ResourceID="12345" Status="CLOSED"/>
+    <RESERVATIONS DateFrom="2017-03-03" DateTo="2017-04-13" LibTicketID="12345" ResourceID="1234567" Status="OPEN"/>
 </dataset>

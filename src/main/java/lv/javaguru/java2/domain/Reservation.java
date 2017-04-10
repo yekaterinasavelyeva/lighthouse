@@ -13,6 +13,7 @@ public class Reservation {
     private LocalDate dateFrom;
     private LocalDate dateTo;
     private Long libTicketID;
+    private Long resourceID;
     private ReservationStatus status;
 
     public Long getReservationID() {
@@ -53,5 +54,13 @@ public class Reservation {
 
     public void setStatus(ReservationStatus status) {
         this.status = status;
+    }
+
+    public Long getResourceID() {
+        return resourceID;
+    }
+
+    public void setResourceID(Long resourceID) {
+        this.resourceID = resourceID;
     }
 }

@@ -51,6 +51,21 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 1002;
 
 -- -----------------------------------------------------
+-- Table `Java2_test`.`library_tickets`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `library_tickets`;
+
+CREATE TABLE IF NOT EXISTS `library_tickets` (
+  `LibTicketID` INT(11) NOT NULL AUTO_INCREMENT,
+  `AccountID` INT(11) NOT NULL,
+  PRIMARY KEY (`LibTicketID`),
+  FOREIGN KEY (`AccountID`) REFERENCES `accounts` (`AccountID`)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1002;
+-- -----------------------------------------------------
 -- Table `Java2_test`.`reservations`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `reservations`;
@@ -60,8 +75,15 @@ CREATE TABLE IF NOT EXISTS `reservations` (
     `DateFrom` DATE NOT NULL,
     `DateTo` DATE NOT NULL,
     `LibTicketID` INT(11) NOT NULL,
+    `ResourceID` INT(11) NOT NULL,
     `Status` ENUM('OPEN', 'CLOSED') NOT NULL,
-    PRIMARY KEY (`ReservationID`)
+    PRIMARY KEY (`ReservationID`),
+    FOREIGN KEY (`ResourceID`) REFERENCES `resources` (`ResourceID`)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE,
+    FOREIGN KEY (`LibTicketID`) REFERENCES `library_tickets` (`LibTicketID`)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1002;
