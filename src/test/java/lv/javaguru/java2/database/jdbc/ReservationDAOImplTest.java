@@ -8,6 +8,7 @@ import lv.javaguru.java2.domain.*;
 import org.junit.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import static lv.javaguru.java2.domain.ReservationBuilder.createReservation;
 import static java.util.stream.Collectors.toList;
@@ -61,12 +62,22 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
 
     @Test
     public void testGetByAccountID() throws DBException {
-
+        setAccountAndResource();
+        createNewReservation();
+        saveReservationToDatabase();
+        getReservationFromDatabase();
+        getReservationFromDatabaseByAccountID(account.getUserAccountId());
+        assertThatReservationWasSavedWithCorrectProperties();
     }
 
     @Test
     public void testGetByResourceID() throws DBException {
-
+        setAccountAndResource();
+        createNewReservation();
+        saveReservationToDatabase();
+        getReservationFromDatabase();
+        getReservationFromDatabaseByResourceID(resource.getResourceID());
+        assertThatReservationWasSavedWithCorrectProperties();
     }
 
 
@@ -108,10 +119,10 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
     }
 
     private void getReservationFromDatabaseByAccountID(Long accountID) {
-        newReservation = reservationDAO
+       newReservation = reservationDAO
                 .getByAccountID(accountID)
                 .stream()
-                .filter(reservation1 -> reservation1.getReservationID()==reservation.getReservationID())
+                .filter(reservation1 -> reservation1.getReservationID().equals(reservation.getReservationID()))
                 .collect(toList()).get(0);
     }
 
@@ -119,7 +130,7 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
         newReservation = reservationDAO
                 .getByResourceID(resourceID)
                 .stream()
-                .filter(reservation1 -> reservation1.getReservationID()==reservation.getReservationID())
+                .filter(reservation1 -> reservation1.getReservationID().equals(reservation.getReservationID()))
                 .collect(toList()).get(0);
     }
 
