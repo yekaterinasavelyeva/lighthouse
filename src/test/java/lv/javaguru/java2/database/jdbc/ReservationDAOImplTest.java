@@ -8,16 +8,14 @@ import lv.javaguru.java2.domain.*;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 import static lv.javaguru.java2.domain.ReservationBuilder.createReservation;
 import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.*;
 
 /**
- * Created by VBarbasins on 30/03/17.
+ * Created by user on 12/04/17.
  */
-
 
 public class ReservationDAOImplTest  extends DBUnitTestCase {
 
