@@ -24,7 +24,7 @@ public class ReservationDAOImpl extends DAOImpl  implements ReservationDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("insert into RESERVATIONS values (default, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    .prepareStatement("insert into RESERVATIONS values (default, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setDate(1, Date.valueOf(reservation.getDateFrom()));
             preparedStatement.setDate(2, Date.valueOf(reservation.getDateTo()));
             preparedStatement.setLong(3, reservation.getAccountID());
@@ -130,7 +130,7 @@ public class ReservationDAOImpl extends DAOImpl  implements ReservationDAO {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
                     .prepareStatement("select * from RESERVATIONS " +
-                            "where LibTicketID = ?");
+                            "where AccountID = ?");
             preparedStatement.setLong(1, accountID);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

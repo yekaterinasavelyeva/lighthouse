@@ -1,7 +1,9 @@
 <dataset>
     <ACCOUNTS AccountID="1111" FirstName="Jekaterina" LastName="Saveljeva" Status="ADMIN"/>
+    <ACCOUNTS AccountID="2222" FirstName="Bleki" LastName="Bleki" Status="VISITOR"/>
     <RESOURCES ResourceID="12345" ResourceType="BOOK" Title="War and Peace" Author="L. Tolstoy" ReleaseYear="1890"/>
     <RESOURCES ResourceID="1234567" ResourceType="MAGAZINE" Title="Diena" Author="Diena" ReleaseYear="1999"/>
+    <RESOURCES ResourceID="123458" ResourceType="BOOK" Title="Lolita" Author="Vladimir Nabokov" ReleaseYear="1932"/>
     <RESERVATIONS DateFrom="2016-01-01" DateTo="2017-02-02" AccountID="1111" ResourceID="12345" Status="CLOSED"/>
     <RESERVATIONS DateFrom="2017-03-03" DateTo="2017-04-13" AccountID="1111" ResourceID="1234567" Status="OPEN"/>
 </dataset>
