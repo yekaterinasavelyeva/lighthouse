@@ -15,17 +15,13 @@ import java.util.Locale;
  */
 public class ReservationValidatorImpl implements ReservationValidator {
 
-    //TODO - how to check date format in tests with IllegalArgument exception?
-
     @Override
-    public void validate(LocalDate dateFrom, LocalDate dateTo, Long libTicketID){
+    public void validate(LocalDate dateFrom, LocalDate dateTo, Long accountID){
         validateDateFrom(dateFrom);
         validateDateFromHronology(dateFrom);
         validateDateTo(dateTo);
         validateDateToHronology(dateTo);
-        validateTicketId(libTicketID);
-        validateDate(dateTo);
-        validateDate(dateFrom);
+        validateAccountId(accountID);
 
     }
 
@@ -51,9 +47,9 @@ public class ReservationValidatorImpl implements ReservationValidator {
         }
     }
 
-    private void validateTicketId(Long libTicketId){
-        if (libTicketId == null) {
-            throw new IllegalArgumentException("Library Ticket ID must be not empty!");
+    private void validateAccountId(Long accountID){
+        if (accountID == null) {
+            throw new IllegalArgumentException("Account ID must be not empty!");
         }
     }
 
@@ -62,26 +58,6 @@ public class ReservationValidatorImpl implements ReservationValidator {
         if (date == null) {
             throw new IllegalArgumentException("Reservation dates must be not empty!");
         }
-    }
-
-
-    private String dateFormat = "yyyy-MM-dd";
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
-
-    /**private void checkIfDatesConformToFormat(LocalDate date) {
-        if(!isThisDateValid(date.toString())){
-            throw new IllegalArgumentException("Reservation dates format do not " +
-                    "conform to yyyy-MM-dd");
-        }
-    } **/
-
-
-    public void validateDate(LocalDate dateForValidation){
-        String dateToValidate = dateForValidation.toString();
-
-        if(!dateToValidate.matches("([0-9]{4})-([0-9]{2})-([0-9]{2})"))
-        throw new IllegalArgumentException("Reservation dates format do not " +
-                "conform to yyyy-MM-dd");
     }
 
 }

@@ -20,12 +20,12 @@ public class ReservationFactoryImpl implements ReservationFactory {
     private ReservationValidator reservationValidator = new ReservationValidatorImpl();
 
     @Override
-    public Reservation create(LocalDate dateFrom, LocalDate dateTo, Long libTicketID){
-        reservationValidator.validate(dateFrom, dateTo, libTicketID);
+    public Reservation create(LocalDate dateFrom, LocalDate dateTo, Long accountID){
+        reservationValidator.validate(dateFrom, dateTo, accountID);
         Reservation reservation = createReservation()
                 .withDateFrom(dateFrom)
                 .withDateTo(dateTo)
-                .withLibTicketID(libTicketID)
+                .withAccountID(accountID)
                 .withStatus(ReservationStatus.OPEN)
                 .build();
 

@@ -16,7 +16,7 @@ public interface ReservationDAO {
 
     void update(Reservation reservation);
 
-    List<Reservation> getByLibTicketID(Long libTicketID);
+    List<Reservation> getByAccountID(Long accountID);
 
     List<Reservation> getByResourceID(Long resourceID);
 

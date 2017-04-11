@@ -15,7 +15,7 @@ import java.util.Optional;
 /**
  * Created by VBarbasins on 27/03/17.
  */
-class ResourceDAOImpl extends DAOImpl implements ResourceDAO {
+public class ResourceDAOImpl extends DAOImpl implements ResourceDAO {
 
     @Override
     public Resource save(Resource resource) throws DBException {

@@ -27,7 +27,7 @@ public class ReservationDAOImpl extends DAOImpl  implements ReservationDAO {
                     .prepareStatement("insert into RESERVATIONS values (default, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setDate(1, Date.valueOf(reservation.getDateFrom()));
             preparedStatement.setDate(2, Date.valueOf(reservation.getDateTo()));
-            preparedStatement.setLong(3, reservation.getLibTicketID());
+            preparedStatement.setLong(3, reservation.getAccountID());
             preparedStatement.setLong(4, reservation.getResourceID());
             preparedStatement.setString(5, reservation.getStatus().name());
 
@@ -68,9 +68,9 @@ public class ReservationDAOImpl extends DAOImpl  implements ReservationDAO {
                 reservation.setDateTo(
                         resultSet.getDate(
                                 "DateTo").toLocalDate());
-                reservation.setLibTicketID(
+                reservation.setAccountID(
                         resultSet.getLong(
-                                "LibTicketID"));
+                                "AccountID"));
                 reservation.setResourceID(resultSet.getLong("ResourceID"));
                 reservation.setStatus(ReservationStatus.valueOf(
                         resultSet.getString(
@@ -96,7 +96,7 @@ public class ReservationDAOImpl extends DAOImpl  implements ReservationDAO {
                     .prepareStatement("update RESERVATIONS set " +
                             "DateFrom = ?, " +
                             "DateTo = ?, " +
-                            "LibTicketID = ?, " +
+                            "AccountID = ?, " +
                             "ResourceID = ?, " +
                             "Status = ? " +
                             "where ReservationID = ? ");
@@ -105,7 +105,7 @@ public class ReservationDAOImpl extends DAOImpl  implements ReservationDAO {
             preparedStatement.setDate(2,
                     Date.valueOf(reservation.getDateTo()));
             preparedStatement.setLong(3,
-                    reservation.getLibTicketID());
+                    reservation.getAccountID());
             preparedStatement.setLong(4,
                     reservation.getResourceID());
             preparedStatement.setString(5,
@@ -123,7 +123,7 @@ public class ReservationDAOImpl extends DAOImpl  implements ReservationDAO {
     }
 
     @Override
-    public List<Reservation> getByLibTicketID(Long libTicketID) {
+    public List<Reservation> getByAccountID(Long accountID) {
         List<Reservation> reservations = new ArrayList<>();
         Connection connection = null;
         try {
@@ -131,7 +131,7 @@ public class ReservationDAOImpl extends DAOImpl  implements ReservationDAO {
             PreparedStatement preparedStatement = connection
                     .prepareStatement("select * from RESERVATIONS " +
                             "where LibTicketID = ?");
-            preparedStatement.setLong(1, libTicketID);
+            preparedStatement.setLong(1, accountID);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Reservation reservation = new Reservation();
@@ -144,9 +144,9 @@ public class ReservationDAOImpl extends DAOImpl  implements ReservationDAO {
                 reservation.setDateTo(
                         resultSet.getDate(
                                 "DateTo").toLocalDate());
-                reservation.setLibTicketID(
+                reservation.setAccountID(
                         resultSet.getLong(
-                                "LibTicketID"));
+                                "AccountID"));
                 reservation.setResourceID(
                         resultSet.getLong(
                                 "ResourceID"));
@@ -187,9 +187,9 @@ public class ReservationDAOImpl extends DAOImpl  implements ReservationDAO {
                 reservation.setDateTo(
                         resultSet.getDate(
                                 "DateTo").toLocalDate());
-                reservation.setLibTicketID(
+                reservation.setAccountID(
                         resultSet.getLong(
-                                "LibTicketID"));
+                                "AccountID"));
                 reservation.setResourceID(
                         resultSet.getLong(
                                 "ResourceID"));
@@ -228,9 +228,9 @@ public class ReservationDAOImpl extends DAOImpl  implements ReservationDAO {
                 reservation.setDateTo(
                         resultSet.getDate(
                                 "DateTo").toLocalDate());
-                reservation.setLibTicketID(
+                reservation.setAccountID(
                         resultSet.getLong(
-                                "LibTicketID"));
+                                "AccountID"));
                 reservation.setResourceID(
                         resultSet.getLong(
                                 "ResourceID"));

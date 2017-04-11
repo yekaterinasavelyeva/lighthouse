@@ -51,9 +51,9 @@ public class ReservationValidatorImplTest {
 
 
     @Test
-    public void shouldThrowExceptionWhenLibraryLicketIsNull() {
+    public void shouldThrowExceptionWhenAccountIsNull() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Library Ticket ID must be not empty!");
+        thrown.expectMessage("Account ID must be not empty!");
         validator.validate(LocalDate.now(), LocalDate.now().plusDays(8), null);
     }
 

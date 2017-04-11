@@ -9,7 +9,7 @@ public class ReservationBuilder {
 
     private LocalDate dateFrom;
     private LocalDate dateTo;
-    private Long libTicketID;
+    private Long accountID;
     private Long resourceID;
     private ReservationStatus status;
 
@@ -23,7 +23,7 @@ public class ReservationBuilder {
         Reservation reservation = new Reservation();
         reservation.setDateFrom(dateFrom);
         reservation.setDateTo(dateTo);
-        reservation.setLibTicketID(libTicketID);
+        reservation.setAccountID(accountID);
         reservation.setResourceID(resourceID);
         reservation.setStatus(status);
         return reservation;
@@ -39,8 +39,8 @@ public class ReservationBuilder {
         return this;
     }
 
-    public ReservationBuilder withLibTicketID(Long libTicketID) {
-        this.libTicketID = libTicketID;
+    public ReservationBuilder withAccountID(Long accountID) {
+        this.accountID = accountID;
         return this;
     }
 

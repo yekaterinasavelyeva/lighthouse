@@ -12,7 +12,7 @@ public class Reservation {
     private Long reservationID;
     private LocalDate dateFrom;
     private LocalDate dateTo;
-    private Long libTicketID;
+    private Long accountID;
     private Long resourceID;
     private ReservationStatus status;
 
@@ -40,12 +40,12 @@ public class Reservation {
         this.dateTo = dateTo;
     }
 
-    public Long getLibTicketID() {
-        return libTicketID;
+    public Long getAccountID() {
+        return accountID;
     }
 
-    public void setLibTicketID(Long libTicketID) {
-        this.libTicketID = libTicketID;
+    public void setAccountID(Long accountID) {
+        this.accountID = accountID;
     }
 
     public ReservationStatus getStatus() {
