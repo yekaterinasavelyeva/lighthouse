@@ -21,9 +21,6 @@ import static org.junit.Assert.*;
 
 public class ReservationDAOImplTest  extends DBUnitTestCase {
 
- //As constraints and foreign keys are implemented, resources,
- //accounts and library tickets have to be
- //implemented before testing reservations itselfes, or mock objects have to be used.
 
     private UserAccountDAO accountDAO = new UserAccountDAOImpl();
     private ResourceDAO resourceDAO = new ResourceDAOImpl();
@@ -67,7 +64,14 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
         saveReservationToDatabase();
         getReservationFromDatabase();
         getReservationFromDatabaseByAccountID(account.getUserAccountId());
-        assertThatReservationWasSavedWithCorrectProperties();
+        Reservation a = reservation;
+        Reservation b = newReservation;
+        assertEquals(a.getDateFrom(), b.getDateFrom());
+        assertEquals(a.getDateTo(), b.getDateTo());
+        assertEquals(a.getAccountID(), b.getAccountID());
+        assertEquals(a.getReservationID(), b.getReservationID());
+        assertEquals(a.getResourceID(), b.getResourceID());
+        assertEquals(a.getStatus(), b.getStatus());
     }
 
     @Test
@@ -78,6 +82,14 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
         getReservationFromDatabase();
         getReservationFromDatabaseByResourceID(resource.getResourceID());
         assertThatReservationWasSavedWithCorrectProperties();
+        Reservation a = reservation;
+        Reservation b = newReservation;
+        assertEquals(a.getDateFrom(), b.getDateFrom());
+        assertEquals(a.getDateTo(), b.getDateTo());
+        assertEquals(a.getAccountID(), b.getAccountID());
+        assertEquals(a.getReservationID(), b.getReservationID());
+        assertEquals(a.getResourceID(), b.getResourceID());
+        assertEquals(a.getStatus(), b.getStatus());
     }
 
 
@@ -152,17 +164,6 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
         reservation.setAccountID(thisAccountId);
         reservation.setResourceID(thisResourceId);
         reservation.setStatus(ReservationStatus.CLOSED);
-    }
-
-    private void createNewReservationWithAccountIDAndResourceID() {
-
-        reservation = createReservation()
-                .withDateFrom(LocalDate.parse("2017-03-30"))
-                .withDateTo(LocalDate.parse("2017-04-04"))
-                .withAccountID(account.getUserAccountId())
-                .withResourceID(resource.getResourceID())
-                .withStatus(ReservationStatus.OPEN)
-                .build();
     }
 
     private void setAccountAndResource() {
