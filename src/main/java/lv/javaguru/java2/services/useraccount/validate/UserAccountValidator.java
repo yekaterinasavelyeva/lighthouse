@@ -1,4 +1,4 @@
-package lv.javaguru.java2.services.validate;
+package lv.javaguru.java2.services.useraccount.validate;
 
 import lv.javaguru.java2.domain.UserAccountState;
 

@@ -1,8 +1,8 @@
-package lv.javaguru.java2.services.validate;
+package lv.javaguru.java2.services.useraccount.validate;
 
 import lv.javaguru.java2.domain.UserAccountState;
-import lv.javaguru.java2.services.validate.UserAccountValidator;
-import lv.javaguru.java2.services.validate.UserAccountValidatorImpl;
+import lv.javaguru.java2.services.useraccount.validate.UserAccountValidator;
+import lv.javaguru.java2.services.useraccount.validate.UserAccountValidatorImpl;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

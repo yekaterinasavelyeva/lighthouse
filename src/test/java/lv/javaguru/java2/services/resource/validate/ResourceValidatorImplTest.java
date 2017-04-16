@@ -1,11 +1,11 @@
-package lv.javaguru.java2.services.validate;
+package lv.javaguru.java2.services.resource.validate;
 
 import lv.javaguru.java2.domain.ResourceType;
+import lv.javaguru.java2.services.resource.validate.ResourceValidator;
+import lv.javaguru.java2.services.resource.validate.ResourceValidatorImpl;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by user on 11.04.2017.

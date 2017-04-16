@@ -1,4 +1,4 @@
-package lv.javaguru.java2.services.validate;
+package lv.javaguru.java2.services.reservation.validate;
 
 import java.time.LocalDate;
 

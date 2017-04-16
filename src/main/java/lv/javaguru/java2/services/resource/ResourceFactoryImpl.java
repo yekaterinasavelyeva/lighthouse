@@ -4,8 +4,8 @@ import lv.javaguru.java2.database.ResourceDAO;
 import lv.javaguru.java2.database.jdbc.ResourceDAOImpl;
 import lv.javaguru.java2.domain.Resource;
 import lv.javaguru.java2.domain.ResourceType;
-import lv.javaguru.java2.services.validate.ResourceValidator;
-import lv.javaguru.java2.services.validate.ResourceValidatorImpl;
+import lv.javaguru.java2.services.resource.validate.ResourceValidator;
+import lv.javaguru.java2.services.resource.validate.ResourceValidatorImpl;
 
 import static lv.javaguru.java2.domain.ResourceBuilder.createResource;
 

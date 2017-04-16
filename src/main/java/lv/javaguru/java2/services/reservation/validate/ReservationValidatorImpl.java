@@ -1,14 +1,6 @@
-package lv.javaguru.java2.services.validate;
+package lv.javaguru.java2.services.reservation.validate;
 
-import javax.swing.text.DateFormatter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by user on 09.04.2017.

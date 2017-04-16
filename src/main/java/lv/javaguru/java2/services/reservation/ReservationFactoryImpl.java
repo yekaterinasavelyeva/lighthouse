@@ -4,8 +4,8 @@ import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.database.jdbc.ReservationDAOImpl;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.domain.ReservationStatus;
-import lv.javaguru.java2.services.validate.ReservationValidator;
-import lv.javaguru.java2.services.validate.ReservationValidatorImpl;
+import lv.javaguru.java2.services.reservation.validate.ReservationValidator;
+import lv.javaguru.java2.services.reservation.validate.ReservationValidatorImpl;
 
 import java.time.LocalDate;
 

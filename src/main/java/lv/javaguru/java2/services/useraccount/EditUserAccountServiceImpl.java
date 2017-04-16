@@ -4,8 +4,8 @@ import lv.javaguru.java2.database.UserAccountDAO;
 import lv.javaguru.java2.database.jdbc.UserAccountDAOImpl;
 import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.domain.UserAccountState;
-import lv.javaguru.java2.services.validate.UserAccountValidator;
-import lv.javaguru.java2.services.validate.UserAccountValidatorImpl;
+import lv.javaguru.java2.services.useraccount.validate.UserAccountValidator;
+import lv.javaguru.java2.services.useraccount.validate.UserAccountValidatorImpl;
 
 import java.util.Optional;
 
@@ -16,6 +16,11 @@ public class EditUserAccountServiceImpl implements EditUserAccountService {
 
     private UserAccountDAO userAccountDAO = new UserAccountDAOImpl();
     private UserAccountValidator userAccountValidator = new UserAccountValidatorImpl();
+
+    public EditUserAccountServiceImpl(UserAccountValidator validator, UserAccountDAO dao){
+        userAccountValidator = validator;
+        userAccountDAO = dao;
+    }
 
     @Override
     public void edit(Long accountId,

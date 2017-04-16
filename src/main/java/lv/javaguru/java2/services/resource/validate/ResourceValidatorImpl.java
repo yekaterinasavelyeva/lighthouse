@@ -1,4 +1,4 @@
-package lv.javaguru.java2.services.validate;
+package lv.javaguru.java2.services.resource.validate;
 
 import lv.javaguru.java2.domain.ResourceType;
 

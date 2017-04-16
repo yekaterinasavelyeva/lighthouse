@@ -1,14 +1,12 @@
-package lv.javaguru.java2.services.validate;
+package lv.javaguru.java2.services.reservation.validate;
 
-import org.junit.Before;
+import lv.javaguru.java2.services.reservation.validate.ReservationValidator;
+import lv.javaguru.java2.services.reservation.validate.ReservationValidatorImpl;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by user on 09.04.2017.

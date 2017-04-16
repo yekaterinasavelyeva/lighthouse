@@ -13,6 +13,10 @@ public class GetAllUsersServiceImpl implements GetAllUsersService {
 
     private UserAccountDAO userAccountDAO = new UserAccountDAOImpl();
 
+    public GetAllUsersServiceImpl (UserAccountDAO dao){
+        userAccountDAO = dao;
+    }
+
     @Override
     public List<UserAccount> getAllUsersList(){
         List<UserAccount> accounts = userAccountDAO.getAll();
