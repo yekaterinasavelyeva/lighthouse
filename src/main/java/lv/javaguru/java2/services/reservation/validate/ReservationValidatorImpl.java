@@ -8,11 +8,12 @@ import java.time.*;
 public class ReservationValidatorImpl implements ReservationValidator {
 
     @Override
-    public void validate(LocalDate dateFrom, LocalDate dateTo, Long accountID){
+    public void validate(LocalDate dateFrom, LocalDate dateTo, Long accountID, Long resourceID){
         validateDateFrom(dateFrom);
         validateDateFromHronology(dateFrom);
         validateDateTo(dateTo);
         validateDateToHronology(dateTo);
+        validateResourceId(resourceID);
         validateAccountId(accountID);
 
     }
@@ -36,6 +37,12 @@ public class ReservationValidatorImpl implements ReservationValidator {
             throw new IllegalArgumentException("Reservation End Date must be set for no less " +
                     "than 7 and no more than 30 days from now!");
 
+        }
+    }
+
+    private void validateResourceId(Long resourceID){
+        if (resourceID == null) {
+            throw new IllegalArgumentException("Resource ID must be not empty!");
         }
     }
 

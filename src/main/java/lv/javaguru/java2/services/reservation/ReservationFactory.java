@@ -9,6 +9,6 @@ import java.time.LocalDate;
  */
 public interface ReservationFactory {
 
-    Reservation create(LocalDate dateFrom, LocalDate dateTo, Long libTicketID);
+    Reservation create(LocalDate dateFrom, LocalDate dateTo, Long accountID, Long resourceID);
 
 }

@@ -1,7 +1,6 @@
 package lv.javaguru.java2.services.useraccount;
 
 import lv.javaguru.java2.database.UserAccountDAO;
-import lv.javaguru.java2.database.jdbc.UserAccountDAOImpl;
 import lv.javaguru.java2.domain.UserAccount;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,21 +18,21 @@ import static org.mockito.Mockito.when;
  * Created by user on 07.04.2017.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class GetAllUsersServiceImplTest {
+public class GetAllAccountsServiceImplTest {
 
     private UserAccountDAO userAccountDAO;
-    private GetAllUsersService service;
+    private GetAllAccountsService service;
 
     @Before
     public void init() {
         userAccountDAO = mock(UserAccountDAO.class);
-        service = new GetAllUsersServiceImpl(userAccountDAO);
+        service = new GetAllAccountsServiceImpl(userAccountDAO);
     }
 
     @Test
     public void shouldReturnListOfUserAccountsTest(){
         when(userAccountDAO.getAll()).thenReturn(Arrays.asList(new UserAccount(), new UserAccount()));
-        List<UserAccount> accounts = service.getAllUsersList();
+        List<UserAccount> accounts = service.getAllAccountsList();
         List <UserAccount> accountsFromDatabase = userAccountDAO.getAll();
 
         assertTrue(!accounts.isEmpty());

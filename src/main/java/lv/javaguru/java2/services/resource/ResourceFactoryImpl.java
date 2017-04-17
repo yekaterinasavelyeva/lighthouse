@@ -17,6 +17,11 @@ public class ResourceFactoryImpl implements ResourceFactory {
     private ResourceDAO resourceDAO = new ResourceDAOImpl();
     private ResourceValidator resourceValidator = new ResourceValidatorImpl();
 
+    public ResourceFactoryImpl(ResourceValidator validator, ResourceDAO dao){
+        resourceValidator = validator;
+        resourceDAO = dao;
+    }
+
     @Override
     public Resource create(ResourceType type, String title, String author, int releaseYear){
         resourceValidator.validate(type, title, author, releaseYear);

@@ -62,15 +62,14 @@ public class UserAccountFactoryImplTest {
         account.setUserAccountId(1234l);
 
         when(userAccountDAO.getById(any(Long.class))).thenReturn(Optional.of(account));
+        when(userAccountDAO.save(any(UserAccount.class))).thenReturn(account);
+        UserAccount newAccount = factory.create(FIRSTNAME,LASTNAME, UserAccountState.ADMIN);
         Optional <UserAccount> accountFromDB = userAccountDAO.getById(1234l);
 
         assertTrue(accountFromDB.isPresent());
-        assertEquals(account.getUserAccountId(), accountFromDB.get().getUserAccountId());
-        assertEquals(account.getFirstName(), accountFromDB.get().getFirstName());
-        assertEquals(account.getLastName(), accountFromDB.get().getLastName());
-        assertEquals(account.getState(), accountFromDB.get().getState());
-
+        assertEquals(newAccount.getUserAccountId(), accountFromDB.get().getUserAccountId());
+        assertEquals(newAccount.getFirstName(), accountFromDB.get().getFirstName());
+        assertEquals(newAccount.getLastName(), accountFromDB.get().getLastName());
+        assertEquals(newAccount.getState(), accountFromDB.get().getState());
     }
-
-
 }

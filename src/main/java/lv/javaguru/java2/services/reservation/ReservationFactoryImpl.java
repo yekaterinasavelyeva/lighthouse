@@ -19,13 +19,20 @@ public class ReservationFactoryImpl implements ReservationFactory {
     private ReservationDAO reservationDAO = new ReservationDAOImpl();
     private ReservationValidator reservationValidator = new ReservationValidatorImpl();
 
+    public ReservationFactoryImpl(ReservationValidator validator, ReservationDAO dao){
+        reservationValidator = validator;
+        reservationDAO = dao;
+    }
+
     @Override
-    public Reservation create(LocalDate dateFrom, LocalDate dateTo, Long accountID){
-        reservationValidator.validate(dateFrom, dateTo, accountID);
+    public Reservation create(LocalDate dateFrom, LocalDate dateTo,
+                              Long accountID, Long resourceID){
+        reservationValidator.validate(dateFrom, dateTo, accountID, resourceID);
         Reservation reservation = createReservation()
                 .withDateFrom(dateFrom)
                 .withDateTo(dateTo)
                 .withAccountID(accountID)
+                .withResourceID(resourceID)
                 .withStatus(ReservationStatus.OPEN)
                 .build();
 

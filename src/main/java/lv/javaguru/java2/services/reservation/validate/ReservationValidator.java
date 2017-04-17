@@ -7,6 +7,6 @@ import java.time.LocalDate;
  */
 public interface ReservationValidator {
 
-    void validate(LocalDate dateFrom, LocalDate dateTo, Long accountID);
+    void validate(LocalDate dateFrom, LocalDate dateTo, Long accountID, Long resourceID);
 
 }

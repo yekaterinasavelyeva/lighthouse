@@ -4,6 +4,8 @@ import lv.javaguru.java2.database.UserAccountDAO;
 import lv.javaguru.java2.database.jdbc.UserAccountDAOImpl;
 import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.domain.UserAccountState;
+import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
+import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidatorImpl;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountValidator;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountValidatorImpl;
 
@@ -16,8 +18,10 @@ public class EditUserAccountServiceImpl implements EditUserAccountService {
 
     private UserAccountDAO userAccountDAO = new UserAccountDAOImpl();
     private UserAccountValidator userAccountValidator = new UserAccountValidatorImpl();
+    private UserAccountIdValidator userAccountIdValidator = new UserAccountIdValidatorImpl();
 
-    public EditUserAccountServiceImpl(UserAccountValidator validator, UserAccountDAO dao){
+    public EditUserAccountServiceImpl(UserAccountIdValidator idValidator, UserAccountValidator validator, UserAccountDAO dao){
+        userAccountIdValidator = idValidator;
         userAccountValidator = validator;
         userAccountDAO = dao;
     }
@@ -26,6 +30,7 @@ public class EditUserAccountServiceImpl implements EditUserAccountService {
     public void edit(Long accountId,
                      String newFirstName,
                      String newLastName, UserAccountState newState) {
+        userAccountIdValidator.validate(accountId);
         Optional<UserAccount> userAccOpt = userAccountDAO.getById(accountId);
         if (!userAccOpt.isPresent()) {
             throw new IllegalArgumentException("User account not found by id = " + accountId);

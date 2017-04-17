@@ -7,6 +7,6 @@ import java.util.List;
 /**
  * Created by user on 07.04.2017.
  */
-public interface GetAllUsersService {
-    List<UserAccount> getAllUsersList();
+public interface GetAllAccountsService {
+    List<UserAccount> getAllAccountsList();
 }

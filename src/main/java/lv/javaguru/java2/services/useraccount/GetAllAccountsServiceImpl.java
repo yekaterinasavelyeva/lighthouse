@@ -9,16 +9,16 @@ import java.util.List;
 /**
  * Created by user on 07.04.2017.
  */
-public class GetAllUsersServiceImpl implements GetAllUsersService {
+public class GetAllAccountsServiceImpl implements GetAllAccountsService {
 
     private UserAccountDAO userAccountDAO = new UserAccountDAOImpl();
 
-    public GetAllUsersServiceImpl (UserAccountDAO dao){
+    public GetAllAccountsServiceImpl(UserAccountDAO dao){
         userAccountDAO = dao;
     }
 
     @Override
-    public List<UserAccount> getAllUsersList(){
+    public List<UserAccount> getAllAccountsList(){
         List<UserAccount> accounts = userAccountDAO.getAll();
         return accounts;
     }
