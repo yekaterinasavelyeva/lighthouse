@@ -2,8 +2,6 @@ package lv.javaguru.java2.services.reservation;
 
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
-import lv.javaguru.java2.domain.ReservationStatus;
-import lv.javaguru.java2.services.reservation.validate.ReservationIdValidator;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +10,6 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
