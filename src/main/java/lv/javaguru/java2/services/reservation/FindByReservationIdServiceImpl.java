@@ -24,7 +24,7 @@ public class FindByReservationIdServiceImpl implements FindByReservationIdServic
         reservationValidator.validate(reservationId);
         Optional<Reservation> userAccOpt = reservationDAO.getByID(reservationId);
         if (!userAccOpt.isPresent()) {
-            throw new IllegalArgumentException("Reservation account not found by id = " + reservationId);
+            throw new IllegalArgumentException("Reservation not found by id = " + reservationId);
         }
         return userAccOpt.get();
 
