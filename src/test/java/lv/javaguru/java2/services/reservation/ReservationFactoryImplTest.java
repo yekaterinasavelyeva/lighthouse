@@ -12,6 +12,8 @@ import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
@@ -57,30 +59,41 @@ public class ReservationFactoryImplTest {
         factory.create(DATEFROM, DATETO, ACCOUNTID, RESOURCEID);
         InOrder inOrder = Mockito.inOrder(validator, reservationDAO);
         inOrder.verify(validator).validate(DATEFROM, DATETO, ACCOUNTID, RESOURCEID);
+        inOrder.verify(reservationDAO).getByResourceID(RESERVATIONID);
         inOrder.verify(reservationDAO).save(any(Reservation.class));
     }
 
+
+    @Test (expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionWhenThereIsOpenedReservationForThisResource(){
+        List<Reservation> reservations = new ArrayList<>();
+        Reservation reservationA = Mockito.mock(Reservation.class);
+        Reservation reservationB = Mockito.mock(Reservation.class);
+        reservations.add(reservationA);
+        reservations.add(reservationB);
+        when(reservationDAO.getByResourceID(RESOURCEID))
+                .thenReturn(reservations);
+        when(reservationA.getStatus())
+                .thenReturn(ReservationStatus.CLOSED);
+        when(reservationB.getStatus())
+                .thenReturn(ReservationStatus.OPEN);
+        factory.create(DATEFROM, DATETO, ACCOUNTID, RESOURCEID);
+    }
+
     @Test
-    public void createReservationTest() {
-        Reservation reservation = new Reservation();
-        reservation.setReservationID(RESERVATIONID);
-        reservation.setDateFrom(DATEFROM);
-        reservation.setDateTo(DATETO);
-        reservation.setAccountID(ACCOUNTID);
-        reservation.setResourceID(RESOURCEID);
-        reservation.setStatus(STATUS);
-
-        when(reservationDAO.getByID(any(Long.class))).thenReturn(Optional.of(reservation));
-        when(reservationDAO.save(any(Reservation.class))).thenReturn(reservation);
-        Reservation newReservation = factory.create(DATEFROM, DATETO, ACCOUNTID, RESOURCEID) ;
-        Optional <Reservation> reservationFromDB = reservationDAO.getByID(RESERVATIONID);
-
-        assertTrue(reservationFromDB.isPresent());
-        assertEquals(newReservation.getDateFrom(), reservationFromDB.get().getDateFrom());
-        assertEquals(newReservation.getDateTo(), reservationFromDB.get().getDateTo());
-        assertEquals(newReservation.getAccountID(), reservationFromDB.get().getAccountID());
-        assertEquals(newReservation.getResourceID(), reservationFromDB.get().getResourceID());
-        assertEquals(newReservation.getStatus(), reservationFromDB.get().getStatus());
-        assertEquals(newReservation.getReservationID(), reservationFromDB.get().getReservationID());
+    public void shouldCreateNewReservationIfAllOthersClosedForThisResource(){
+        List<Reservation> reservations = new ArrayList<>();
+        Reservation reservationA = Mockito.mock(Reservation.class);
+        Reservation reservationB = Mockito.mock(Reservation.class);
+        reservations.add(reservationA);
+        reservations.add(reservationB);
+        when(reservationDAO.getByResourceID(RESOURCEID))
+                .thenReturn(reservations);
+        when(reservationA.getStatus())
+                .thenReturn(ReservationStatus.CLOSED);
+        when(reservationB.getStatus())
+                .thenReturn(ReservationStatus.CLOSED);
+        factory.create(DATEFROM, DATETO, ACCOUNTID, RESOURCEID);
+        verify(reservationDAO).save(any(Reservation.class));
     }
 }

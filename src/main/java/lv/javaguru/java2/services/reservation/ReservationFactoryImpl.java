@@ -8,6 +8,7 @@ import lv.javaguru.java2.services.reservation.validate.ReservationValidator;
 import lv.javaguru.java2.services.reservation.validate.ReservationValidatorImpl;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static lv.javaguru.java2.domain.ReservationBuilder.createReservation;
 
@@ -28,6 +29,7 @@ public class ReservationFactoryImpl implements ReservationFactory {
     public Reservation create(LocalDate dateFrom, LocalDate dateTo,
                               Long accountID, Long resourceID){
         reservationValidator.validate(dateFrom, dateTo, accountID, resourceID);
+        validateReservationsForResourceAreClosed(resourceID);
         Reservation reservation = createReservation()
                 .withDateFrom(dateFrom)
                 .withDateTo(dateTo)
@@ -38,5 +40,14 @@ public class ReservationFactoryImpl implements ReservationFactory {
 
             return reservationDAO.save(reservation);
 
+    }
+
+    private void validateReservationsForResourceAreClosed(Long resourceId) {
+        List<Reservation> reservationsFromDB = reservationDAO.getByResourceID(resourceId);
+        boolean thereAreOpenedReservations = reservationsFromDB.stream()
+                .anyMatch(reservation -> reservation.getStatus().equals(ReservationStatus.OPEN));
+        if (thereAreOpenedReservations) {
+            throw new IllegalArgumentException("There are opened reservations for this resource. Cannot create new reservation.");
+        }
     }
 }

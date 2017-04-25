@@ -68,15 +68,6 @@ public class DeleteResourceServiceImplTest {
         inOrder.verify(resourceDAO).delete(resourceId);
     }
 
-    @Test
-    public void deleteResourceFromDatabaseTest(){
-        when(resourceDAO.getByID(resourceId)).thenReturn(Optional.of(resource));
-        when(resourceDAO.getAll()).thenReturn(Arrays.asList(new Resource(), new Resource()));
-        service.deleteResource(resource.getResourceID());
-        List<Resource> resources = resourceDAO.getAll();
-        assertFalse(resources.contains(resource));
-    }
-
     @Test (expected = IllegalArgumentException.class)
     public void shouldThrowExceptionIfThereAreOpenedReservationsForThisResource(){
         List<Reservation> reservations = new ArrayList<>();
