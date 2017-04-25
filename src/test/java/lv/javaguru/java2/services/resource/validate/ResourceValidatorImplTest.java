@@ -21,14 +21,14 @@ public class ResourceValidatorImplTest {
     @Test
     public void shouldThrowExceptionWhenResourceTypeIsNull() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Resource Type must be not empty!");
+        thrown.expectMessage("Resource Type cannot be empty!");
         validator.validate(null, "Game Of Thrones", "George R. Martin", 2012);
     }
 
     @Test
     public void shouldThrowExceptionWhenTitleIsNullOrEmpty() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Resource title must be not empty!");
+        thrown.expectMessage("Resource title cannot be empty!");
         validator.validate(ResourceType.BOOK, null, "George R. Martin", 2012);
         validator.validate(ResourceType.BOOK, "", "George R. Martin", 2012);
     }
@@ -36,16 +36,25 @@ public class ResourceValidatorImplTest {
     @Test
     public void shouldThrowExceptionWhenAuthorIsNullOrEmpty() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Resource Author must be not empty!");
+        thrown.expectMessage("Resource Author cannot be empty!");
         validator.validate(ResourceType.BOOK, "Game Of Thrones", "", 2012);
     }
 
     @Test
     public void shouldThrowExceptionWhenReleaseYearIsWrong() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Release Year can not be 0 or greater than current year!");
+        thrown.expectMessage("Release Year cannot be 0 or greater than current year!");
         validator.validate(ResourceType.BOOK, "Game Of Thrones", "George R. Martin", -1);
         validator.validate(ResourceType.BOOK, "Game Of Thrones", "George R. Martin", 2035);
     }
 
+    @Test
+    public void shouldThrowExceptionWithCorrectMessageWhenAllIsNull() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Resource Type cannot be empty!\n" +
+                "Resource title cannot be empty!\n" +
+                "Resource Author cannot be empty!\n" +
+                "Release Year cannot be 0 or greater than current year!");
+        validator.validate(null, null, null, 0);
+    }
 }

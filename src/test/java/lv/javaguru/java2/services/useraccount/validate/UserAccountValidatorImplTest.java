@@ -21,40 +21,53 @@ public class UserAccountValidatorImplTest {
     @Test
     public void shouldThrowExceptionWhenFirstNameIsNull() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("First Name must be not empty!");
+        thrown.expectMessage("First Name cannot be empty!");
         validator.validate(null, "lastname", UserAccountState.ADMIN);
     }
 
     @Test
     public void shouldThrowExceptionWhenFirstNameIsEmpty() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("First Name must be not empty!");
+        thrown.expectMessage("First Name cannot be empty!");
         validator.validate("", "lastname", UserAccountState.VISITOR);
     }
 
     @Test
     public void shouldThrowExceptionWhenLastNameIsNull() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Last Name must be not empty!");
+        thrown.expectMessage("Last Name cannot be empty!");
         validator.validate("firstname",null, UserAccountState.ADMIN);
     }
 
     @Test
     public void shouldThrowExceptionWhenLastNameIsEmpty() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Last Name must be not empty!");
+        thrown.expectMessage("Last Name cannot be empty!");
         validator.validate("firstname", "", UserAccountState.VISITOR);
     }
 
     @Test
     public void shouldThrowExceptionWhenStateIsNull() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Account type must be not empty!");
+        thrown.expectMessage("Account type cannot be empty!");
         validator.validate("firstname", "lastname", null);
     }
 
+    @Test
+    public void shouldThrowExceptionWithCorrectMessageWhenAllIsNull() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("First Name cannot be empty!\n" +
+                "Last Name cannot be empty!\n" +
+                "Account type cannot be empty!");
+        validator.validate(null, null, null);
+    }
 
-    // write more tests
-
-
+    @Test
+    public void shouldThrowExceptionWithCorrectMessageWhenAllIsEmpty() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("First Name cannot be empty!\n" +
+                "Last Name cannot be empty!\n" +
+                "Account type cannot be empty!");
+        validator.validate("", "", null);
+    }
 }

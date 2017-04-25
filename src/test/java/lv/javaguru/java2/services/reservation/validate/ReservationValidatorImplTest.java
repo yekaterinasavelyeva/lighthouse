@@ -20,18 +20,20 @@ public class ReservationValidatorImplTest {
 
 
     @Test
-    public void shouldThrowExceptionWhenDateIsNull() {
+    public void shouldThrowExceptionWhenStartDateIsNull() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Reservation dates must be not empty!");
+        thrown.expectMessage("Start date cannot be empty.");
         validator.validate(null, LocalDate.now().plusDays(8),
-                12345l, 1234l);
-        validator.validate(LocalDate.now(), null,
                 12345l, 1234l);
     }
 
-      @Test
-    public void shouldThrowExceptionWhenDateFormatIsWrong() {
-             }
+    @Test
+    public void shouldThrowExceptionWhenEndDateIsNull() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("End date cannot be empty.");
+        validator.validate(LocalDate.now(), null,
+                12345l, 1234l);
+    }
 
     @Test
     public void shouldThrowExceptionWhenReservationFromDateIsWrong() {
@@ -55,7 +57,7 @@ public class ReservationValidatorImplTest {
     @Test
     public void shouldThrowExceptionWhenResourceIsNull() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Resource ID must be not empty!");
+        thrown.expectMessage("Resource ID cannot be empty.");
         validator.validate(LocalDate.now(), LocalDate.now().plusDays(8),
                 12345l, null);
     }
@@ -64,11 +66,20 @@ public class ReservationValidatorImplTest {
     @Test
     public void shouldThrowExceptionWhenAccountIsNull() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Account ID must be not empty!");
+        thrown.expectMessage("Account ID cannot be empty.");
         validator.validate(LocalDate.now(), LocalDate.now().plusDays(8),
                 null, 1234l);
     }
 
+    @Test
+    public void shouldThrowExceptionWithCorrectMessageWhenAllIsNull() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Start date cannot be empty.\n" +
+                "End date cannot be empty.\n" +
+                "Resource ID cannot be empty.\n" +
+                "Account ID cannot be empty.");
+        validator.validate(null, null, null, null);
+    }
 
 
 }
