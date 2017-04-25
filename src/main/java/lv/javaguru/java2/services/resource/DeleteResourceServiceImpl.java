@@ -46,8 +46,7 @@ public class DeleteResourceServiceImpl implements DeleteResourceService {
 
     private void validateReservationsForResourceAreClosed(Long resourceId) {
         List<Reservation> reservationsFromDB = reservationDAO.getByResourceID(resourceId);
-        boolean thereAreOpenedReservations = false;
-        thereAreOpenedReservations = reservationsFromDB.stream()
+        boolean thereAreOpenedReservations = reservationsFromDB.stream()
                 .anyMatch(reservation -> reservation.getStatus().equals(ReservationStatus.OPEN));
         if (thereAreOpenedReservations) {
             throw new IllegalArgumentException("There are opened reservations for this resource");
