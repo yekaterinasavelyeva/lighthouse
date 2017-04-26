@@ -3,13 +3,10 @@ package lv.javaguru.java2.services.reservation;
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.database.jdbc.ReservationDAOImpl;
 import lv.javaguru.java2.domain.Reservation;
-import lv.javaguru.java2.services.reservation.validate.ReservationIdValidator;
-import lv.javaguru.java2.services.reservation.validate.ReservationIdValidatorImpl;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidatorImpl;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by user on 18.04.2017.

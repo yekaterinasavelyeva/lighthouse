@@ -3,9 +3,8 @@ package lv.javaguru.java2.services.reservation;
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.database.jdbc.ReservationDAOImpl;
 import lv.javaguru.java2.domain.Reservation;
-import lv.javaguru.java2.domain.ReservationStatus;
 import lv.javaguru.java2.services.reservation.validate.ReservationIdValidator;
-import lv.javaguru.java2.services.reservation.validate.ReservationIdValidatorImpl;
+import lv.javaguru.java2.services.reservation.validate.validatorImpls.ReservationIdValidatorImpl;
 
 import java.util.Optional;
 

@@ -5,6 +5,6 @@ package lv.javaguru.java2.services.reservation;
  */
 public interface CloseReservationService {
 
-    void close(Long reservationId);
+    void closeByID(Long reservationId);
 
 }

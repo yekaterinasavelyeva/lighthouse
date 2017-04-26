@@ -4,6 +4,7 @@ import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.domain.ReservationStatus;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -16,6 +17,7 @@ import java.util.Optional;
 /**
  * Created by VBarbasins on 30/03/17.
  */
+@Component
 public class ReservationDAOImpl extends DAOImpl  implements ReservationDAO {
     @Override
     public Reservation save(Reservation reservation) throws DBException {

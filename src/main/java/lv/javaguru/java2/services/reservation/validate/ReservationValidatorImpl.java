@@ -1,10 +1,13 @@
 package lv.javaguru.java2.services.reservation.validate;
 
+import org.springframework.stereotype.Component;
+
 import java.time.*;
 
 /**
  * Created by user on 09.04.2017.
  */
+@Component
 public class ReservationValidatorImpl implements ReservationValidator {
 
     private StringBuilder validationErrors = new StringBuilder();
