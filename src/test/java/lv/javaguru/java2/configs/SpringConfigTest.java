@@ -1,8 +1,10 @@
 package lv.javaguru.java2.configs;
 
 import lv.javaguru.java2.database.ReservationDAO;
-import lv.javaguru.java2.services.reservationServices.CloseReservationService;
-import lv.javaguru.java2.services.reservationServices.FindByUserAccountIdService;
+import lv.javaguru.java2.services.reservation.CloseReservationService;
+import lv.javaguru.java2.services.reservation.FindByReservationIdService;
+import lv.javaguru.java2.services.reservation.FindByResourceIdService;
+import lv.javaguru.java2.services.reservation.FindByUserAccountIdService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -22,8 +24,12 @@ public class SpringConfigTest {
         CloseReservationService service = context.getBean(CloseReservationService.class);
         ReservationDAO reservationDAO = context.getBean(ReservationDAO.class);
         FindByUserAccountIdService findByUserAccountIdService = context.getBean(FindByUserAccountIdService.class);
+        FindByReservationIdService findByReservationIdService = context.getBean(FindByReservationIdService.class);
+        FindByResourceIdService findByResourceIdService = context.getBean(FindByResourceIdService.class);
         assertThat(service, is(notNullValue()));
         assertThat(reservationDAO, is(notNullValue()));
         assertThat(findByUserAccountIdService, is(notNullValue()));
+        assertThat(findByReservationIdService, is(notNullValue()));
+        assertThat(findByResourceIdService, is(notNullValue()));
     }
 }

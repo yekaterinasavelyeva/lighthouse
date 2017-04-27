@@ -1,12 +1,11 @@
 package lv.javaguru.java2.services.resource;
 
-import jdk.nashorn.internal.objects.annotations.Constructor;
 import lv.javaguru.java2.database.ResourceDAO;
 import lv.javaguru.java2.database.jdbc.ResourceDAOImpl;
 import lv.javaguru.java2.domain.Resource;
 import lv.javaguru.java2.domain.ResourceType;
 import lv.javaguru.java2.services.resource.validate.ResourceIdValidator;
-import lv.javaguru.java2.services.resource.validate.ResourceIdValidatorImpl;
+import lv.javaguru.java2.services.resource.validate.impls.ResourceIdValidatorImpl;
 import lv.javaguru.java2.services.resource.validate.ResourceValidator;
 import lv.javaguru.java2.services.resource.validate.ResourceValidatorImpl;
 

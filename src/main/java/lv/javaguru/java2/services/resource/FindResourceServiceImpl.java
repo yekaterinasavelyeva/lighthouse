@@ -4,7 +4,7 @@ import lv.javaguru.java2.database.ResourceDAO;
 import lv.javaguru.java2.database.jdbc.ResourceDAOImpl;
 import lv.javaguru.java2.domain.Resource;
 import lv.javaguru.java2.services.resource.validate.ResourceIdValidator;
-import lv.javaguru.java2.services.resource.validate.ResourceIdValidatorImpl;
+import lv.javaguru.java2.services.resource.validate.impls.ResourceIdValidatorImpl;
 
 import java.util.Optional;
 
