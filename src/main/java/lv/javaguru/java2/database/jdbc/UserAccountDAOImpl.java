@@ -4,6 +4,7 @@ import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.UserAccountDAO;
 import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.domain.UserAccountState;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,7 @@ import java.util.Optional;
 /**
  * Created by user Jekaterina Saveljeva on 22.03.2017.
  */
+@Component
 public class UserAccountDAOImpl extends DAOImpl implements UserAccountDAO {
 
     public UserAccount save(UserAccount account) throws DBException {
