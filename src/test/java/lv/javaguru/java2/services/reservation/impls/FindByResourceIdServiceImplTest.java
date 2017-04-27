@@ -2,7 +2,6 @@ package lv.javaguru.java2.services.reservation.impls;
 
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.services.reservation.FindByResourceIdService;
-import lv.javaguru.java2.services.reservation.impls.FindByResourceIdServiceImpl;
 import lv.javaguru.java2.services.reservation.validate.ReservationForResourceValidator;
 import lv.javaguru.java2.services.resource.validate.ResourceIdValidator;
 import org.junit.Test;
@@ -37,7 +36,7 @@ public class FindByResourceIdServiceImplTest {
         service.find(any(Long.class));
         InOrder inOrder = Mockito.inOrder(resourceIdValidator, reservationDAO, reservationForResourceValidator);
         inOrder.verify(resourceIdValidator).validate(any(Long.class));
-        inOrder.verify(reservationForResourceValidator).validate(any(Long.class));
+        inOrder.verify(reservationForResourceValidator).validateReservationExistForResourceId(any(Long.class));
         inOrder.verify(reservationDAO).getByResourceID(any(Long.class));
     }
 }

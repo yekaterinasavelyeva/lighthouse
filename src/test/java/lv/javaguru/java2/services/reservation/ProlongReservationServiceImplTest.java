@@ -2,7 +2,7 @@ package lv.javaguru.java2.services.reservation;
 
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
-import lv.javaguru.java2.services.reservation.validate.ReservationDateToValidator;
+import lv.javaguru.java2.services.reservation.validate.ReservationEndDateValidator;
 import lv.javaguru.java2.services.reservation.validate.ReservationIdValidator;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class ProlongReservationServiceImplTest {
 
     private ProlongReservationService service;
     private ReservationDAO reservationDAO;
-    private ReservationDateToValidator dateToValidator;
+    private ReservationEndDateValidator dateToValidator;
     private ReservationIdValidator validator;
     private Reservation reservation = new Reservation();
 
@@ -38,7 +38,7 @@ public class ProlongReservationServiceImplTest {
     @Before
     public void init() {
         validator = mock(ReservationIdValidator.class);
-        dateToValidator = mock(ReservationDateToValidator.class);
+        dateToValidator = mock(ReservationEndDateValidator.class);
         reservationDAO = mock(ReservationDAO.class);
         service = new ProlongReservationServiceImpl(validator, dateToValidator, reservationDAO);
     }

@@ -1,5 +1,6 @@
 package lv.javaguru.java2.services.reservation.validate;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.*;
@@ -8,7 +9,10 @@ import java.time.*;
  * Created by user on 09.04.2017.
  */
 @Component
-public class ReservationValidatorImpl implements ReservationValidator {
+public class ReservationFactoryValidatorImpl implements ReservationFactoryValidator {
+
+    @Autowired
+    private ReservationEndDateValidator reservationEndDateValidator;
 
     private StringBuilder validationErrors = new StringBuilder();
 
@@ -35,18 +39,11 @@ public class ReservationValidatorImpl implements ReservationValidator {
         }
     }
 
-    private void validateDateTo(LocalDate dateTo){
-        if (dateTo == null) {
-            validationErrors.append("End date cannot be empty.\n");
-        } else {
-            validateDateToHronology(dateTo);
-        }
-    }
-
-    private void validateDateToHronology(LocalDate dateTo) {
-        if (dateTo.isBefore(LocalDate.now().plusDays(7))||dateTo.isAfter(LocalDate.now().plusDays(30))) {
-            validationErrors.append("Reservation End Date must be set for no less " +
-                    "than 7 and no more than 30 days from now!\n");
+    private void validateDateTo(LocalDate dateTo) {
+        try {
+            reservationEndDateValidator.validate(dateTo);
+        } catch (IllegalArgumentException e) {
+            validationErrors.append(e.getMessage() + "\n");
         }
     }
 
@@ -65,7 +62,7 @@ public class ReservationValidatorImpl implements ReservationValidator {
     private void handleValidationErrors() {
         String errors = validationErrors.toString();
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors);
+            throw new ReservationFactoryException(errors);
         }
     }
 }

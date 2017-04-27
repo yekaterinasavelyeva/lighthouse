@@ -4,6 +4,7 @@ import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.database.jdbc.ReservationDAOImpl;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.services.reservation.validate.*;
+import lv.javaguru.java2.services.reservation.validate.impls.ReservationEndDateValidatorImpl;
 import lv.javaguru.java2.services.reservation.validate.impls.ReservationIdValidatorImpl;
 
 import java.time.LocalDate;
@@ -15,10 +16,10 @@ import java.util.Optional;
 public class ProlongReservationServiceImpl implements ProlongReservationService {
 
     private ReservationDAO reservationDAO = new ReservationDAOImpl();
-    private ReservationDateToValidator reservationValidator = new ReservationDateToValidatorImpl();
+    private ReservationEndDateValidator reservationValidator = new ReservationEndDateValidatorImpl();
     private ReservationIdValidator reservationIdValidator = new ReservationIdValidatorImpl();
 
-    public ProlongReservationServiceImpl (ReservationIdValidator idValidator, ReservationDateToValidator validator, ReservationDAO dao){
+    public ProlongReservationServiceImpl (ReservationIdValidator idValidator, ReservationEndDateValidator validator, ReservationDAO dao){
         reservationIdValidator = idValidator;
         reservationDAO = dao;
         reservationValidator = validator;

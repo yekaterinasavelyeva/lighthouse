@@ -25,7 +25,7 @@ public class FindByResourceIdServiceImpl implements FindByResourceIdService {
     @Override
     public List<Reservation> find(Long resourceId){
         resourceIdValidator.validate(resourceId);
-        reservationForResourceValidator.validate(resourceId);
+        reservationForResourceValidator.validateReservationExistForResourceId(resourceId);
         return reservationDAO.getByResourceID(resourceId);
     }
 }
