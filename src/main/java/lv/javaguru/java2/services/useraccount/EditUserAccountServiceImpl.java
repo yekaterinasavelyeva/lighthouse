@@ -5,7 +5,7 @@ import lv.javaguru.java2.database.jdbc.UserAccountDAOImpl;
 import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.domain.UserAccountState;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
-import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidatorImpl;
+import lv.javaguru.java2.services.useraccount.validate.validatorsImpls.UserAccountIdValidatorImpl;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountValidator;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountValidatorImpl;
 
