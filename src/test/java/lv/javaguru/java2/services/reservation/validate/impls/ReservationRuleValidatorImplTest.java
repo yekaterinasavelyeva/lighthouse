@@ -4,6 +4,8 @@ import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.domain.ReservationStatus;
 import lv.javaguru.java2.services.reservation.validate.ReservationRuleValidator;
+import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationEndDateException;
+import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationStartDateException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -13,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +27,13 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ReservationRuleValidatorImplTest {
     private final static Long EXAMPLE_RESOURCE_ID = 1234L;
+    private static final LocalDate START_DATE_TODAY = LocalDate.now();
+    private static final LocalDate START_DATE_YESTERDAY = LocalDate.now().minusDays(1);
+    private static final LocalDate START_DATE_TOMORROW = LocalDate.now().plusDays(1);
+    private static final LocalDate END_DATE_TOO_EARLY = LocalDate.now().plusDays(6);
+    private static final LocalDate END_DATE_MIN_POSSIBLE = LocalDate.now().plusDays(7);
+    private static final LocalDate END_DATE_TOO_LATE = LocalDate.now().plusDays(31);
+    private static final LocalDate END_DATE_MAX_POSSIBLE = LocalDate.now().plusDays(30);
     private List<Reservation> reservations;
     private Reservation reservation;
 
@@ -49,14 +59,58 @@ public class ReservationRuleValidatorImplTest {
         reservations.add(reservation);
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("There are opened reservations for this resource. Cannot create new reservation.");
-        validator.validateReservationForResourceMustBeClosed(EXAMPLE_RESOURCE_ID);
+        validator.validateResourceIdForNewReservation(EXAMPLE_RESOURCE_ID);
     }
 
     @Test
     public void noExceptionWhenAllReservationsAreClosedForResourceId() {
         reservation.setStatus(ReservationStatus.CLOSED);
         reservations.add(reservation);
-        validator.validateReservationForResourceMustBeClosed(EXAMPLE_RESOURCE_ID);
+        validator.validateResourceIdForNewReservation(EXAMPLE_RESOURCE_ID);
     }
 
+    @Test
+    public void shouldThrowExceptionWhenReservationStartDateIsBeforeToday() {
+        thrown.expect(ReservationStartDateException.class);
+        thrown.expectMessage("Reservation Start Date must be set for today!");
+        validator.validateStartDateForNewReservation(START_DATE_YESTERDAY);
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenReservationStartDateIsBeforeYesterday() {
+        thrown.expect(ReservationStartDateException.class);
+        thrown.expectMessage("Reservation Start Date must be set for today!");
+        validator.validateStartDateForNewReservation(START_DATE_TOMORROW);
+    }
+
+    @Test
+    public void noExceptionWhenReservationStartDateIsToday() {
+        validator.validateStartDateForNewReservation(START_DATE_TODAY);
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenReservationEndDateIsTooEarly() {
+        thrown.expect(ReservationEndDateException.class);
+        thrown.expectMessage("Reservation End Date must be set for no less " +
+                "than 7 and no more than 30 days from now!");
+        validator.validateEndDateForNewReservation(END_DATE_TOO_EARLY);
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenReservationEndDateIsTooLate() {
+        thrown.expect(ReservationEndDateException.class);
+        thrown.expectMessage("Reservation End Date must be set for no less " +
+                "than 7 and no more than 30 days from now!");
+        validator.validateEndDateForNewReservation(END_DATE_TOO_LATE);
+    }
+
+    @Test
+    public void noExceptionWhenReservationEndDateIsMinPossible() {
+        validator.validateEndDateForNewReservation(END_DATE_MIN_POSSIBLE);
+    }
+
+    @Test
+    public void noExceptionWhenReservationEndDateIsMaxPossible() {
+        validator.validateEndDateForNewReservation(END_DATE_MAX_POSSIBLE);
+    }
 }

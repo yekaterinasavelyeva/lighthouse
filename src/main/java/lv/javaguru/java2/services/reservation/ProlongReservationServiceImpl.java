@@ -4,7 +4,7 @@ import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.database.jdbc.ReservationDAOImpl;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.services.reservation.validate.*;
-import lv.javaguru.java2.services.reservation.validate.impls.ReservationEndDateValidatorImpl;
+import lv.javaguru.java2.services.reservation.validate.impls.InputValidatorImpl;
 import lv.javaguru.java2.services.reservation.validate.impls.ReservationIdValidatorImpl;
 
 import java.time.LocalDate;
@@ -16,13 +16,13 @@ import java.util.Optional;
 public class ProlongReservationServiceImpl implements ProlongReservationService {
 
     private ReservationDAO reservationDAO = new ReservationDAOImpl();
-    private ReservationEndDateValidator reservationValidator = new ReservationEndDateValidatorImpl();
+    private InputValidator inputValidator = new InputValidatorImpl();
     private ReservationIdValidator reservationIdValidator = new ReservationIdValidatorImpl();
 
-    public ProlongReservationServiceImpl (ReservationIdValidator idValidator, ReservationEndDateValidator validator, ReservationDAO dao){
+    public ProlongReservationServiceImpl (ReservationIdValidator idValidator, InputValidator inputValidator, ReservationDAO dao){
         reservationIdValidator = idValidator;
         reservationDAO = dao;
-        reservationValidator = validator;
+        this.inputValidator = inputValidator;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class ProlongReservationServiceImpl implements ProlongReservationService 
         }
 
         Reservation reservation = userAccOpt.get();
-        reservationValidator.validate(dateTo);
+        inputValidator.validateEndDateInput(dateTo);
         reservation.setDateTo(dateTo);
         reservationDAO.update(reservation);
     }

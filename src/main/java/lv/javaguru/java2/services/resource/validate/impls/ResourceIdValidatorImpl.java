@@ -34,6 +34,5 @@ public class ResourceIdValidatorImpl implements ResourceIdValidator {
         if (!resourceFromDB.isPresent()) {
             throw new ResourceIdException("Resource not found by id = " + resourceID);
         }
-
     }
 }

@@ -1,10 +1,8 @@
 package lv.javaguru.java2.services.reservation.validate.impls;
 
-import lv.javaguru.java2.services.reservation.validate.ReservationEndDateValidator;
+import lv.javaguru.java2.services.reservation.validate.*;
 import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationEndDateException;
 import lv.javaguru.java2.services.reservation.validate.exceptions.CreateReservationException;
-import lv.javaguru.java2.services.reservation.validate.ReservationFactoryValidator;
-import lv.javaguru.java2.services.reservation.validate.ReservationStartDateValidator;
 import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationStartDateException;
 import lv.javaguru.java2.services.resource.validate.ResourceIdValidator;
 import lv.javaguru.java2.services.resource.validate.exceptions.ResourceIdException;
@@ -19,12 +17,12 @@ import java.time.*;
  * Created by user on 09.04.2017.
  */
 @Component
-public class ReservationFactoryValidatorImpl implements ReservationFactoryValidator {
+public class CreateReservationServiceValidatorImpl implements CreateReservationServiceValidator {
 
     @Autowired
-    private ReservationEndDateValidator reservationEndDateValidator;
+    private InputValidator inputValidator;
     @Autowired
-    private ReservationStartDateValidator reservationStartDateValidator;
+    private ReservationRuleValidator reservationRuleValidator;
     @Autowired
     private ResourceIdValidator resourceIdValidator;
     @Autowired
@@ -43,7 +41,12 @@ public class ReservationFactoryValidatorImpl implements ReservationFactoryValida
 
     private void validateStartDate(LocalDate dateFrom) {
         try {
-            reservationStartDateValidator.validate(dateFrom);
+            inputValidator.validateStartDateInput(dateFrom);
+        } catch (ReservationStartDateException e) {
+            collectMessage(e.getMessage());
+        }
+        try {
+            reservationRuleValidator.validateStartDateForNewReservation(dateFrom);
         } catch (ReservationStartDateException e) {
             collectMessage(e.getMessage());
         }
@@ -51,7 +54,12 @@ public class ReservationFactoryValidatorImpl implements ReservationFactoryValida
 
     private void validateEndDate(LocalDate dateTo) {
         try {
-            reservationEndDateValidator.validate(dateTo);
+            inputValidator.validateEndDateInput(dateTo);
+        } catch (ReservationEndDateException e) {
+            collectMessage(e.getMessage());
+        }
+        try {
+            reservationRuleValidator.validateEndDateForNewReservation(dateTo);
         } catch (ReservationEndDateException e) {
             collectMessage(e.getMessage());
         }

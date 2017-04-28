@@ -2,6 +2,7 @@ package lv.javaguru.java2.services.reservation;
 
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
+import lv.javaguru.java2.services.reservation.validate.InputValidator;
 import lv.javaguru.java2.services.reservation.validate.ReservationEndDateValidator;
 import lv.javaguru.java2.services.reservation.validate.ReservationIdValidator;
 import org.junit.Before;
@@ -28,7 +29,7 @@ public class ProlongReservationServiceImplTest {
 
     private ProlongReservationService service;
     private ReservationDAO reservationDAO;
-    private ReservationEndDateValidator dateToValidator;
+    private InputValidator inputValidator;
     private ReservationIdValidator validator;
     private Reservation reservation = new Reservation();
 
@@ -38,9 +39,9 @@ public class ProlongReservationServiceImplTest {
     @Before
     public void init() {
         validator = mock(ReservationIdValidator.class);
-        dateToValidator = mock(ReservationEndDateValidator.class);
+        inputValidator = mock(InputValidator.class);
         reservationDAO = mock(ReservationDAO.class);
-        service = new ProlongReservationServiceImpl(validator, dateToValidator, reservationDAO);
+        service = new ProlongReservationServiceImpl(validator, inputValidator, reservationDAO);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -59,9 +60,9 @@ public class ProlongReservationServiceImplTest {
     public void checkReservationProlongationMethodsOrder() {
         when(reservationDAO.getByID(RESERVATION_ID)).thenReturn(Optional.of(reservation));
         service.prolong(DATETO, RESERVATION_ID);
-        InOrder inOrder = Mockito.inOrder(validator, dateToValidator, reservationDAO);
+        InOrder inOrder = Mockito.inOrder(validator, inputValidator, reservationDAO);
         inOrder.verify(validator).validate(RESERVATION_ID);
-        inOrder.verify(dateToValidator).validate(DATETO);
+        inOrder.verify(inputValidator).validateEndDateInput(DATETO);
         inOrder.verify(reservationDAO).update(any(Reservation.class));
     }
 

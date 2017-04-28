@@ -3,7 +3,7 @@ package lv.javaguru.java2.services.reservation.validate;
 import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationEndDateException;
 import lv.javaguru.java2.services.reservation.validate.exceptions.CreateReservationException;
 import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationStartDateException;
-import lv.javaguru.java2.services.reservation.validate.impls.ReservationFactoryValidatorImpl;
+import lv.javaguru.java2.services.reservation.validate.impls.CreateReservationServiceValidatorImpl;
 import lv.javaguru.java2.services.resource.validate.ResourceIdValidator;
 import lv.javaguru.java2.services.resource.validate.exceptions.ResourceIdException;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
@@ -28,13 +28,13 @@ import static org.mockito.Mockito.doThrow;
 @RunWith(MockitoJUnitRunner.class)
 public class CreateReservationServiceValidatorImplTest {
 
-    @Mock ReservationEndDateValidator reservationEndDateValidator;
-    @Mock ReservationStartDateValidator reservationStartDateValidator;
+    @Mock InputValidator inputValidator;
+    @Mock ReservationRuleValidator reservationRuleValidator;
     @Mock ResourceIdValidator resourceIdValidator;
     @Mock UserAccountIdValidator userAccountIdValidator;
 
     @InjectMocks
-    private ReservationFactoryValidator reservationFactoryValidator = new ReservationFactoryValidatorImpl();
+    private CreateReservationServiceValidator createReservationServiceValidator = new CreateReservationServiceValidatorImpl();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -42,9 +42,9 @@ public class CreateReservationServiceValidatorImplTest {
     @Before
     public void init() {
         doThrow(new ReservationStartDateException("smth1"))
-                .when(reservationStartDateValidator).validate(null);
+                .when(inputValidator).validateStartDateInput(null);
         doThrow(new ReservationEndDateException("smth2"))
-                .when(reservationEndDateValidator).validate(null);
+                .when(inputValidator).validateEndDateInput(null);
         doThrow(new ResourceIdException("smth3"))
                 .when(resourceIdValidator).validate(null);
         doThrow(new UserAccountIdException("smth4"))
@@ -55,7 +55,7 @@ public class CreateReservationServiceValidatorImplTest {
     public void shouldThrowCorrectExceptionWithCorrectlyCombinedMessage() {
         thrown.expect(CreateReservationException.class);
         thrown.expectMessage("smth1\nsmth2\nsmth3\nsmth4");
-        reservationFactoryValidator.validate(null, null, null, null);
+        createReservationServiceValidator.validate(null, null, null, null);
     }
 
 
