@@ -8,7 +8,7 @@ import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.domain.ReservationStatus;
 import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
-import lv.javaguru.java2.services.useraccount.validate.validatorsImpls.UserAccountIdValidatorImpl;
+import lv.javaguru.java2.services.useraccount.validate.impls.UserAccountIdValidatorImpl;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,5 +1,13 @@
 package lv.javaguru.java2.services.reservation.validate;
 
+import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationEndDateException;
+import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationFactoryException;
+import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationStartDateException;
+import lv.javaguru.java2.services.reservation.validate.impls.ReservationFactoryValidatorImpl;
+import lv.javaguru.java2.services.resource.validate.ResourceIdValidator;
+import lv.javaguru.java2.services.resource.validate.exceptions.ResourceIdException;
+import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
+import lv.javaguru.java2.services.useraccount.validate.exceptions.UserAccountIdException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -9,10 +17,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.time.LocalDate;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.willThrow;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 
 /**
@@ -20,16 +27,12 @@ import static org.mockito.Mockito.doThrow;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class ReservationFactoryValidatorImplTest {
-    private static final LocalDate DATE_TOO_LATE = LocalDate.now().plusDays(31);
-    private static final LocalDate DATE_TODAY = LocalDate.now();
-    private static final LocalDate DATE_PLUS_8 = LocalDate.now().plusDays(8);
-    private static final LocalDate DATE_PLUS_2 = LocalDate.now().plusDays(2);
-    private static final Long ACCOUNT_ID = 1234L;
-    private static final Long RESOURCE_ID = 1234L;
 
+    @Mock ReservationEndDateValidator reservationEndDateValidator;
+    @Mock ReservationStartDateValidator reservationStartDateValidator;
+    @Mock ResourceIdValidator resourceIdValidator;
+    @Mock UserAccountIdValidator userAccountIdValidator;
 
-    @Mock
-    ReservationEndDateValidator reservationEndDateValidator;
     @InjectMocks
     private ReservationFactoryValidator reservationFactoryValidator = new ReservationFactoryValidatorImpl();
 
@@ -38,63 +41,20 @@ public class ReservationFactoryValidatorImplTest {
 
     @Before
     public void init() {
-        doThrow(new IllegalArgumentException("Reservation End Date must be set for no less " +
-                "than 7 and no more than 30 days from now!"))
-                .when(reservationEndDateValidator).validate(DATE_TOO_LATE);
-        doThrow(new IllegalArgumentException("End date cannot be empty."))
+        doThrow(new ReservationStartDateException("smth1"))
+                .when(reservationStartDateValidator).validate(null);
+        doThrow(new ReservationEndDateException("smth2"))
                 .when(reservationEndDateValidator).validate(null);
-    }
-    @Test
-    public void shouldThrowExceptionWhenStartDateIsNull() {
-        thrown.expect(ReservationFactoryException.class);
-        thrown.expectMessage("Start date cannot be empty.");
-        reservationFactoryValidator.validate(null, DATE_PLUS_8, ACCOUNT_ID, RESOURCE_ID);
+        doThrow(new ResourceIdException("smth3"))
+                .when(resourceIdValidator).validate(null);
+        doThrow(new UserAccountIdException("smth4"))
+                .when(userAccountIdValidator).validate(null);
     }
 
     @Test
-    public void shouldThrowExceptionWhenEndDateIsNull() {
+    public void shouldThrowCorrectExceptionWithCorrectlyCombinedMessage() {
         thrown.expect(ReservationFactoryException.class);
-        thrown.expectMessage("End date cannot be empty.");
-        reservationFactoryValidator.validate(DATE_TODAY, null, ACCOUNT_ID, RESOURCE_ID);
-    }
-
-    @Test
-    public void shouldThrowExceptionWhenReservationFromDateIsWrong() {
-        thrown.expect(ReservationFactoryException.class);
-        thrown.expectMessage("Reservation Start Date must be set for today!");
-        reservationFactoryValidator.validate(DATE_PLUS_2, DATE_PLUS_8, ACCOUNT_ID, RESOURCE_ID);
-    }
-
-    @Test
-    public void shouldThrowExceptionWhenReservationToDateIsWrong() {
-        thrown.expect(ReservationFactoryException.class);
-        thrown.expectMessage("Reservation End Date must be set for no less " +
-                "than 7 and no more than 30 days from now!");
-        reservationFactoryValidator.validate(DATE_TODAY, DATE_TOO_LATE, ACCOUNT_ID, RESOURCE_ID);
-    }
-
-    @Test
-    public void shouldThrowExceptionWhenResourceIsNull() {
-        thrown.expect(ReservationFactoryException.class);
-        thrown.expectMessage("Resource ID cannot be empty.");
-        reservationFactoryValidator.validate(DATE_TODAY, DATE_PLUS_8, ACCOUNT_ID, null);
-    }
-
-
-    @Test
-    public void shouldThrowExceptionWhenAccountIsNull() {
-        thrown.expect(ReservationFactoryException.class);
-        thrown.expectMessage("Account ID cannot be empty.");
-        reservationFactoryValidator.validate(DATE_TODAY, DATE_PLUS_8, null, RESOURCE_ID);
-    }
-
-    @Test
-    public void shouldThrowExceptionWithCorrectMessageWhenAllIsNull() {
-        thrown.expect(ReservationFactoryException.class);
-        thrown.expectMessage("Start date cannot be empty.\n" +
-                "End date cannot be empty.\n" +
-                "Resource ID cannot be empty.\n" +
-                "Account ID cannot be empty.");
+        thrown.expectMessage("smth1\nsmth2\nsmth3\nsmth4");
         reservationFactoryValidator.validate(null, null, null, null);
     }
 

@@ -4,7 +4,7 @@ import lv.javaguru.java2.database.UserAccountDAO;
 import lv.javaguru.java2.database.jdbc.UserAccountDAOImpl;
 import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
-import lv.javaguru.java2.services.useraccount.validate.validatorsImpls.UserAccountIdValidatorImpl;
+import lv.javaguru.java2.services.useraccount.validate.impls.UserAccountIdValidatorImpl;
 
 import java.util.Optional;
 

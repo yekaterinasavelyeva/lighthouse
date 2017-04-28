@@ -1,5 +1,7 @@
-package lv.javaguru.java2.services.reservation.validate;
+package lv.javaguru.java2.services.reservation.validate.impls;
 
+import lv.javaguru.java2.services.reservation.validate.ReservationEndDateValidator;
+import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationEndDateException;
 import lv.javaguru.java2.services.reservation.validate.impls.ReservationEndDateValidatorImpl;
 import org.junit.Rule;
 import org.junit.Test;
@@ -24,15 +26,15 @@ public class ReservationEndDateValidatorImplTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void shouldThrowExceptionWhenReservationDateIsNull() {
-        thrown.expect(IllegalArgumentException.class);
+    public void shouldThrowExceptionWhenReservationEndDateIsNull() {
+        thrown.expect(ReservationEndDateException.class);
         thrown.expectMessage("End date cannot be empty.");
         validator.validate(null);
     }
 
     @Test
     public void shouldThrowExceptionWhenReservationEndDateIsTooEarly() {
-        thrown.expect(IllegalArgumentException.class);
+        thrown.expect(ReservationEndDateException.class);
         thrown.expectMessage("Reservation End Date must be set for no less " +
                 "than 7 and no more than 30 days from now!");
         validator.validate(DATE_TOO_EARLY);
@@ -40,7 +42,7 @@ public class ReservationEndDateValidatorImplTest {
 
     @Test
     public void shouldThrowExceptionWhenReservationEndDateIsTooLate() {
-        thrown.expect(IllegalArgumentException.class);
+        thrown.expect(ReservationEndDateException.class);
         thrown.expectMessage("Reservation End Date must be set for no less " +
                 "than 7 and no more than 30 days from now!");
         validator.validate(DATE_TOO_LATE);

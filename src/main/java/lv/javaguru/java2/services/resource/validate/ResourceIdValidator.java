@@ -5,4 +5,5 @@ package lv.javaguru.java2.services.resource.validate;
  */
 public interface ResourceIdValidator {
     void validate(Long resourceID);
+
 }

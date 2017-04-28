@@ -42,14 +42,7 @@ public class ReservationFactoryImplTest {
     ReservationFactory reservationFactory = new ReservationFactoryImpl();
 
     @Test
-    public void shouldBePossibilityToProvideReservationDetails() {
-        reservationFactory = mock(ReservationFactory.class);
-        reservationFactory.create(DATEFROM, DATETO, ACCOUNTID, RESOURCEID);
-        verify(reservationFactory).create(DATEFROM, DATETO, ACCOUNTID, RESOURCEID);
-    }
-
-    @Test
-    public void checkReservationCreationMethodsOrder() {
+    public void checkMethodsOrderForReservationFactory() {
         reservationFactory.create(DATEFROM, DATETO, ACCOUNTID, RESOURCEID);
         InOrder inOrder = Mockito.inOrder(reservationFactoryValidator, reservationDAO, reservationForResourceValidator);
         inOrder.verify(reservationFactoryValidator).validate(DATEFROM, DATETO, ACCOUNTID, RESOURCEID);

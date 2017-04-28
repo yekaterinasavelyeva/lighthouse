@@ -37,7 +37,9 @@ public class ReservationForResourceValidatorImpl implements ReservationForResour
     private boolean checkForOpenedReservationsInDBByResourceId(Long resourceId) {
         return reservationDAO.getByResourceID(resourceId)
                 .stream()
-                .anyMatch(reservation -> reservation.getStatus()
+                .anyMatch(reservation
+                        -> reservation
+                        .getStatus()
                         .equals(ReservationStatus.OPEN));
     }
 }

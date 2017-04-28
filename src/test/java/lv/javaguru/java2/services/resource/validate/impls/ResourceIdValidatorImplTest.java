@@ -3,6 +3,7 @@ package lv.javaguru.java2.services.resource.validate.impls;
 import lv.javaguru.java2.database.ResourceDAO;
 import lv.javaguru.java2.domain.Resource;
 import lv.javaguru.java2.services.resource.validate.ResourceIdValidator;
+import lv.javaguru.java2.services.resource.validate.exceptions.ResourceIdException;
 import lv.javaguru.java2.services.resource.validate.impls.ResourceIdValidatorImpl;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,14 +37,14 @@ public class ResourceIdValidatorImplTest {
 
     @Test
     public void shouldThrowExceptionWhenResourceIdIsNull() {
-        thrown.expect(IllegalArgumentException.class);
+        thrown.expect(ResourceIdException.class);
         thrown.expectMessage("Resource ID must not be empty or less than 0");
         validator.validate(NULL_ID);
     }
 
     @Test
     public void shouldThrowExceptionWhenResourceIdIsNegative() {
-        thrown.expect(IllegalArgumentException.class);
+        thrown.expect(ResourceIdException.class);
         thrown.expectMessage("Resource ID must not be empty or less than 0");
         validator.validate(NEGATIVE_ID);
     }
@@ -52,7 +53,7 @@ public class ResourceIdValidatorImplTest {
     public void shouldThrowExceptionWhenResouceIdNotExist() {
         when(resourceDAO.getByID(EXAMPLE_ID))
                 .thenReturn(Optional.empty());
-        thrown.expect(IllegalArgumentException.class);
+        thrown.expect(ResourceIdException.class);
         thrown.expectMessage("Resource not found by id = " + EXAMPLE_ID);
         validator.validate(EXAMPLE_ID);
     }

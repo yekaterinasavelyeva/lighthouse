@@ -2,7 +2,8 @@ package lv.javaguru.java2.services.useraccount.validate;
 
 import lv.javaguru.java2.database.UserAccountDAO;
 import lv.javaguru.java2.domain.UserAccount;
-import lv.javaguru.java2.services.useraccount.validate.validatorsImpls.UserAccountIdValidatorImpl;
+import lv.javaguru.java2.services.useraccount.validate.exceptions.UserAccountIdException;
+import lv.javaguru.java2.services.useraccount.validate.impls.UserAccountIdValidatorImpl;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -34,7 +35,7 @@ public class UserAccountIdValidatorImplTest {
 
     @Test
     public void shouldThrowExceptionWhenUserAccountIdIsNull() {
-        thrown.expect(IllegalArgumentException.class);
+        thrown.expect(UserAccountIdException.class);
         thrown.expectMessage("Account ID must not be empty or less than 0");
         validator.validate(NULL_ID);
         validator.validate(-2l);
@@ -42,14 +43,14 @@ public class UserAccountIdValidatorImplTest {
 
     @Test
     public void shouldThrowExceptionWhenUserAccountIdIsNegative() {
-        thrown.expect(IllegalArgumentException.class);
+        thrown.expect(UserAccountIdException.class);
         thrown.expectMessage("Account ID must not be empty or less than 0");
         validator.validate(NEGATIVE_ID);
     }
 
     @Test
     public void shouldThrowExceptionWhenUserAccountIdNotExist() {
-        thrown.expect(IllegalArgumentException.class);
+        thrown.expect(UserAccountIdException.class);
         thrown.expectMessage("User account not found id = " + EXAMPLE_ID);
         when(userAccountDAO.getById(EXAMPLE_ID))
                 .thenReturn(Optional.empty());
