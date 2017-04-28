@@ -1,13 +1,9 @@
 package lv.javaguru.java2.services.reservation.validate.impls;
 
 import lv.javaguru.java2.services.reservation.validate.*;
-import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationEndDateException;
 import lv.javaguru.java2.services.reservation.validate.exceptions.CreateReservationException;
-import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationStartDateException;
 import lv.javaguru.java2.services.resource.validate.ResourceIdValidator;
-import lv.javaguru.java2.services.resource.validate.exceptions.ResourceIdException;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
-import lv.javaguru.java2.services.useraccount.validate.exceptions.UserAccountIdException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +18,7 @@ public class CreateReservationValidatorImpl implements CreateReservationValidato
     @Autowired
     private InputValidator inputValidator;
     @Autowired
-    private ReservationRuleValidator reservationRuleValidator;
+    private ReservationRuleValidator ruleValidator;
     @Autowired
     private ResourceIdValidator resourceIdValidator;
     @Autowired
@@ -31,7 +27,7 @@ public class CreateReservationValidatorImpl implements CreateReservationValidato
     private StringBuilder validationMessages = new StringBuilder();
 
     @Override
-    public void validate(LocalDate dateFrom, LocalDate dateTo, Long accountID, Long resourceID){
+    public void validate(LocalDate dateFrom, LocalDate dateTo, Long resourceID, Long accountID){
         validateStartDate(dateFrom);
         validateEndDate(dateTo);
         validateResourceId(resourceID);
@@ -42,12 +38,8 @@ public class CreateReservationValidatorImpl implements CreateReservationValidato
     private void validateStartDate(LocalDate dateFrom) {
         try {
             inputValidator.validateStartDateInput(dateFrom);
-        } catch (ReservationStartDateException e) {
-            collectMessage(e.getMessage());
-        }
-        try {
-            reservationRuleValidator.validateStartDateForNewReservation(dateFrom);
-        } catch (ReservationStartDateException e) {
+            ruleValidator.validateStartDateForNewReservation(dateFrom);
+        } catch (IllegalArgumentException e) {
             collectMessage(e.getMessage());
         }
     }
@@ -55,12 +47,8 @@ public class CreateReservationValidatorImpl implements CreateReservationValidato
     private void validateEndDate(LocalDate dateTo) {
         try {
             inputValidator.validateEndDateInput(dateTo);
-        } catch (ReservationEndDateException e) {
-            collectMessage(e.getMessage());
-        }
-        try {
-            reservationRuleValidator.validateEndDateForNewReservation(dateTo);
-        } catch (ReservationEndDateException e) {
+            ruleValidator.validateEndDateForNewReservation(dateTo);
+        } catch (IllegalArgumentException e) {
             collectMessage(e.getMessage());
         }
     }
@@ -68,11 +56,7 @@ public class CreateReservationValidatorImpl implements CreateReservationValidato
     private void validateResourceId(Long resourceId){
         try {
             resourceIdValidator.validate(resourceId);
-        } catch (ResourceIdException e) {
-            collectMessage(e.getMessage());
-        }
-        try {
-            reservationRuleValidator.validateResourceIdForNewReservation(resourceId);
+            ruleValidator.validateResourceIdForNewReservation(resourceId);
         } catch (IllegalArgumentException e) {
             collectMessage(e.getMessage());
         }
@@ -81,7 +65,7 @@ public class CreateReservationValidatorImpl implements CreateReservationValidato
     private void validateUserAccountId(Long userAccountId){
         try {
             userAccountIdValidator.validate(userAccountId);
-        } catch (UserAccountIdException e) {
+        } catch (IllegalArgumentException e) {
             collectMessage(e.getMessage());
         }
     }

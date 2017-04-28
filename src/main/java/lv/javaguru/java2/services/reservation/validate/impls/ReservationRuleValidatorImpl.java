@@ -3,8 +3,6 @@ package lv.javaguru.java2.services.reservation.validate.impls;
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.ReservationStatus;
 import lv.javaguru.java2.services.reservation.validate.ReservationRuleValidator;
-import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationEndDateException;
-import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationStartDateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,14 +33,14 @@ public class ReservationRuleValidatorImpl implements ReservationRuleValidator {
     public void validateStartDateForNewReservation(LocalDate dateFrom) {
         if (isLessThanMinLimit(dateFrom, MIN_START_DATE)
                 || isMoreThanMaxLimit(dateFrom, MAX_START_DATE)) {
-            throw new ReservationStartDateException("Reservation Start Date must be set for today!");
+            throw new IllegalArgumentException("Reservation Start Date must be set for today!");
         }
     }
     @Override
     public void validateEndDateForNewReservation(LocalDate dateTo){
         if (isLessThanMinLimit(dateTo, MIN_END_DATE)
                 || isMoreThanMaxLimit(dateTo, MAX_END_DATE)) {
-            throw new ReservationEndDateException("Reservation End Date must be set for no less " +
+            throw new IllegalArgumentException("Reservation End Date must be set for no less " +
                     "than 7 and no more than 30 days from now!");
         }
     }

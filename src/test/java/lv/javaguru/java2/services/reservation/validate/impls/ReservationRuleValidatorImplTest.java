@@ -4,8 +4,6 @@ import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.domain.ReservationStatus;
 import lv.javaguru.java2.services.reservation.validate.ReservationRuleValidator;
-import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationEndDateException;
-import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationStartDateException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -71,14 +69,14 @@ public class ReservationRuleValidatorImplTest {
 
     @Test
     public void shouldThrowExceptionWhenReservationStartDateIsBeforeToday() {
-        thrown.expect(ReservationStartDateException.class);
+        thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Reservation Start Date must be set for today!");
         validator.validateStartDateForNewReservation(START_DATE_YESTERDAY);
     }
 
     @Test
     public void shouldThrowExceptionWhenReservationStartDateIsBeforeYesterday() {
-        thrown.expect(ReservationStartDateException.class);
+        thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Reservation Start Date must be set for today!");
         validator.validateStartDateForNewReservation(START_DATE_TOMORROW);
     }
@@ -90,7 +88,7 @@ public class ReservationRuleValidatorImplTest {
 
     @Test
     public void shouldThrowExceptionWhenReservationEndDateIsTooEarly() {
-        thrown.expect(ReservationEndDateException.class);
+        thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Reservation End Date must be set for no less " +
                 "than 7 and no more than 30 days from now!");
         validator.validateEndDateForNewReservation(END_DATE_TOO_EARLY);
@@ -98,7 +96,7 @@ public class ReservationRuleValidatorImplTest {
 
     @Test
     public void shouldThrowExceptionWhenReservationEndDateIsTooLate() {
-        thrown.expect(ReservationEndDateException.class);
+        thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Reservation End Date must be set for no less " +
                 "than 7 and no more than 30 days from now!");
         validator.validateEndDateForNewReservation(END_DATE_TOO_LATE);

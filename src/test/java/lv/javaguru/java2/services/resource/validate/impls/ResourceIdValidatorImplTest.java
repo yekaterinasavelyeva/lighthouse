@@ -37,14 +37,14 @@ public class ResourceIdValidatorImplTest {
 
     @Test
     public void shouldThrowExceptionWhenResourceIdIsNull() {
-        thrown.expect(ResourceIdException.class);
+        thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Resource ID must not be empty or less than 0");
         validator.validate(NULL_ID);
     }
 
     @Test
     public void shouldThrowExceptionWhenResourceIdIsNegative() {
-        thrown.expect(ResourceIdException.class);
+        thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Resource ID must not be empty or less than 0");
         validator.validate(NEGATIVE_ID);
     }
@@ -53,7 +53,7 @@ public class ResourceIdValidatorImplTest {
     public void shouldThrowExceptionWhenResouceIdNotExist() {
         when(resourceDAO.getByID(EXAMPLE_ID))
                 .thenReturn(Optional.empty());
-        thrown.expect(ResourceIdException.class);
+        thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Resource not found by id = " + EXAMPLE_ID);
         validator.validate(EXAMPLE_ID);
     }

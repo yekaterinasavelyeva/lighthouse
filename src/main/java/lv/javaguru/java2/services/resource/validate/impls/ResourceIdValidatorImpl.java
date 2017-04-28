@@ -25,14 +25,14 @@ public class ResourceIdValidatorImpl implements ResourceIdValidator {
 
     private  void validateNotNullAndNotNegative(Long resourceId){
         if (resourceId == null || resourceId<0) {
-            throw new ResourceIdException("Resource ID must not be empty or less than 0");
+            throw new IllegalArgumentException("Resource ID must not be empty or less than 0");
         }
     }
 
     private void validateExistence(Long resourceID) {
         Optional<Resource> resourceFromDB = resourceDAO.getByID(resourceID);
         if (!resourceFromDB.isPresent()) {
-            throw new ResourceIdException("Resource not found by id = " + resourceID);
+            throw new IllegalArgumentException("Resource not found by id = " + resourceID);
         }
     }
 }
