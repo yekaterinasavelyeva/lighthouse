@@ -55,47 +55,37 @@ public class CreateReservationValidatorImplTest {
                 .when(ruleValidator).validateResourceIdForNewReservation(any(Long.class));
         doThrow(new IllegalArgumentException("smth4"))
                 .when(userAccountIdValidator).validate(null);
+        thrown.expect(CreateReservationException.class);
+        thrown.expectMessage("smth1\nsmth2\nsmth3\nsmth4");
     }
 
     @Test
     public void shouldThrowExceptionWithCorrectMessageForCombination1() {
-        thrown.expect(CreateReservationException.class);
-        thrown.expectMessage("smth1\nsmth2\nsmth3\nsmth4");
         createReservationValidator.validate(null, null, null, null);
     }
 
     @Test
     public void shouldThrowExceptionWithCorrectMessageForCombination2() {
-        thrown.expect(CreateReservationException.class);
-        thrown.expectMessage("smth1\nsmth2\nsmth3\nsmth4");
         createReservationValidator.validate(LocalDate.now(), null, null, null);
     }
 
     @Test
     public void shouldThrowExceptionWithCorrectMessageForCombination3() {
-        thrown.expect(CreateReservationException.class);
-        thrown.expectMessage("smth1\nsmth2\nsmth3\nsmth4");
         createReservationValidator.validate(null, LocalDate.now(), null, null);
     }
 
     @Test
     public void shouldThrowExceptionWithCorrectMessageForCombination4() {
-        thrown.expect(CreateReservationException.class);
-        thrown.expectMessage("smth1\nsmth2\nsmth3\nsmth4");
         createReservationValidator.validate(null, LocalDate.now(), null, null);
     }
 
     @Test
     public void shouldThrowExceptionWithCorrectMessageForCombination5() {
-        thrown.expect(CreateReservationException.class);
-        thrown.expectMessage("smth1\nsmth2\nsmth3\nsmth4");
         createReservationValidator.validate(null, null, 1234l, null);
     }
 
     @Test
     public void shouldThrowExceptionWithCorrectMessageForCombination6() {
-        thrown.expect(CreateReservationException.class);
-        thrown.expectMessage("smth1\nsmth2\nsmth3\nsmth4");
         createReservationValidator.validate(LocalDate.now(), LocalDate.now(), 1234l, null);
     }
 
