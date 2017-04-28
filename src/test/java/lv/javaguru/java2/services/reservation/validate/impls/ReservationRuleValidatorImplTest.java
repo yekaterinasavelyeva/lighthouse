@@ -3,7 +3,7 @@ package lv.javaguru.java2.services.reservation.validate.impls;
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.domain.ReservationStatus;
-import lv.javaguru.java2.services.reservation.validate.ReservationForResourceValidator;
+import lv.javaguru.java2.services.reservation.validate.ReservationRuleValidator;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,11 +19,10 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 
 /**
- * Created by mobileqa on 27/04/17.
+ * Created by vbarbasins on 2017.04.28..
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ReservationForResourceValidatorImplTest {
-
+public class ReservationRuleValidatorImplTest {
     private final static Long EXAMPLE_RESOURCE_ID = 1234L;
     private List<Reservation> reservations;
     private Reservation reservation;
@@ -31,7 +30,7 @@ public class ReservationForResourceValidatorImplTest {
     @Mock
     ReservationDAO reservationDAO;
     @InjectMocks
-    private ReservationForResourceValidator validator = new ReservationForResourceValidatorImpl();
+    private ReservationRuleValidator validator = new ReservationRuleValidatorImpl();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -45,15 +44,19 @@ public class ReservationForResourceValidatorImplTest {
     }
 
     @Test
-    public void shouldThrowExceptionIfNoReservationsForResourseId() {
+    public void shouldThrowExceptionIfThereAreOpenedReservationsForResourceId() {
+        reservation.setStatus(ReservationStatus.OPEN);
+        reservations.add(reservation);
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Reservations were not found for resource id = " + EXAMPLE_RESOURCE_ID);
-        validator.validateReservationExistForResourceId(EXAMPLE_RESOURCE_ID);
+        thrown.expectMessage("There are opened reservations for this resource. Cannot create new reservation.");
+        validator.validateReservationForResourceMustBeClosed(EXAMPLE_RESOURCE_ID);
     }
 
     @Test
-    public void noExceptionWhenThereAreReservationsForResourceId() {
+    public void noExceptionWhenAllReservationsAreClosedForResourceId() {
+        reservation.setStatus(ReservationStatus.CLOSED);
         reservations.add(reservation);
-        validator.validateReservationExistForResourceId(EXAMPLE_RESOURCE_ID);
+        validator.validateReservationForResourceMustBeClosed(EXAMPLE_RESOURCE_ID);
     }
+
 }

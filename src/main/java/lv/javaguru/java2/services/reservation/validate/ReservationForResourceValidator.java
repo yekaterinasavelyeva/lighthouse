@@ -5,6 +5,4 @@ package lv.javaguru.java2.services.reservation.validate;
  */
 public interface ReservationForResourceValidator {
     void validateReservationExistForResourceId(Long resourceId);
-
-    void validateReservationClosedForResourceId(Long resourceId);
 }

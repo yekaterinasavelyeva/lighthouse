@@ -25,21 +25,4 @@ public class ReservationForResourceValidatorImpl implements ReservationForResour
             throw new IllegalArgumentException("Reservations were not found for resource id = " + resourceId);
         }
     }
-
-    @Override
-    public void validateReservationClosedForResourceId(Long resourceId) {
-        boolean isAnyOpenedReservation = checkForOpenedReservationsInDBByResourceId(resourceId);
-        if (isAnyOpenedReservation) {
-            throw new IllegalArgumentException("There are opened reservations for this resource. Cannot create new reservation.");
-        }
-    }
-
-    private boolean checkForOpenedReservationsInDBByResourceId(Long resourceId) {
-        return reservationDAO.getByResourceID(resourceId)
-                .stream()
-                .anyMatch(reservation
-                        -> reservation
-                        .getStatus()
-                        .equals(ReservationStatus.OPEN));
-    }
 }

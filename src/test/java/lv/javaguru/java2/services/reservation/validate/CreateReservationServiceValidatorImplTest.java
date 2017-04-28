@@ -1,7 +1,7 @@
 package lv.javaguru.java2.services.reservation.validate;
 
 import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationEndDateException;
-import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationFactoryException;
+import lv.javaguru.java2.services.reservation.validate.exceptions.CreateReservationException;
 import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationStartDateException;
 import lv.javaguru.java2.services.reservation.validate.impls.ReservationFactoryValidatorImpl;
 import lv.javaguru.java2.services.resource.validate.ResourceIdValidator;
@@ -26,7 +26,7 @@ import static org.mockito.Mockito.doThrow;
  * Created by user on 09.04.2017.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ReservationFactoryValidatorImplTest {
+public class CreateReservationServiceValidatorImplTest {
 
     @Mock ReservationEndDateValidator reservationEndDateValidator;
     @Mock ReservationStartDateValidator reservationStartDateValidator;
@@ -53,7 +53,7 @@ public class ReservationFactoryValidatorImplTest {
 
     @Test
     public void shouldThrowCorrectExceptionWithCorrectlyCombinedMessage() {
-        thrown.expect(ReservationFactoryException.class);
+        thrown.expect(CreateReservationException.class);
         thrown.expectMessage("smth1\nsmth2\nsmth3\nsmth4");
         reservationFactoryValidator.validate(null, null, null, null);
     }

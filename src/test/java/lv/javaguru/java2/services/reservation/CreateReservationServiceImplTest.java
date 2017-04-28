@@ -3,9 +3,9 @@ package lv.javaguru.java2.services.reservation;
 
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
-import lv.javaguru.java2.services.reservation.impls.ReservationFactoryImpl;
-import lv.javaguru.java2.services.reservation.validate.ReservationForResourceValidator;
+import lv.javaguru.java2.services.reservation.impls.CreateReservationServiceImpl;
 import lv.javaguru.java2.services.reservation.validate.ReservationFactoryValidator;
+import lv.javaguru.java2.services.reservation.validate.ReservationRuleValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.verify;
  * Created by user on 09.04.2017.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ReservationFactoryImplTest {
+public class CreateReservationServiceImplTest {
 
     private static final LocalDate DATEFROM = LocalDate.now();
     private static final LocalDate DATETO = LocalDate.now().plusDays(14);
@@ -37,16 +37,16 @@ public class ReservationFactoryImplTest {
     @Mock
     ReservationFactoryValidator reservationFactoryValidator;
     @Mock
-    ReservationForResourceValidator reservationForResourceValidator;
+    ReservationRuleValidator reservationRuleValidator;
     @InjectMocks
-    ReservationFactory reservationFactory = new ReservationFactoryImpl();
+    CreateReservationService createReservationService = new CreateReservationServiceImpl();
 
     @Test
     public void checkMethodsOrderForReservationFactory() {
-        reservationFactory.create(DATEFROM, DATETO, ACCOUNTID, RESOURCEID);
-        InOrder inOrder = Mockito.inOrder(reservationFactoryValidator, reservationDAO, reservationForResourceValidator);
+        createReservationService.create(DATEFROM, DATETO, ACCOUNTID, RESOURCEID);
+        InOrder inOrder = Mockito.inOrder(reservationFactoryValidator, reservationDAO, reservationRuleValidator);
         inOrder.verify(reservationFactoryValidator).validate(DATEFROM, DATETO, ACCOUNTID, RESOURCEID);
-        inOrder.verify(reservationForResourceValidator).validateReservationClosedForResourceId(RESOURCEID);
+        inOrder.verify(reservationRuleValidator).validateReservationForResourceMustBeClosed(RESOURCEID);
         inOrder.verify(reservationDAO).save(any(Reservation.class));
     }
 }

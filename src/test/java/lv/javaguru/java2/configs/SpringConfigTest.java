@@ -23,12 +23,12 @@ public class SpringConfigTest {
         FindByUserAccountIdService findByUserAccountIdService = context.getBean(FindByUserAccountIdService.class);
         FindByReservationIdService findByReservationIdService = context.getBean(FindByReservationIdService.class);
         FindByResourceIdService findByResourceIdService = context.getBean(FindByResourceIdService.class);
-        ReservationFactory reservationFactory = context.getBean(ReservationFactory.class);
+        CreateReservationService createReservationService = context.getBean(CreateReservationService.class);
         assertThat(service, is(notNullValue()));
         assertThat(reservationDAO, is(notNullValue()));
         assertThat(findByUserAccountIdService, is(notNullValue()));
         assertThat(findByReservationIdService, is(notNullValue()));
         assertThat(findByResourceIdService, is(notNullValue()));
-        assertThat(reservationFactory, is(notNullValue()));
+        assertThat(createReservationService, is(notNullValue()));
     }
 }

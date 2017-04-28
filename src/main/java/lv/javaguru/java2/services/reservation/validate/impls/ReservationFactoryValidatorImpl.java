@@ -2,7 +2,7 @@ package lv.javaguru.java2.services.reservation.validate.impls;
 
 import lv.javaguru.java2.services.reservation.validate.ReservationEndDateValidator;
 import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationEndDateException;
-import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationFactoryException;
+import lv.javaguru.java2.services.reservation.validate.exceptions.CreateReservationException;
 import lv.javaguru.java2.services.reservation.validate.ReservationFactoryValidator;
 import lv.javaguru.java2.services.reservation.validate.ReservationStartDateValidator;
 import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationStartDateException;
@@ -76,7 +76,7 @@ public class ReservationFactoryValidatorImpl implements ReservationFactoryValida
     private void handleValidationResult() {
         String resultMessage = validationMessages.toString();
         if (!resultMessage.isEmpty()) {
-            throw new ReservationFactoryException(resultMessage);
+            throw new CreateReservationException(resultMessage);
         }
     }
 
