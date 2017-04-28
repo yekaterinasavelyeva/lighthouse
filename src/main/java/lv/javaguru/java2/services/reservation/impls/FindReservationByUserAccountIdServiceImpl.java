@@ -2,7 +2,7 @@ package lv.javaguru.java2.services.reservation.impls;
 
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
-import lv.javaguru.java2.services.reservation.FindByUserAccountIdService;
+import lv.javaguru.java2.services.reservation.FindReservationByUserAccountIdService;
 import lv.javaguru.java2.services.reservation.validate.SearchValidator;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @Component
-public class FindByUserAccountIdServiceImpl implements FindByUserAccountIdService {
+public class FindReservationByUserAccountIdServiceImpl implements FindReservationByUserAccountIdService {
 
     @Autowired
     private ReservationDAO reservationDAO;
@@ -26,8 +26,8 @@ public class FindByUserAccountIdServiceImpl implements FindByUserAccountIdServic
 
     @Override
     public List<Reservation> find(Long userAccountID){
-        userAccountIdValidator.validate(userAccountID);
-        searchValidator.validateReservationExistForUserAccountID(userAccountID);
+        userAccountIdValidator.validate(userAccountID); // TODO: 28/04/17 further improvement - to inputValidator + searchValidator
+        searchValidator.validateReservationExistForUserAccountId(userAccountID);
         return reservationDAO.getByAccountID(userAccountID);
     }
 }

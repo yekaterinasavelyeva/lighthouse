@@ -1,9 +1,11 @@
-package lv.javaguru.java2.services.reservation.validate;
+package lv.javaguru.java2.services.reservation.validate.impls;
 
+import lv.javaguru.java2.services.reservation.validate.CreateReservationValidator;
+import lv.javaguru.java2.services.reservation.validate.InputValidator;
+import lv.javaguru.java2.services.reservation.validate.ReservationRuleValidator;
 import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationEndDateException;
 import lv.javaguru.java2.services.reservation.validate.exceptions.CreateReservationException;
 import lv.javaguru.java2.services.reservation.validate.exceptions.ReservationStartDateException;
-import lv.javaguru.java2.services.reservation.validate.impls.CreateReservationServiceValidatorImpl;
 import lv.javaguru.java2.services.resource.validate.ResourceIdValidator;
 import lv.javaguru.java2.services.resource.validate.exceptions.ResourceIdException;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
@@ -26,15 +28,17 @@ import static org.mockito.Mockito.doThrow;
  * Created by user on 09.04.2017.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class CreateReservationServiceValidatorImplTest {
+public class CreateReservationValidatorImplTest {
 
-    @Mock InputValidator inputValidator;
-    @Mock ReservationRuleValidator reservationRuleValidator;
+    @Mock
+    InputValidator inputValidator;
+    @Mock
+    ReservationRuleValidator reservationRuleValidator;
     @Mock ResourceIdValidator resourceIdValidator;
     @Mock UserAccountIdValidator userAccountIdValidator;
 
     @InjectMocks
-    private CreateReservationServiceValidator createReservationServiceValidator = new CreateReservationServiceValidatorImpl();
+    private CreateReservationValidator createReservationValidator = new CreateReservationValidatorImpl();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -55,7 +59,7 @@ public class CreateReservationServiceValidatorImplTest {
     public void shouldThrowCorrectExceptionWithCorrectlyCombinedMessage() {
         thrown.expect(CreateReservationException.class);
         thrown.expectMessage("smth1\nsmth2\nsmth3\nsmth4");
-        createReservationServiceValidator.validate(null, null, null, null);
+        createReservationValidator.validate(null, null, null, null);
     }
 
 

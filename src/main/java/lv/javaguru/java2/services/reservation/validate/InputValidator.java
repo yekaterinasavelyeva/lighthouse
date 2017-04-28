@@ -9,4 +9,5 @@ public interface InputValidator {
 
     void validateStartDateInput(LocalDate dateFrom);
     void validateEndDateInput(LocalDate dateTo);
+    void validateReservationIdInput(Long reservationId);
 }

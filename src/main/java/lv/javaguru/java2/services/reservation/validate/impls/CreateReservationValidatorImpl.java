@@ -17,7 +17,7 @@ import java.time.*;
  * Created by user on 09.04.2017.
  */
 @Component
-public class CreateReservationServiceValidatorImpl implements CreateReservationServiceValidator {
+public class CreateReservationValidatorImpl implements CreateReservationValidator {
 
     @Autowired
     private InputValidator inputValidator;
@@ -69,6 +69,11 @@ public class CreateReservationServiceValidatorImpl implements CreateReservationS
         try {
             resourceIdValidator.validate(resourceId);
         } catch (ResourceIdException e) {
+            collectMessage(e.getMessage());
+        }
+        try {
+            reservationRuleValidator.validateResourceIdForNewReservation(resourceId);
+        } catch (IllegalArgumentException e) {
             collectMessage(e.getMessage());
         }
     }

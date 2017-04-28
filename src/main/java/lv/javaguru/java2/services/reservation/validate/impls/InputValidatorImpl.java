@@ -26,4 +26,11 @@ public class InputValidatorImpl implements InputValidator {
             throw new ReservationEndDateException("End date cannot be empty.");
         }
     }
+
+    @Override
+    public void validateReservationIdInput(Long reservationId) {
+        if (reservationId == null || reservationId<0) {
+            throw new IllegalArgumentException("Reservation ID cannot be null or negative");
+        }
+    }
 }

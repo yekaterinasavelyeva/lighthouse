@@ -20,15 +20,15 @@ public class SpringConfigTest {
         ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
         CloseReservationService service = context.getBean(CloseReservationService.class);
         ReservationDAO reservationDAO = context.getBean(ReservationDAO.class);
-        FindByUserAccountIdService findByUserAccountIdService = context.getBean(FindByUserAccountIdService.class);
-        FindByReservationIdService findByReservationIdService = context.getBean(FindByReservationIdService.class);
-        FindByResourceIdService findByResourceIdService = context.getBean(FindByResourceIdService.class);
+        FindReservationByUserAccountIdService findReservationByUserAccountIdService = context.getBean(FindReservationByUserAccountIdService.class);
+        FindReservationByIdService findReservationByIdService = context.getBean(FindReservationByIdService.class);
+        FindReservationByResourceIdService findReservationByResourceIdService = context.getBean(FindReservationByResourceIdService.class);
         CreateReservationService createReservationService = context.getBean(CreateReservationService.class);
         assertThat(service, is(notNullValue()));
         assertThat(reservationDAO, is(notNullValue()));
-        assertThat(findByUserAccountIdService, is(notNullValue()));
-        assertThat(findByReservationIdService, is(notNullValue()));
-        assertThat(findByResourceIdService, is(notNullValue()));
+        assertThat(findReservationByUserAccountIdService, is(notNullValue()));
+        assertThat(findReservationByIdService, is(notNullValue()));
+        assertThat(findReservationByResourceIdService, is(notNullValue()));
         assertThat(createReservationService, is(notNullValue()));
     }
 }

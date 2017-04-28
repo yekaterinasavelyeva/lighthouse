@@ -1,7 +1,7 @@
 package lv.javaguru.java2.services.reservation.impls;
 
 import lv.javaguru.java2.database.ReservationDAO;
-import lv.javaguru.java2.services.reservation.FindByResourceIdService;
+import lv.javaguru.java2.services.reservation.FindReservationByResourceIdService;
 import lv.javaguru.java2.services.reservation.validate.SearchValidator;
 import lv.javaguru.java2.services.resource.validate.ResourceIdValidator;
 import org.junit.Test;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
  * Created by user on 23.04.2017.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class FindByResourceIdServiceImplTest {
+public class FindReservationByResourceIdServiceImplTest {
 
     @Mock
     ResourceIdValidator resourceIdValidator;
@@ -29,7 +29,7 @@ public class FindByResourceIdServiceImplTest {
     @Mock
     SearchValidator searchValidator;
     @InjectMocks
-    private FindByResourceIdService service = new FindByResourceIdServiceImpl();
+    private FindReservationByResourceIdService service = new FindReservationByResourceIdServiceImpl();
 
     @Test
     public void checkMethodsOrderForFindByResouceIdService() {

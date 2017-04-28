@@ -14,6 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 
@@ -23,8 +24,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class SearchValidatorImplTest {
 
-    private final static Long EXAMPLE_RESOURCE_ID = 1234L;
-    private final static Long EXAMPLE_USERACCOUNT_ID = 1234L;
+    private static final Long EXAMPLE_ID = 1234l;
     private List<Reservation> reservations;
     private Reservation reservation;
 
@@ -40,35 +40,51 @@ public class SearchValidatorImplTest {
     public void init() {
         reservations = new ArrayList<>();
         reservation = new Reservation();
-        when(reservationDAO.getByResourceID(EXAMPLE_RESOURCE_ID))
+        when(reservationDAO.getByResourceID(EXAMPLE_ID))
                 .thenReturn(reservations);
-        when(reservationDAO.getByAccountID(EXAMPLE_USERACCOUNT_ID))
+        when(reservationDAO.getByAccountID(EXAMPLE_ID))
                 .thenReturn(reservations);
     }
 
     @Test
     public void shouldThrowExceptionIfNoReservationsForResourseId() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Reservations were not found for resource id = " + EXAMPLE_RESOURCE_ID);
-        validator.validateReservationExistForResourceId(EXAMPLE_RESOURCE_ID);
+        thrown.expectMessage("Reservations were not found for resource id = " + EXAMPLE_ID);
+        validator.validateReservationExistForResourceId(EXAMPLE_ID);
     }
 
     @Test
     public void noExceptionWhenThereAreReservationsForResourceId() {
         reservations.add(reservation);
-        validator.validateReservationExistForResourceId(EXAMPLE_RESOURCE_ID);
+        validator.validateReservationExistForResourceId(EXAMPLE_ID);
     }
 
     @Test
     public void shouldThrownExceptionWhenNoReservationsOnUserAccount() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Reservations were not found by account id = " + EXAMPLE_USERACCOUNT_ID);
-        validator.validateReservationExistForUserAccountID(EXAMPLE_USERACCOUNT_ID);
+        thrown.expectMessage("Reservations were not found by account id = " + EXAMPLE_ID);
+        validator.validateReservationExistForUserAccountId(EXAMPLE_ID);
     }
 
     @Test
     public void noExceptionWhenThereAreReservationsForUserAccountId() {
         reservations.add(reservation);
-        validator.validateReservationExistForUserAccountID(EXAMPLE_USERACCOUNT_ID);
+        validator.validateReservationExistForUserAccountId(EXAMPLE_ID);
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenReservationIdNotExist() {
+        when(reservationDAO.getByID(EXAMPLE_ID))
+                .thenReturn(Optional.empty());
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Reservation not found by id = " + EXAMPLE_ID);
+        validator.validateReservationIdExist(EXAMPLE_ID);
+    }
+
+    @Test
+    public void noExceptionWhenReservationIdExists() {
+        when(reservationDAO.getByID(EXAMPLE_ID))
+                .thenReturn(Optional.of(reservation));
+        validator.validateReservationIdExist(EXAMPLE_ID);
     }
 }

@@ -7,6 +7,6 @@ import java.util.List;
 /**
  * Created by user on 18.04.2017.
  */
-public interface FindByUserAccountIdService {
-    List<Reservation> find(Long accountId);
+public interface FindReservationByResourceIdService {
+    List<Reservation> find(Long resourceId);
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by mobileqa on 27/04/17.
@@ -26,11 +27,20 @@ public class SearchValidatorImpl implements SearchValidator {
     }
 
     @Override
-    public void validateReservationExistForUserAccountID(Long userAccountID) {
+    public void validateReservationExistForUserAccountId(Long userAccountID) {
         List<Reservation> reservations = reservationDAO.getByAccountID(userAccountID);
         if (reservations.isEmpty()) {
             throw new IllegalArgumentException("Reservations were not found by account id = " + userAccountID);
         }
     }
+
+    @Override
+    public void validateReservationIdExist(Long reservationId) {
+        Optional<Reservation> reservationFromDB = reservationDAO.getByID(reservationId);
+        if (!reservationFromDB.isPresent()) {
+            throw new IllegalArgumentException("Reservation not found by id = " + reservationId);
+        }
+    }
+
 
 }

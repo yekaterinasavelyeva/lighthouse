@@ -6,5 +6,7 @@ package lv.javaguru.java2.services.reservation.validate;
 public interface SearchValidator {
     void validateReservationExistForResourceId(Long resourceId);
 
-    void validateReservationExistForUserAccountID(Long userAccountID);
+    void validateReservationExistForUserAccountId(Long userAccountId);
+
+    void validateReservationIdExist(Long reservationId);
 }

@@ -14,6 +14,8 @@ import static org.junit.Assert.*;
  */
 public class InputValidatorImplTest {
 
+    private static final Long NEGATIVE_ID = -2l;
+
     private InputValidator validator = new InputValidatorImpl();
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -30,6 +32,20 @@ public class InputValidatorImplTest {
         thrown.expect(ReservationEndDateException.class);
         thrown.expectMessage("End date cannot be empty.");
         validator.validateEndDateInput(null);
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenReservationIdIsNull() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Reservation ID cannot be null or negative");
+        validator.validateReservationIdInput(null);
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenReservationIdIsNegative() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Reservation ID cannot be null or negative");
+        validator.validateReservationIdInput(NEGATIVE_ID);
     }
 
 }

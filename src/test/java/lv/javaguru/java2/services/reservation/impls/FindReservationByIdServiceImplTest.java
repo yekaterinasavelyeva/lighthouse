@@ -2,13 +2,10 @@ package lv.javaguru.java2.services.reservation.impls;
 
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
-import lv.javaguru.java2.domain.ReservationStatus;
-import lv.javaguru.java2.services.reservation.CloseReservationService;
+import lv.javaguru.java2.services.reservation.FindReservationByIdService;
 import lv.javaguru.java2.services.reservation.validate.InputValidator;
 import lv.javaguru.java2.services.reservation.validate.SearchValidator;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
@@ -24,15 +21,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Created by user on 17.04.2017.
+ * Created by user on 18.04.2017.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class CloseReservationServiceImplTest {
+public class FindReservationByIdServiceImplTest {
 
-    private final static Long EXAMPLE_ID = 1234l;
+    private static final Long EXAMPLE_ID = 1234l;
 
-    @Mock
-    Reservation reservation;
     @Mock
     ReservationDAO reservationDAO;
     @Mock
@@ -40,25 +35,18 @@ public class CloseReservationServiceImplTest {
     @Mock
     SearchValidator searchValidator;
     @InjectMocks
-    private CloseReservationService service = new CloseReservationServiceImpl();
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    private FindReservationByIdService service = new FindReservationByIdServiceImpl();
 
 
     @Test
-    public void checkMethodsOrderForCloseReservationService() {
-        InOrder inOrder = prepareMocksAndOrder();
-        service.closeByID(EXAMPLE_ID);
+    public void checkMethodsOrderInFindByReservationIdService() {
+        when(reservationDAO.getByID(EXAMPLE_ID))
+                .thenReturn(Optional.of(new Reservation()));
+        InOrder inOrder = Mockito.inOrder(inputValidator, reservationDAO, searchValidator);
+        service.find(EXAMPLE_ID);
         inOrder.verify(inputValidator).validateReservationIdInput(EXAMPLE_ID);
         inOrder.verify(searchValidator).validateReservationIdExist(EXAMPLE_ID);
-        inOrder.verify(reservation).setStatus(ReservationStatus.CLOSED);
-        inOrder.verify(reservationDAO).update(reservation);
+        inOrder.verify(reservationDAO).getByID(EXAMPLE_ID);
     }
 
-    private InOrder prepareMocksAndOrder() {
-        when(reservationDAO.getByID(EXAMPLE_ID))
-                .thenReturn(Optional.of(reservation));
-        return Mockito.inOrder(inputValidator, reservationDAO, reservation, searchValidator);
-    }
 }
