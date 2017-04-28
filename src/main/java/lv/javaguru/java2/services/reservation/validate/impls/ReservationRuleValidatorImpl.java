@@ -30,14 +30,14 @@ public class ReservationRuleValidatorImpl implements ReservationRuleValidator {
     }
 
     @Override
-    public void validateStartDateForNewReservation(LocalDate dateFrom) {
+    public void validateStartDateForReservation(LocalDate dateFrom) {
         if (isLessThanMinLimit(dateFrom, MIN_START_DATE)
                 || isMoreThanMaxLimit(dateFrom, MAX_START_DATE)) {
             throw new IllegalArgumentException("Reservation Start Date must be set for today!");
         }
     }
     @Override
-    public void validateEndDateForNewReservation(LocalDate dateTo){
+    public void validateEndDateForReservation(LocalDate dateTo){
         if (isLessThanMinLimit(dateTo, MIN_END_DATE)
                 || isMoreThanMaxLimit(dateTo, MAX_END_DATE)) {
             throw new IllegalArgumentException("Reservation End Date must be set for no less " +

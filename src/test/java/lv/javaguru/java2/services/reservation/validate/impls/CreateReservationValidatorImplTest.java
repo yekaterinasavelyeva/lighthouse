@@ -34,7 +34,7 @@ public class CreateReservationValidatorImplTest {
     @Mock UserAccountIdValidator userAccountIdValidator;
 
     @InjectMocks
-    private CreateReservationValidator createReservationValidator = new CreateReservationValidatorImpl();
+    private CreateReservationValidator validator = new CreateReservationValidatorImpl();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -44,11 +44,11 @@ public class CreateReservationValidatorImplTest {
         doThrow(new IllegalArgumentException("smth1"))
                 .when(inputValidator).validateStartDateInput(null);
         doThrow(new IllegalArgumentException("smth1"))
-                .when(ruleValidator).validateStartDateForNewReservation(any(LocalDate.class));
+                .when(ruleValidator).validateStartDateForReservation(any(LocalDate.class));
         doThrow(new IllegalArgumentException("smth2"))
                 .when(inputValidator).validateEndDateInput(null);
         doThrow(new IllegalArgumentException("smth2"))
-                .when(ruleValidator).validateEndDateForNewReservation(any(LocalDate.class));
+                .when(ruleValidator).validateEndDateForReservation(any(LocalDate.class));
         doThrow(new IllegalArgumentException("smth3"))
                 .when(resourceIdValidator).validate(null);
         doThrow(new IllegalArgumentException("smth3"))
@@ -61,32 +61,32 @@ public class CreateReservationValidatorImplTest {
 
     @Test
     public void shouldThrowExceptionWithCorrectMessageForCombination1() {
-        createReservationValidator.validate(null, null, null, null);
+        validator.validate(null, null, null, null);
     }
 
     @Test
     public void shouldThrowExceptionWithCorrectMessageForCombination2() {
-        createReservationValidator.validate(LocalDate.now(), null, null, null);
+        validator.validate(LocalDate.now(), null, null, null);
     }
 
     @Test
     public void shouldThrowExceptionWithCorrectMessageForCombination3() {
-        createReservationValidator.validate(null, LocalDate.now(), null, null);
+        validator.validate(null, LocalDate.now(), null, null);
     }
 
     @Test
     public void shouldThrowExceptionWithCorrectMessageForCombination4() {
-        createReservationValidator.validate(null, LocalDate.now(), null, null);
+        validator.validate(null, LocalDate.now(), null, null);
     }
 
     @Test
     public void shouldThrowExceptionWithCorrectMessageForCombination5() {
-        createReservationValidator.validate(null, null, 1234l, null);
+        validator.validate(null, null, 1234l, null);
     }
 
     @Test
     public void shouldThrowExceptionWithCorrectMessageForCombination6() {
-        createReservationValidator.validate(LocalDate.now(), LocalDate.now(), 1234l, null);
+        validator.validate(LocalDate.now(), LocalDate.now(), 1234l, null);
     }
 
 

@@ -38,7 +38,7 @@ public class CreateReservationValidatorImpl implements CreateReservationValidato
     private void validateStartDate(LocalDate dateFrom) {
         try {
             inputValidator.validateStartDateInput(dateFrom);
-            ruleValidator.validateStartDateForNewReservation(dateFrom);
+            ruleValidator.validateStartDateForReservation(dateFrom);
         } catch (IllegalArgumentException e) {
             collectMessage(e.getMessage());
         }
@@ -47,7 +47,7 @@ public class CreateReservationValidatorImpl implements CreateReservationValidato
     private void validateEndDate(LocalDate dateTo) {
         try {
             inputValidator.validateEndDateInput(dateTo);
-            ruleValidator.validateEndDateForNewReservation(dateTo);
+            ruleValidator.validateEndDateForReservation(dateTo);
         } catch (IllegalArgumentException e) {
             collectMessage(e.getMessage());
         }

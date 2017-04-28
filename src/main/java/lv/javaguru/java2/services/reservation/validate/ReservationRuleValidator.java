@@ -9,7 +9,7 @@ public interface ReservationRuleValidator {
 
     void validateResourceIdForNewReservation(Long resourceId);
 
-    void validateStartDateForNewReservation(LocalDate dateFrom);
+    void validateStartDateForReservation(LocalDate dateFrom);
 
-    void validateEndDateForNewReservation(LocalDate dateTo);
+    void validateEndDateForReservation(LocalDate dateTo);
 }

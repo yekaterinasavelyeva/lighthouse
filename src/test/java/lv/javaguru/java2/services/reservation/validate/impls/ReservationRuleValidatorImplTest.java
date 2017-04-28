@@ -71,19 +71,19 @@ public class ReservationRuleValidatorImplTest {
     public void shouldThrowExceptionWhenReservationStartDateIsBeforeToday() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Reservation Start Date must be set for today!");
-        validator.validateStartDateForNewReservation(START_DATE_YESTERDAY);
+        validator.validateStartDateForReservation(START_DATE_YESTERDAY);
     }
 
     @Test
     public void shouldThrowExceptionWhenReservationStartDateIsBeforeYesterday() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Reservation Start Date must be set for today!");
-        validator.validateStartDateForNewReservation(START_DATE_TOMORROW);
+        validator.validateStartDateForReservation(START_DATE_TOMORROW);
     }
 
     @Test
     public void noExceptionWhenReservationStartDateIsToday() {
-        validator.validateStartDateForNewReservation(START_DATE_TODAY);
+        validator.validateStartDateForReservation(START_DATE_TODAY);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class ReservationRuleValidatorImplTest {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Reservation End Date must be set for no less " +
                 "than 7 and no more than 30 days from now!");
-        validator.validateEndDateForNewReservation(END_DATE_TOO_EARLY);
+        validator.validateEndDateForReservation(END_DATE_TOO_EARLY);
     }
 
     @Test
@@ -99,16 +99,16 @@ public class ReservationRuleValidatorImplTest {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Reservation End Date must be set for no less " +
                 "than 7 and no more than 30 days from now!");
-        validator.validateEndDateForNewReservation(END_DATE_TOO_LATE);
+        validator.validateEndDateForReservation(END_DATE_TOO_LATE);
     }
 
     @Test
     public void noExceptionWhenReservationEndDateIsMinPossible() {
-        validator.validateEndDateForNewReservation(END_DATE_MIN_POSSIBLE);
+        validator.validateEndDateForReservation(END_DATE_MIN_POSSIBLE);
     }
 
     @Test
     public void noExceptionWhenReservationEndDateIsMaxPossible() {
-        validator.validateEndDateForNewReservation(END_DATE_MAX_POSSIBLE);
+        validator.validateEndDateForReservation(END_DATE_MAX_POSSIBLE);
     }
 }

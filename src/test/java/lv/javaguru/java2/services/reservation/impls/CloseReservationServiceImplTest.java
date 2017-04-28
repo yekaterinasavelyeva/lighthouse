@@ -42,23 +42,15 @@ public class CloseReservationServiceImplTest {
     @InjectMocks
     private CloseReservationService service = new CloseReservationServiceImpl();
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
-
     @Test
     public void checkMethodsOrderForCloseReservationService() {
-        InOrder inOrder = prepareMocksAndOrder();
+        InOrder inOrder = Mockito.inOrder(inputValidator, reservationDAO, reservation, searchValidator);
+        when(reservationDAO.getByID(EXAMPLE_ID))
+                .thenReturn(Optional.of(reservation));
         service.closeByID(EXAMPLE_ID);
         inOrder.verify(inputValidator).validateReservationIdInput(EXAMPLE_ID);
         inOrder.verify(searchValidator).validateReservationIdExist(EXAMPLE_ID);
         inOrder.verify(reservation).setStatus(ReservationStatus.CLOSED);
         inOrder.verify(reservationDAO).update(reservation);
-    }
-
-    private InOrder prepareMocksAndOrder() {
-        when(reservationDAO.getByID(EXAMPLE_ID))
-                .thenReturn(Optional.of(reservation));
-        return Mockito.inOrder(inputValidator, reservationDAO, reservation, searchValidator);
     }
 }
