@@ -2,7 +2,7 @@ package lv.javaguru.java2.services.reservation.impls;
 
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.services.reservation.FindByUserAccountIdService;
-import lv.javaguru.java2.services.reservation.validate.ReservationForUserAccountValidator;
+import lv.javaguru.java2.services.reservation.validate.SearchValidator;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,16 +27,16 @@ public class FindByUserAccountIdServiceImplTest {
     @Mock
     UserAccountIdValidator userAccountIdValidator;
     @Mock
-    ReservationForUserAccountValidator reservationForUserAccountValidator;
+    SearchValidator searchValidator;
     @InjectMocks
     private FindByUserAccountIdService service = new FindByUserAccountIdServiceImpl();
 
     @Test
     public void checkMethodsOrderInFindByUserAccountIdService() {
         service.find(any(Long.class));
-        InOrder inOrder = Mockito.inOrder(reservationDAO, userAccountIdValidator, reservationForUserAccountValidator);
+        InOrder inOrder = Mockito.inOrder(reservationDAO, userAccountIdValidator, searchValidator);
         inOrder.verify(userAccountIdValidator).validate(any(Long.class));
-        inOrder.verify(reservationForUserAccountValidator).validate(any(Long.class));
+        inOrder.verify(searchValidator).validateReservationExistForUserAccountID(any(Long.class));
         inOrder.verify(reservationDAO).getByAccountID(any(Long.class));
     }
 }

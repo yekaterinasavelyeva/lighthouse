@@ -3,6 +3,8 @@ package lv.javaguru.java2.services.reservation.validate;
 /**
  * Created by mobileqa on 27/04/17.
  */
-public interface ReservationForResourceValidator {
+public interface SearchValidator {
     void validateReservationExistForResourceId(Long resourceId);
+
+    void validateReservationExistForUserAccountID(Long userAccountID);
 }

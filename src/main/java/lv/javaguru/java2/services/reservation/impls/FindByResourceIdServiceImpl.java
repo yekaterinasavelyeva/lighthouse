@@ -3,7 +3,7 @@ package lv.javaguru.java2.services.reservation.impls;
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.services.reservation.FindByResourceIdService;
-import lv.javaguru.java2.services.reservation.validate.ReservationForResourceValidator;
+import lv.javaguru.java2.services.reservation.validate.SearchValidator;
 import lv.javaguru.java2.services.resource.validate.ResourceIdValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,12 +20,12 @@ public class FindByResourceIdServiceImpl implements FindByResourceIdService {
     @Autowired
     private ResourceIdValidator resourceIdValidator;
     @Autowired
-    private ReservationForResourceValidator reservationForResourceValidator;
+    private SearchValidator searchValidator;
 
     @Override
     public List<Reservation> find(Long resourceId){
         resourceIdValidator.validate(resourceId);
-        reservationForResourceValidator.validateReservationExistForResourceId(resourceId);
+        searchValidator.validateReservationExistForResourceId(resourceId);
         return reservationDAO.getByResourceID(resourceId);
     }
 }
