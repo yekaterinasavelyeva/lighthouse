@@ -9,6 +9,8 @@ public interface ReservationRuleValidator {
 
     void validateResourceIdForNewReservation(Long resourceId);
 
+    void validateIfReservationForProlongationIsClosed(Long reservationId);
+
     void validateStartDateForReservation(LocalDate dateFrom);
 
     void validateEndDateForReservation(LocalDate dateTo);

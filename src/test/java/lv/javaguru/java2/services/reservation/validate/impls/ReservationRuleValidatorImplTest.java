@@ -16,7 +16,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 /**
@@ -65,6 +67,16 @@ public class ReservationRuleValidatorImplTest {
         reservation.setStatus(ReservationStatus.CLOSED);
         reservations.add(reservation);
         validator.validateResourceIdForNewReservation(EXAMPLE_RESOURCE_ID);
+    }
+
+    @Test
+    public void shouldThrowExceptionIfThereAreClosedReservationForProlongation(){
+        reservation.setStatus(ReservationStatus.CLOSED);
+        when(reservationDAO.getByID(any(Long.class))).thenReturn(Optional.of(reservation));
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Closed Reservation can not be prolonged. " +
+                "Try to make a new reservation for this resource");
+        validator.validateIfReservationForProlongationIsClosed(12345l);
     }
 
     @Test

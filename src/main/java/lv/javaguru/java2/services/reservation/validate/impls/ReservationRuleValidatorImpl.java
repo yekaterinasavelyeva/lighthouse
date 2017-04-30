@@ -25,7 +25,17 @@ public class ReservationRuleValidatorImpl implements ReservationRuleValidator {
     public void validateResourceIdForNewReservation(Long resourceId) {
         boolean isAnyOpenedReservation = ifDatabaseHasOpenedReservationsForResource(resourceId);
         if (isAnyOpenedReservation) {
-            throw new IllegalArgumentException("There are opened reservations for this resource. Cannot create new reservation.");
+            throw new IllegalArgumentException("There are opened reservations for this resource. " +
+                    "Cannot create new reservation.");
+        }
+    }
+
+    @Override
+    public void validateIfReservationForProlongationIsClosed(Long reservationId){
+        boolean isReservationClosed = ifDatabaseHasClosedReservationsForProlongation(reservationId);
+        if(isReservationClosed) {
+            throw new IllegalArgumentException("Closed Reservation can not be prolonged. " +
+                    "Try to make a new reservation for this resource");
         }
     }
 
@@ -60,5 +70,11 @@ public class ReservationRuleValidatorImpl implements ReservationRuleValidator {
                         -> reservation
                         .getStatus()
                         .equals(ReservationStatus.OPEN));
+    }
+
+    private boolean ifDatabaseHasClosedReservationsForProlongation(Long reservationId){
+        return reservationDAO.getByID(reservationId).get()
+                .getStatus().equals(ReservationStatus.CLOSED);
+
     }
 }

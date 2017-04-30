@@ -10,15 +10,19 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by mobileqa on 28/04/17.
@@ -52,6 +56,7 @@ public class ProlongReservationValidatorImplTest {
         thrown.expect(ProlongReservationException.class);
         thrown.expectMessage("smth1\nsmth2");
     }
+
     @Test
     public void shouldThrowExceptionWithCorrectMessageForCombination1() {
         validator.validate(null, null);

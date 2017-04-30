@@ -35,7 +35,7 @@ public class ProlongReservationValidatorImpl implements ProlongReservationValida
         try {
             inputValidator.validateReservationIdInput(reservationId);
             searchValidator.validateReservationIdExist(reservationId);
-            // todo new rule for "reservation must be opened to prolong it"
+            ruleValidator.validateIfReservationForProlongationIsClosed(reservationId);
         } catch (IllegalArgumentException e) {
             collectMessage(e.getMessage());
         }
