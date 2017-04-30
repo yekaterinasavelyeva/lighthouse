@@ -8,25 +8,23 @@ import lv.javaguru.java2.services.resource.validate.ResourceIdValidator;
 import lv.javaguru.java2.services.resource.validate.impls.ResourceIdValidatorImpl;
 import lv.javaguru.java2.services.resource.validate.ResourceValidator;
 import lv.javaguru.java2.services.resource.validate.impls.ResourceValidatorImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 /**
  * Created by user on 17.04.2017.
  */
+@Component
 public class EditResourceServiceImpl implements EditResourceService {
 
-    private ResourceDAO resourceDAO = new ResourceDAOImpl();
-    private ResourceValidator resourceValidator = new ResourceValidatorImpl();
-    private ResourceIdValidator resourceIdValidator = new ResourceIdValidatorImpl();
-
-    public EditResourceServiceImpl(ResourceIdValidator idValidator,
-                                   ResourceValidator validator,
-                                   ResourceDAO dao){
-        resourceIdValidator = idValidator;
-        resourceValidator = validator;
-        resourceDAO = dao;
-    }
+    @Autowired
+    private ResourceDAO resourceDAO;
+    @Autowired
+    private ResourceValidator resourceValidator;
+    @Autowired
+    private ResourceIdValidator resourceIdValidator;
 
     @Override
     public void edit(Long resourceId, ResourceType type, String title,

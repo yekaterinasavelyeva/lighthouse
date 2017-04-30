@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -25,20 +27,16 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class FindResourceServiceImplTest {
 
-    private FindResourceService service;
+    @InjectMocks
+    private FindResourceService service = new FindResourceServiceImpl();
+    @Mock
     private ResourceDAO resourceDAO;
+    @Mock
     private ResourceIdValidator validator;
-    private Resource resource = new Resource();
+    @Mock
+    private Resource resource;
 
     private static final Long resourceId = 1234l;
-
-    @Before
-    public void init() {
-        validator = mock(ResourceIdValidator.class);
-        resourceDAO = mock(ResourceDAO.class);
-        service = new FindResourceServiceImpl(validator, resourceDAO);
-        resource.setResourceID(resourceId);
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionIResourceNotFoundTest() {

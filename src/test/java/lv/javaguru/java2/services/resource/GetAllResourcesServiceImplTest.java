@@ -5,6 +5,8 @@ import lv.javaguru.java2.domain.Resource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
@@ -20,14 +22,10 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class GetAllResourcesServiceImplTest {
 
+    @Mock
     private ResourceDAO resourceDAO;
-    private GetAllResourcesService service;
-
-    @Before
-    public void init() {
-        resourceDAO = mock(ResourceDAO.class);
-        service = new GetAllResourcesServiceImpl(resourceDAO);
-    }
+    @InjectMocks
+    private GetAllResourcesService service = new GetAllResourcesServiceImpl();
 
     @Test
     public void shouldReturnListOfResourcesTest(){

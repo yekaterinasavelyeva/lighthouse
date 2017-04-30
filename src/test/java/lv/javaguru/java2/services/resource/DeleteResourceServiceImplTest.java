@@ -40,7 +40,7 @@ public class DeleteResourceServiceImplTest {
     @Mock
     private ResourceIdValidator deleteValidator;
     @Mock
-    private Resource resource = new Resource();
+    private Resource resource;
 
     private static final Long resourceId = 1234l;
 

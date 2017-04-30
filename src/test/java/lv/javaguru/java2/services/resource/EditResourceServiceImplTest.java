@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import java.util.Optional;
@@ -25,25 +27,22 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class EditResourceServiceImplTest {
 
-    private EditResourceService service;
+    @InjectMocks
+    private EditResourceService service = new EditResourceServiceImpl();
+    @Mock
     private ResourceDAO resourceDAO;
+    @Mock
     private ResourceValidator validator;
+    @Mock
     private ResourceIdValidator idValidator;
-    private Resource resource = new Resource();
+    @Mock
+    private Resource resource;
 
     private static final ResourceType TYPE = ResourceType.BOOK;
     private static final String TITLE = "title";
     private static final String AUTHOR = "author";
     private static final int RELEASEYEAR = 2013;
     private static final Long RESOURCEID = 1234l;
-
-    @Before
-    public void init() {
-        validator = mock(ResourceValidator.class);
-        idValidator = mock(ResourceIdValidator.class);
-        resourceDAO = mock(ResourceDAO.class);
-        service = new EditResourceServiceImpl(idValidator, validator, resourceDAO);
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionIfResourceNotFoundTest() {

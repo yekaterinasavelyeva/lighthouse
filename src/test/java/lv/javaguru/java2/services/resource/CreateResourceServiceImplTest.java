@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import java.util.Optional;
@@ -23,33 +25,29 @@ import static org.mockito.Mockito.when;
  */
 
 @RunWith(MockitoJUnitRunner.class)
-public class ResourceFactoryImplTest {
+public class CreateResourceServiceImplTest {
 
-    private ResourceFactory factory;
+    @InjectMocks
+    private CreateResourceService service = new CreateResourceServiceImpl();
+    @Mock
     private ResourceDAO resourceDAO;
+    @Mock
     private ResourceValidator validator;
 
     private static final String TITLE = "Game of Thrones";
     private static final String AUTHOR = "George R. Martin";
     private static final int releaseYear = 2012;
 
-    @Before
-    public void init() {
-        validator = mock(ResourceValidator.class);
-        resourceDAO = mock(ResourceDAO.class);
-        factory = new ResourceFactoryImpl(validator, resourceDAO);
-    }
-
     @Test
     public void shouldBePossibilityToProvideResourceDetails() {
-        factory = mock(ResourceFactory.class);
-        factory.create(ResourceType.BOOK, TITLE, AUTHOR, releaseYear);
-        verify(factory).create(ResourceType.BOOK, TITLE, AUTHOR, releaseYear);
+        service = mock(CreateResourceService.class);
+        service.create(ResourceType.BOOK, TITLE, AUTHOR, releaseYear);
+        verify(service).create(ResourceType.BOOK, TITLE, AUTHOR, releaseYear);
     }
 
     @Test
     public void checkResourceCreationMethodsOrder() {
-        factory.create(ResourceType.BOOK, TITLE, AUTHOR, releaseYear);
+        service.create(ResourceType.BOOK, TITLE, AUTHOR, releaseYear);
         InOrder inOrder = Mockito.inOrder(validator, resourceDAO);
         inOrder.verify(validator).validate(ResourceType.BOOK, TITLE, AUTHOR, releaseYear);
         inOrder.verify(resourceDAO).save(any(Resource.class));
@@ -65,7 +63,7 @@ public class ResourceFactoryImplTest {
         resource.setResourceID(1234l);
         when(resourceDAO.save(any(Resource.class))).thenReturn(resource);
         when(resourceDAO.getByID(any(Long.class))).thenReturn(Optional.of(resource));
-        Resource newResource = factory.create(ResourceType.BOOK,TITLE, AUTHOR, releaseYear);
+        Resource newResource = service.create(ResourceType.BOOK,TITLE, AUTHOR, releaseYear);
 
         Optional <Resource> resourceFromDB = resourceDAO.getByID(1234l);
         assertEquals(newResource.getResourceID(), resourceFromDB.get().getResourceID());
