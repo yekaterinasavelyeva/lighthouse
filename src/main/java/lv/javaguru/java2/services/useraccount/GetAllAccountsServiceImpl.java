@@ -1,21 +1,20 @@
 package lv.javaguru.java2.services.useraccount;
 
 import lv.javaguru.java2.database.UserAccountDAO;
-import lv.javaguru.java2.database.jdbc.UserAccountDAOImpl;
 import lv.javaguru.java2.domain.UserAccount;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * Created by user on 07.04.2017.
  */
+@Component
 public class GetAllAccountsServiceImpl implements GetAllAccountsService {
 
-    private UserAccountDAO userAccountDAO = new UserAccountDAOImpl();
-
-    public GetAllAccountsServiceImpl(UserAccountDAO dao){
-        userAccountDAO = dao;
-    }
+    @Autowired
+    private UserAccountDAO userAccountDAO;
 
     @Override
     public List<UserAccount> getAllAccountsList(){

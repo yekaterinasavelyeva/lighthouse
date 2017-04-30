@@ -5,6 +5,8 @@ import lv.javaguru.java2.domain.UserAccount;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
@@ -20,14 +22,10 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class GetAllAccountsServiceImplTest {
 
+    @Mock
     private UserAccountDAO userAccountDAO;
-    private GetAllAccountsService service;
-
-    @Before
-    public void init() {
-        userAccountDAO = mock(UserAccountDAO.class);
-        service = new GetAllAccountsServiceImpl(userAccountDAO);
-    }
+    @InjectMocks
+    private GetAllAccountsService service = new GetAllAccountsServiceImpl();
 
     @Test
     public void shouldReturnListOfUserAccountsTest(){

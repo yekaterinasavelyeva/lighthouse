@@ -5,21 +5,21 @@ import lv.javaguru.java2.database.jdbc.UserAccountDAOImpl;
 import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
 import lv.javaguru.java2.services.useraccount.validate.impls.UserAccountIdValidatorImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 /**
  * Created by user on 07.04.2017.
  */
+@Component
 public class FindUserAccountServiceImpl implements FindUserAccountService{
 
-    private UserAccountDAO userAccountDAO = new UserAccountDAOImpl();
-    private UserAccountIdValidator userAccountValidator = new UserAccountIdValidatorImpl();
-
-    public FindUserAccountServiceImpl (UserAccountIdValidator validator, UserAccountDAO dao){
-        userAccountDAO = dao;
-        userAccountValidator = validator;
-    }
+    @Autowired
+    private UserAccountDAO userAccountDAO;
+    @Autowired
+    private UserAccountIdValidator userAccountValidator;
 
     @Override
     public UserAccount getUserAccount(Long accountId){

@@ -10,6 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -28,22 +30,18 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class DeleteUserAccountServiceImplTest {
 
-    private DeleteUserAccountService service;
+    @InjectMocks
+    private DeleteUserAccountService service = new DeleteUserAccountServiceImpl();
+    @Mock
     private UserAccountDAO userAccountDAO;
+    @Mock
     private ReservationDAO reservationDAO;
+    @Mock
     private UserAccountIdValidator deleteValidator;
-    private UserAccount account = new UserAccount();
+    @Mock
+    private UserAccount account;
 
     private static final Long userAccountId = 1234l;
-
-    @Before
-    public void init() {
-        deleteValidator = mock(UserAccountIdValidator.class);
-        userAccountDAO = mock(UserAccountDAO.class);
-        reservationDAO = mock(ReservationDAO.class);
-        service = new DeleteUserAccountServiceImpl(deleteValidator, userAccountDAO, reservationDAO);
-        account.setUserAccountId(userAccountId);
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionIfUserNotFoundTest(){

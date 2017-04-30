@@ -7,24 +7,24 @@ import lv.javaguru.java2.domain.UserAccountState;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
 import lv.javaguru.java2.services.useraccount.validate.impls.UserAccountIdValidatorImpl;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountValidator;
-import lv.javaguru.java2.services.useraccount.validate.UserAccountValidatorImpl;
+import lv.javaguru.java2.services.useraccount.validate.impls.UserAccountValidatorImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 /**
  * Created by user on 07.04.2017.
  */
+@Component
 public class EditUserAccountServiceImpl implements EditUserAccountService {
 
-    private UserAccountDAO userAccountDAO = new UserAccountDAOImpl();
-    private UserAccountValidator userAccountValidator = new UserAccountValidatorImpl();
-    private UserAccountIdValidator userAccountIdValidator = new UserAccountIdValidatorImpl();
-
-    public EditUserAccountServiceImpl(UserAccountIdValidator idValidator, UserAccountValidator validator, UserAccountDAO dao){
-        userAccountIdValidator = idValidator;
-        userAccountValidator = validator;
-        userAccountDAO = dao;
-    }
+    @Autowired
+    private UserAccountDAO userAccountDAO;
+    @Autowired
+    private UserAccountValidator userAccountValidator;
+    @Autowired
+    private UserAccountIdValidator userAccountIdValidator;
 
     @Override
     public void edit(Long accountId,

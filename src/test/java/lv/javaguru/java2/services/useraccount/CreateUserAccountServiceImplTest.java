@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -22,32 +24,28 @@ import static org.mockito.Mockito.*;
  */
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserAccountFactoryImplTest {
+public class CreateUserAccountServiceImplTest {
 
-    private UserAccountFactory factory;
+    @InjectMocks
+    private CreateUserAccountService service = new CreateUserAccountServiceImpl();
+    @Mock
     private UserAccountDAO userAccountDAO;
+    @Mock
     private UserAccountValidator validator;
 
     private static final String FIRSTNAME = "firstname";
     private static final String LASTNAME = "lastname";
 
-    @Before
-    public void init() {
-        validator = mock(UserAccountValidator.class);
-        userAccountDAO = mock(UserAccountDAO.class);
-        factory = new UserAccountFactoryImpl(validator, userAccountDAO);
-    }
-
     @Test
     public void shouldBePossibilityToProvideUserAccountDetails() {
-        factory = mock(UserAccountFactory.class);
-        factory.create(FIRSTNAME, LASTNAME, UserAccountState.ADMIN);
-        verify(factory).create(FIRSTNAME, LASTNAME, UserAccountState.ADMIN);
+        service = mock(CreateUserAccountService.class);
+        service.create(FIRSTNAME, LASTNAME, UserAccountState.ADMIN);
+        verify(service).create(FIRSTNAME, LASTNAME, UserAccountState.ADMIN);
     }
 
     @Test
     public void checkAccountCreationMethodsOrder() {
-        factory.create(FIRSTNAME, LASTNAME, UserAccountState.ADMIN);
+        service.create(FIRSTNAME, LASTNAME, UserAccountState.ADMIN);
         InOrder inOrder = Mockito.inOrder(validator, userAccountDAO);
         inOrder.verify(validator).validate(FIRSTNAME, LASTNAME, UserAccountState.ADMIN);
         inOrder.verify(userAccountDAO).save(any(UserAccount.class));
@@ -63,7 +61,7 @@ public class UserAccountFactoryImplTest {
 
         when(userAccountDAO.getById(any(Long.class))).thenReturn(Optional.of(account));
         when(userAccountDAO.save(any(UserAccount.class))).thenReturn(account);
-        UserAccount newAccount = factory.create(FIRSTNAME,LASTNAME, UserAccountState.ADMIN);
+        UserAccount newAccount = service.create(FIRSTNAME,LASTNAME, UserAccountState.ADMIN);
         Optional <UserAccount> accountFromDB = userAccountDAO.getById(1234l);
 
         assertTrue(accountFromDB.isPresent());

@@ -1,10 +1,13 @@
-package lv.javaguru.java2.services.useraccount.validate;
+package lv.javaguru.java2.services.useraccount.validate.impls;
 
 import lv.javaguru.java2.domain.UserAccountState;
+import lv.javaguru.java2.services.useraccount.validate.UserAccountValidator;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by user on 26.03.2017.
  */
+@Component
 public class UserAccountValidatorImpl implements UserAccountValidator {
 
     private StringBuilder validationErrors = new StringBuilder();

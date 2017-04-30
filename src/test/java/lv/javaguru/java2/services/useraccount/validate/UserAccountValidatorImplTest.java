@@ -1,17 +1,21 @@
 package lv.javaguru.java2.services.useraccount.validate;
 
 import lv.javaguru.java2.domain.UserAccountState;
-import lv.javaguru.java2.services.useraccount.validate.UserAccountValidator;
-import lv.javaguru.java2.services.useraccount.validate.UserAccountValidatorImpl;
+import lv.javaguru.java2.services.useraccount.validate.impls.UserAccountValidatorImpl;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  * Created by user on 26.03.2017.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class UserAccountValidatorImplTest {
 
+    @InjectMocks
     private UserAccountValidator validator = new UserAccountValidatorImpl();
 
     @Rule

@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import java.util.Optional;
@@ -25,23 +27,20 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class EditUserAccountServiceImplTest {
 
-    private EditUserAccountService service;
+    @InjectMocks
+    private EditUserAccountService service = new EditUserAccountServiceImpl();
+    @Mock
     private UserAccountDAO userAccountDAO;
+    @Mock
     private UserAccountValidator validator;
+    @Mock
     private UserAccountIdValidator idValidator;
-    private UserAccount account = new UserAccount();
+    @Mock
+    private UserAccount account;
 
     private static final String FIRSTNAME = "firstname";
     private static final String LASTNAME = "lastname";
     private static final Long ACCOUNTID = 1234l;
-
-    @Before
-    public void init() {
-        validator = mock(UserAccountValidator.class);
-        idValidator = mock(UserAccountIdValidator.class);
-        userAccountDAO = mock(UserAccountDAO.class);
-        service = new EditUserAccountServiceImpl(idValidator, validator, userAccountDAO);
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionIfUserNotFoundTest() {

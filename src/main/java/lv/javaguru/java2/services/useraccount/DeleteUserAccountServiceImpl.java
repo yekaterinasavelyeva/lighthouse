@@ -9,6 +9,8 @@ import lv.javaguru.java2.domain.ReservationStatus;
 import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
 import lv.javaguru.java2.services.useraccount.validate.impls.UserAccountIdValidatorImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,19 +18,15 @@ import java.util.Optional;
 /**
  * Created by user on 05.04.2017.
  */
+@Component
 public class DeleteUserAccountServiceImpl implements DeleteUserAccountService {
 
-    //TODO: Implement check if there are active reservations, then do not delete, throw exception
-
-    private UserAccountDAO userAccountDAO = new UserAccountDAOImpl();
-    private ReservationDAO reservationDAO = new ReservationDAOImpl();
-    private UserAccountIdValidator userAccountIdValidator = new UserAccountIdValidatorImpl();
-
-    public DeleteUserAccountServiceImpl(UserAccountIdValidator validator, UserAccountDAO dao, ReservationDAO reservationDao){
-        userAccountIdValidator = validator;
-        userAccountDAO = dao;
-        reservationDAO = reservationDao;
-    }
+    @Autowired
+    private UserAccountDAO userAccountDAO;
+    @Autowired
+    private ReservationDAO reservationDAO;
+    @Autowired
+    private UserAccountIdValidator userAccountIdValidator;
 
     @Override
     public void deleteUserAccount(Long accountId){

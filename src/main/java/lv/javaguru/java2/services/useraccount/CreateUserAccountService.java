@@ -6,7 +6,7 @@ import lv.javaguru.java2.domain.UserAccountState;
 /**
  * Created by user on 26.03.2017.
  */
-public interface UserAccountFactory {
+public interface CreateUserAccountService {
 
     UserAccount create(String firstName, String lastName, UserAccountState state);
 }
