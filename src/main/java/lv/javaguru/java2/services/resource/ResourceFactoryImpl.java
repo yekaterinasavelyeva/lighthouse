@@ -5,7 +5,7 @@ import lv.javaguru.java2.database.jdbc.ResourceDAOImpl;
 import lv.javaguru.java2.domain.Resource;
 import lv.javaguru.java2.domain.ResourceType;
 import lv.javaguru.java2.services.resource.validate.ResourceValidator;
-import lv.javaguru.java2.services.resource.validate.ResourceValidatorImpl;
+import lv.javaguru.java2.services.resource.validate.impls.ResourceValidatorImpl;
 
 import static lv.javaguru.java2.domain.ResourceBuilder.createResource;
 

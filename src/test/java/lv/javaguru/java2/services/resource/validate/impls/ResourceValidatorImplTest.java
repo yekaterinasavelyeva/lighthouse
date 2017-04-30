@@ -1,18 +1,27 @@
-package lv.javaguru.java2.services.resource.validate;
+package lv.javaguru.java2.services.resource.validate.impls;
 
 import lv.javaguru.java2.domain.ResourceType;
 import lv.javaguru.java2.services.resource.validate.ResourceValidator;
-import lv.javaguru.java2.services.resource.validate.ResourceValidatorImpl;
+import lv.javaguru.java2.services.resource.validate.impls.ResourceValidatorImpl;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  * Created by user on 11.04.2017.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class ResourceValidatorImplTest {
 
-    private ResourceValidator validator = new ResourceValidatorImpl();
+    private static final ResourceType NULL_TYPE = null;
+    private static final String NULL_TITLE = null;
+    private static final String NULL_AUTHOR = null;
+
+    @InjectMocks
+    ResourceValidator validator = new ResourceValidatorImpl();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -22,14 +31,14 @@ public class ResourceValidatorImplTest {
     public void shouldThrowExceptionWhenResourceTypeIsNull() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Resource Type cannot be empty!");
-        validator.validate(null, "Game Of Thrones", "George R. Martin", 2012);
+        validator.validate(NULL_TYPE, "Game Of Thrones", "George R. Martin", 2012);
     }
 
     @Test
     public void shouldThrowExceptionWhenTitleIsNullOrEmpty() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Resource title cannot be empty!");
-        validator.validate(ResourceType.BOOK, null, "George R. Martin", 2012);
+        validator.validate(ResourceType.BOOK, NULL_TITLE, "George R. Martin", 2012);
         validator.validate(ResourceType.BOOK, "", "George R. Martin", 2012);
     }
 
@@ -37,6 +46,7 @@ public class ResourceValidatorImplTest {
     public void shouldThrowExceptionWhenAuthorIsNullOrEmpty() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Resource Author cannot be empty!");
+        validator.validate(ResourceType.BOOK, "Game Of Thrones", NULL_AUTHOR, 2012);
         validator.validate(ResourceType.BOOK, "Game Of Thrones", "", 2012);
     }
 

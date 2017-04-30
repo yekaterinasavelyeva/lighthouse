@@ -7,8 +7,6 @@ import java.time.LocalDate;
  */
 public class Reservation {
 
-    // TODO: 30/03/17 add Long ResourceID to all assosiated classes and tests
-
     private Long reservationID;
     private LocalDate dateFrom;
     private LocalDate dateTo;

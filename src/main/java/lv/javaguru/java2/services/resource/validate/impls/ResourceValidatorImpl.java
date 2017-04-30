@@ -1,13 +1,16 @@
-package lv.javaguru.java2.services.resource.validate;
+package lv.javaguru.java2.services.resource.validate.impls;
 
 import lv.javaguru.java2.domain.ResourceType;
+import lv.javaguru.java2.services.resource.validate.ResourceValidator;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
 /**
  * Created by user on 11.04.2017.
  */
-public class ResourceValidatorImpl implements ResourceValidator{
+@Component
+public class ResourceValidatorImpl implements ResourceValidator {
 
     private StringBuilder validationErrors = new StringBuilder();
 

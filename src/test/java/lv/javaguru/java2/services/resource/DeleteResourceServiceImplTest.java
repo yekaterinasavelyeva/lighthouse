@@ -10,6 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -29,22 +31,18 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class DeleteResourceServiceImplTest {
 
-    private DeleteResourceService service;
+    @InjectMocks
+    private DeleteResourceService service = new DeleteResourceServiceImpl();
+    @Mock
     private ResourceDAO resourceDAO;
+    @Mock
     private ReservationDAO reservationDAO;
+    @Mock
     private ResourceIdValidator deleteValidator;
+    @Mock
     private Resource resource = new Resource();
 
     private static final Long resourceId = 1234l;
-
-    @Before
-    public void init() {
-        deleteValidator = mock(ResourceIdValidator.class);
-        resourceDAO = mock(ResourceDAO.class);
-        reservationDAO = mock(ReservationDAO.class);
-        service = new DeleteResourceServiceImpl(deleteValidator, resourceDAO, reservationDAO);
-        resource.setResourceID(resourceId);
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionIfResourceNotFoundTest(){

@@ -9,6 +9,8 @@ import lv.javaguru.java2.domain.ReservationStatus;
 import lv.javaguru.java2.domain.Resource;
 import lv.javaguru.java2.services.resource.validate.ResourceIdValidator;
 import lv.javaguru.java2.services.resource.validate.impls.ResourceIdValidatorImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,17 +18,15 @@ import java.util.Optional;
 /**
  * Created by user on 17.04.2017.
  */
+@Component
 public class DeleteResourceServiceImpl implements DeleteResourceService {
 
-    private ResourceDAO resourceDAO = new ResourceDAOImpl();
-    ReservationDAO reservationDAO = new ReservationDAOImpl();
-    private ResourceIdValidator resourceIdValidator = new ResourceIdValidatorImpl();
-
-    public DeleteResourceServiceImpl(ResourceIdValidator validator, ResourceDAO dao, ReservationDAO reservationDao){
-        resourceIdValidator = validator;
-        resourceDAO = dao;
-        reservationDAO = reservationDao;
-    }
+    @Autowired
+    private ResourceDAO resourceDAO;
+    @Autowired
+    ReservationDAO reservationDAO;
+    @Autowired
+    private ResourceIdValidator resourceIdValidator;
 
    @Override
    public void deleteResource(Long resourceId){
