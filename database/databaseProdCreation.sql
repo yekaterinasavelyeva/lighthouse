@@ -25,48 +25,48 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 --ALTER TABLE `users` AUTO_INCREMENT = 1;
 
-mysql> INSERT INTO `users` (UserID, FirstName, LastName, AccountType)
-    -> VALUES (default, 'Yekaterina', 'Savelyeva', 'admin');
+mysql> INSERT INTO `accounts` (AccountID, FirstName, LastName, Status)
+    -> VALUES (default, 'Yekaterina', 'Savelyeva', 'ADMIN');
 
-mysql> INSERT INTO `users` (UserID, FirstName, LastName, AccountType)
-    -> VALUES (default, 'Viktor', 'Barbashin', 'admin');
+INSERT INTO `accounts` (AccountID, FirstName, LastName, Status)
+VALUES (default, 'Viktor', 'Barbashin', 'ADMIN');
 
-mysql> INSERT INTO `users` (UserID, FirstName, LastName, AccountType)
-    -> VALUES (default, 'Anna', 'Kalinina', 'visitor');
+INSERT INTO `accounts` (AccountID, FirstName, LastName, Status)
+VALUES (default, 'Anna', 'Kalinina', 'VISITOR');
 
-mysql> INSERT INTO `users` (UserID, FirstName, LastName, AccountType)
-    -> VALUES (default, 'Oleg', 'Lapin', 'visitor');
+INSERT INTO `accounts` (AccountID, FirstName, LastName, Status)
+VALUES (default, 'Oleg', 'Lapin', 'VISITOR');
 
-mysql> INSERT INTO `users` (UserID, FirstName, LastName, AccountType)
-    -> VALUES (default, 'Janis', 'Ozolins', 'visitor');
+INSERT INTO `accounts` (AccountID, FirstName, LastName, Status)
+VALUES (default, 'Janis', 'Ozolins', 'VISITOR');
 
-mysql> INSERT INTO `users` (UserID, FirstName, LastName, AccountType)
-    -> VALUES (default, 'Andis', 'Liepa', 'visitor');
+INSERT INTO `accounts` (AccountID, FirstName, LastName, Status)
+VALUES (default, 'Andis', 'Liepa', 'VISITOR');
 
-mysql> INSERT INTO `users` (UserID, FirstName, LastName, AccountType)
-    -> VALUES (default, 'Ruta', 'Kalnina', 'visitor');
+INSERT INTO `accounts` (AccountID, FirstName, LastName, Status)
+VALUES (default, 'Ruta', 'Kalnina', 'VISITOR');
 
-mysql> INSERT INTO `users` (UserID, FirstName, LastName, AccountType)
-    -> VALUES (default, 'Julija', 'Starodubova', 'visitor');
+INSERT INTO `accounts` (AccountID, FirstName, LastName, Status)
+VALUES (default, 'Julija', 'Starodubova', 'VISITOR');
 
-mysql> INSERT INTO `users` (UserID, FirstName, LastName, AccountType)
-    -> VALUES (default, 'Jekaterina', 'Galinina', 'visitor');
+INSERT INTO `accounts` (AccountID, FirstName, LastName, Status)
+VALUES (default, 'Jekaterina', 'Galinina', 'VISITOR');
 
-mysql> INSERT INTO `users` (UserID, FirstName, LastName, AccountType)
-    -> VALUES (default, 'Anton', 'Grib', 'visitor');
+INSERT INTO `accounts` (AccountID, FirstName, LastName, Status)
+VALUES (default, 'Anton', 'Grib', 'VISITOR');
 
-mysql> INSERT INTO `users` (UserID, FirstName, LastName, AccountType)
-    -> VALUES (default, 'Jevgenij', 'Zajcev', 'visitor');
+INSERT INTO `accounts` (AccountID, FirstName, LastName, Status)
+VALUES (default, 'Jevgenij', 'Zajcev', 'VISITOR');
 
-mysql> INSERT INTO `users` (UserID, FirstName, LastName, AccountType)
-    -> VALUES (default, 'Aleksej', 'Fedotov', 'visitor');
+INSERT INTO `accounts` (AccountID, FirstName, LastName, Status)
+VALUES (default, 'Aleksej', 'Fedotov', 'VISITOR');
 
-mysql> INSERT INTO `users` (UserID, FirstName, LastName, AccountType)
-    -> VALUES (default, 'Jelizaveta', 'Saveljeva', 'visitor');
+INSERT INTO `accounts` (AccountID, FirstName, LastName, Status)
+VALUES (default, 'Jelizaveta', 'Saveljeva', 'VISITOR');
 
-mysql> INSERT INTO `users` (UserID, FirstName, LastName, AccountType)
-    -> VALUES (default, 'Laura', 'Jansone', 'visitor');
+INSERT INTO `accounts` (AccountID, FirstName, LastName, Status)
+VALUES (default, 'Laura', 'Jansone', 'VISITOR');
 
-mysql> INSERT INTO `users` (UserID, FirstName, LastName, AccountType)
-    -> VALUES (default, 'Arturs', 'Kurms', 'visitor');
+INSERT INTO `accounts` (AccountID, FirstName, LastName, Status)
+VALUES (default, 'Arturs', 'Kurms', 'VISITOR');
 

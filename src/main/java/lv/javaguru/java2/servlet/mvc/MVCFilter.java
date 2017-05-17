@@ -49,6 +49,8 @@ public class MVCFilter implements Filter {
     public void putControllersIntoMap() throws Exception {
         controllerMapping = new HashMap();
         controllerMapping.put("/hello", getBean(HelloWorldController.class));
+        controllerMapping.put("/accounts", getBean(GetAllAccountsController.class));
+        controllerMapping.put("/userAccountSearchResult", getBean(FindUserAccountController.class));
     }
 
     @Override

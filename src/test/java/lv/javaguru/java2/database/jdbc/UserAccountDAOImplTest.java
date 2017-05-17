@@ -4,7 +4,11 @@ import lv.javaguru.java2.database.UserAccountDAO;
 import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.domain.UserAccountState;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.web.WebAppConfiguration;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 import static lv.javaguru.java2.domain.UserAccountBuilder.createUserAccount;
@@ -15,8 +19,12 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by user on 22.03.2017.
  */
+@WebAppConfiguration
 public class UserAccountDAOImplTest extends DBUnitTestCase {
-    private UserAccountDAO userAccountDAO = new UserAccountDAOImpl();
+
+    @Autowired
+    @Qualifier("HibernateUserAccountDAO")
+    private UserAccountDAO userAccountDAO ;
 
     @Override
     protected String getDatabaseFile() {
@@ -24,6 +32,7 @@ public class UserAccountDAOImplTest extends DBUnitTestCase {
     }
 
     @Test
+    @Transactional
     public void testCreate() throws Exception {
         UserAccount account = createUserAccount()
                 .withFirstName("F")
@@ -41,6 +50,7 @@ public class UserAccountDAOImplTest extends DBUnitTestCase {
     }
 
     @Test
+    @Transactional
     public void testDelete() throws Exception {
         Long userId = userAccountDAO.getAll().stream().findFirst().get().getUserAccountId();
         userAccountDAO.delete(userId);
@@ -49,6 +59,7 @@ public class UserAccountDAOImplTest extends DBUnitTestCase {
     }
 
     @Test
+    @Transactional
     public void testUpdate() throws Exception {
         UserAccount account = userAccountDAO.getAll().stream().findFirst().get();
         account.setFirstName("John");
