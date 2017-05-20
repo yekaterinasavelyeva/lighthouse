@@ -13,7 +13,7 @@ public class UserAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="AccountID", columnDefinition = "int(11)")
-    private Long userAccountId;
+    private Long accountId;
 
     @Column(name="FirstName", columnDefinition = "char(32)")
     private String firstName;
@@ -21,16 +21,17 @@ public class UserAccount {
     @Column(name="LastName", columnDefinition = "char(32)")
     private String lastName;
 
-    @Column(name="Status", columnDefinition = "enum('ADMIN','VISITOR')")
+    @Column(name="Status", columnDefinition = "enum(`ADMIN`,`VISITOR`)")
+    @Enumerated(EnumType.STRING)
     private UserAccountState state;
 
 
-    public Long getUserAccountId() {
-        return userAccountId;
+    public Long getAccountId() {
+        return accountId;
     }
 
-    public void setUserAccountId(Long userAccountId) {
-        this.userAccountId = userAccountId;
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
     public String getFirstName() {

@@ -10,6 +10,7 @@ import lv.javaguru.java2.domain.Resource;
 import lv.javaguru.java2.services.resource.validate.ResourceIdValidator;
 import lv.javaguru.java2.services.resource.validate.impls.ResourceIdValidatorImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,9 +23,13 @@ import java.util.Optional;
 public class DeleteResourceServiceImpl implements DeleteResourceService {
 
     @Autowired
+    @Qualifier("HibernateResourceDAO")
     private ResourceDAO resourceDAO;
+
     @Autowired
+    @Qualifier("HibernateReservationDAO")
     ReservationDAO reservationDAO;
+
     @Autowired
     private ResourceIdValidator resourceIdValidator;
 

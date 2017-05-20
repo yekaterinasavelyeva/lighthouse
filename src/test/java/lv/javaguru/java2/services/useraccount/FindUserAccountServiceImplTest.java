@@ -4,7 +4,6 @@ import lv.javaguru.java2.database.UserAccountDAO;
 import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.domain.UserAccountState;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
@@ -62,7 +61,7 @@ public class FindUserAccountServiceImplTest {
         when(userAccountDAO.getAll()).thenReturn(Arrays.asList(account));
 
         Optional<UserAccount> userAccountFromDB = userAccountDAO.getAll().stream().findFirst();
-        Long accountId = userAccountFromDB.get().getUserAccountId();
+        Long accountId = userAccountFromDB.get().getAccountId();
         UserAccount account = service.getUserAccount(accountId);
 
         assertEquals(account.getFirstName(), userAccountFromDB.get().getFirstName());

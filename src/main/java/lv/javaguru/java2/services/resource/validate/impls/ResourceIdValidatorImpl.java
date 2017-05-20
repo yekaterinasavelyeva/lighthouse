@@ -5,6 +5,7 @@ import lv.javaguru.java2.domain.Resource;
 import lv.javaguru.java2.services.resource.validate.ResourceIdValidator;
 import lv.javaguru.java2.services.resource.validate.exceptions.ResourceIdException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class ResourceIdValidatorImpl implements ResourceIdValidator {
 
     @Autowired
+    @Qualifier("HibernateResourceDAO")
     ResourceDAO resourceDAO;
 
     public void validate(Long resourceID){

@@ -3,7 +3,6 @@ package lv.javaguru.java2.database.hibernate;
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.UserAccountDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
-import lv.javaguru.java2.domain.User;
 import lv.javaguru.java2.domain.UserAccount;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -35,8 +34,7 @@ public class UserAccountDAOImpl extends DAOImpl implements UserAccountDAO {
     public Optional<UserAccount> getById(Long id) throws DBException {
         UserAccount account =  (UserAccount) sessionFactory.getCurrentSession()
                 .createCriteria(UserAccount.class)
-                .add(Restrictions.eq("AccountID", id))
-                .list();
+                .add(Restrictions.eq("accountId", id)).uniqueResult();
         return Optional.ofNullable(account);
     }
 

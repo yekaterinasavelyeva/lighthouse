@@ -6,6 +6,7 @@ import lv.javaguru.java2.services.reservation.FindReservationByUserAccountIdServ
 import lv.javaguru.java2.services.reservation.validate.SearchValidator;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
 public class FindReservationByUserAccountIdServiceImpl implements FindReservationByUserAccountIdService {
 
     @Autowired
+    @Qualifier("HibernateReservationDAO")
     private ReservationDAO reservationDAO;
     @Autowired
     private UserAccountIdValidator userAccountIdValidator;

@@ -4,7 +4,7 @@ Object "UserAccount"
 
 fields:
 
-Long userAccountId - default value;
+Long accountId - default value;
 String firstName;
 String lastName;
 UserAccountState - admin or visitor;

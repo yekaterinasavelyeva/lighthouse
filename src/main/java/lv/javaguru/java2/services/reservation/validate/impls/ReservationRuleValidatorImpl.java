@@ -4,6 +4,7 @@ import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.ReservationStatus;
 import lv.javaguru.java2.services.reservation.validate.ReservationRuleValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -13,7 +14,9 @@ import java.time.LocalDate;
  */
 @Component
 public class ReservationRuleValidatorImpl implements ReservationRuleValidator {
+
     @Autowired
+    @Qualifier("HibernateReservationDAO")
     ReservationDAO reservationDAO;
 
     private static final LocalDate MIN_START_DATE = LocalDate.now();

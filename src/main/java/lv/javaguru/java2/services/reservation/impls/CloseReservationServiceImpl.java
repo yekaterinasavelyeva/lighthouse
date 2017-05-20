@@ -7,6 +7,7 @@ import lv.javaguru.java2.services.reservation.CloseReservationService;
 import lv.javaguru.java2.services.reservation.validate.InputValidator;
 import lv.javaguru.java2.services.reservation.validate.SearchValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class CloseReservationServiceImpl implements CloseReservationService {
 
     @Autowired
+    @Qualifier("HibernateReservationDAO")
     private ReservationDAO reservationDAO;
     @Autowired
     private InputValidator inputValidator;

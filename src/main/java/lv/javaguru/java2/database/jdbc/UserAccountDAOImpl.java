@@ -17,7 +17,7 @@ import java.util.Optional;
 /**
  * Created by user Jekaterina Saveljeva on 22.03.2017.
  */
-@Component
+@Component("JdbcUserAccountDAO")
 public class UserAccountDAOImpl extends DAOImpl implements UserAccountDAO {
 
     public UserAccount save(UserAccount account) throws DBException {
@@ -34,7 +34,7 @@ public class UserAccountDAOImpl extends DAOImpl implements UserAccountDAO {
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (rs.next()){
-                account.setUserAccountId(rs.getLong(1));
+                account.setAccountId(rs.getLong(1));
             }
         } catch (Throwable e) {
             System.out.println("Exception while execute UserAccountDAOImpl.save()");
@@ -59,7 +59,7 @@ public class UserAccountDAOImpl extends DAOImpl implements UserAccountDAO {
             UserAccount account = null;
             if (resultSet.next()) {
                 account = new UserAccount();
-                account.setUserAccountId(resultSet.getLong("AccountID"));
+                account.setAccountId(resultSet.getLong("AccountID"));
                 account.setFirstName(resultSet.getString("FirstName"));
                 account.setLastName(resultSet.getString("LastName"));
                 account.setState(UserAccountState.valueOf(resultSet.getString("Status")));
@@ -84,7 +84,7 @@ public class UserAccountDAOImpl extends DAOImpl implements UserAccountDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 UserAccount account = new UserAccount();
-                account.setUserAccountId(resultSet.getLong("AccountID"));
+                account.setAccountId(resultSet.getLong("AccountID"));
                 account.setFirstName(resultSet.getString("FirstName"));
                 account.setLastName(resultSet.getString("LastName"));
                 account.setState(UserAccountState.valueOf(resultSet.getString("Status")));
@@ -131,7 +131,7 @@ public class UserAccountDAOImpl extends DAOImpl implements UserAccountDAO {
             preparedStatement.setString(1, account.getFirstName());
             preparedStatement.setString(2, account.getLastName());
             preparedStatement.setString(3, account.getState().name());
-            preparedStatement.setLong(4, account.getUserAccountId());
+            preparedStatement.setLong(4, account.getAccountId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
             System.out.println("Exception while execute UserAccountDAOImpl.update()");

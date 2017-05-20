@@ -4,7 +4,7 @@ Object "User"
 
 fields:
 
-Long userAccountId - default value;
+Long accountId - default value;
 String Login;
 String Password;
 

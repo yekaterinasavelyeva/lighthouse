@@ -6,6 +6,7 @@ import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
 import lv.javaguru.java2.services.useraccount.validate.impls.UserAccountIdValidatorImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -17,7 +18,9 @@ import java.util.Optional;
 public class FindUserAccountServiceImpl implements FindUserAccountService{
 
     @Autowired
+    @Qualifier("HibernateUserAccountDAO")
     private UserAccountDAO userAccountDAO;
+
     @Autowired
     private UserAccountIdValidator userAccountValidator;
 

@@ -5,6 +5,7 @@ import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.services.reservation.ProlongReservationService;
 import lv.javaguru.java2.services.reservation.validate.ProlongReservationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 @Component
 public class ProlongReservationServiceImpl implements ProlongReservationService {
     @Autowired
+    @Qualifier("HibernateReservationDAO")
     private ReservationDAO reservationDAO;
     @Autowired
     private ProlongReservationValidator validator;

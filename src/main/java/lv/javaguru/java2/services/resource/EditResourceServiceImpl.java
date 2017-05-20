@@ -9,6 +9,7 @@ import lv.javaguru.java2.services.resource.validate.impls.ResourceIdValidatorImp
 import lv.javaguru.java2.services.resource.validate.ResourceValidator;
 import lv.javaguru.java2.services.resource.validate.impls.ResourceValidatorImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -20,9 +21,12 @@ import java.util.Optional;
 public class EditResourceServiceImpl implements EditResourceService {
 
     @Autowired
+    @Qualifier("HibernateResourceDAO")
     private ResourceDAO resourceDAO;
+
     @Autowired
     private ResourceValidator resourceValidator;
+
     @Autowired
     private ResourceIdValidator resourceIdValidator;
 

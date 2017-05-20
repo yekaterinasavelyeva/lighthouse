@@ -4,6 +4,7 @@ import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.services.reservation.validate.SearchValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,7 +16,9 @@ import java.util.Optional;
 @Component
 public class SearchValidatorImpl implements SearchValidator {
 
+
     @Autowired
+    @Qualifier("HibernateReservationDAO")
     ReservationDAO reservationDAO;
 
     @Override

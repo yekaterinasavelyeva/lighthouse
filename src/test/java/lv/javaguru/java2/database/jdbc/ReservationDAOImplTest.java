@@ -61,7 +61,7 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
         createNewReservation();
         saveReservationToDatabase();
         getReservationFromDatabase();
-        getReservationFromDatabaseByAccountID(account.getUserAccountId());
+        getReservationFromDatabaseByAccountID(account.getAccountId());
         Reservation a = reservation;
         Reservation b = newReservation;
         assertEquals(a.getDateFrom(), b.getDateFrom());
@@ -148,7 +148,7 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
         reservation = createReservation()
                 .withDateFrom(LocalDate.parse("2017-03-30"))
                 .withDateTo(LocalDate.parse("2017-04-04"))
-                .withAccountID(account.getUserAccountId())
+                .withAccountID(account.getAccountId())
                 .withResourceID(resource.getResourceID())
                 .withStatus(ReservationStatus.OPEN)
                 .build();

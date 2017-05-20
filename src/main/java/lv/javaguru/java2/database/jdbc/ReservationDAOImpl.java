@@ -17,7 +17,7 @@ import java.util.Optional;
 /**
  * Created by VBarbasins on 30/03/17.
  */
-@Component
+@Component("JdbcReservationDAO")
 public class ReservationDAOImpl extends DAOImpl  implements ReservationDAO {
     @Override
     public Reservation save(Reservation reservation) throws DBException {

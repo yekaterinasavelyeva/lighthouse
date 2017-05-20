@@ -4,7 +4,6 @@ import lv.javaguru.java2.database.UserAccountDAO;
 import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.domain.UserAccountState;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountValidator;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
@@ -57,7 +56,7 @@ public class CreateUserAccountServiceImplTest {
         account.setLastName(LASTNAME);
         account.setFirstName(FIRSTNAME);
         account.setState(UserAccountState.ADMIN);
-        account.setUserAccountId(1234l);
+        account.setAccountId(1234l);
 
         when(userAccountDAO.getById(any(Long.class))).thenReturn(Optional.of(account));
         when(userAccountDAO.save(any(UserAccount.class))).thenReturn(account);
@@ -65,7 +64,7 @@ public class CreateUserAccountServiceImplTest {
         Optional <UserAccount> accountFromDB = userAccountDAO.getById(1234l);
 
         assertTrue(accountFromDB.isPresent());
-        assertEquals(newAccount.getUserAccountId(), accountFromDB.get().getUserAccountId());
+        assertEquals(newAccount.getAccountId(), accountFromDB.get().getAccountId());
         assertEquals(newAccount.getFirstName(), accountFromDB.get().getFirstName());
         assertEquals(newAccount.getLastName(), accountFromDB.get().getLastName());
         assertEquals(newAccount.getState(), accountFromDB.get().getState());

@@ -9,6 +9,7 @@ import lv.javaguru.java2.services.useraccount.validate.impls.UserAccountIdValida
 import lv.javaguru.java2.services.useraccount.validate.UserAccountValidator;
 import lv.javaguru.java2.services.useraccount.validate.impls.UserAccountValidatorImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -20,9 +21,12 @@ import java.util.Optional;
 public class EditUserAccountServiceImpl implements EditUserAccountService {
 
     @Autowired
+    @Qualifier("HibernateUserAccountDAO")
     private UserAccountDAO userAccountDAO;
+
     @Autowired
     private UserAccountValidator userAccountValidator;
+
     @Autowired
     private UserAccountIdValidator userAccountIdValidator;
 

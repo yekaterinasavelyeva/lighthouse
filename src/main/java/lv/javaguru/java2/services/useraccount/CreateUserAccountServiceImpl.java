@@ -7,6 +7,7 @@ import lv.javaguru.java2.domain.UserAccountState;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountValidator;
 import lv.javaguru.java2.services.useraccount.validate.impls.UserAccountValidatorImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import static lv.javaguru.java2.domain.UserAccountBuilder.createUserAccount;
@@ -19,7 +20,9 @@ public class CreateUserAccountServiceImpl implements CreateUserAccountService {
 
     @Autowired
     private UserAccountValidator userAccountValidator;
+
     @Autowired
+    @Qualifier("HibernateUserAccountDAO")
     private UserAccountDAO userAccountDAO;
 
      @Override

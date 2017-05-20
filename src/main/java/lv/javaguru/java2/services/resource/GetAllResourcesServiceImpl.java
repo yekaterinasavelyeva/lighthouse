@@ -4,6 +4,7 @@ import lv.javaguru.java2.database.ResourceDAO;
 import lv.javaguru.java2.database.jdbc.ResourceDAOImpl;
 import lv.javaguru.java2.domain.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 public class GetAllResourcesServiceImpl implements GetAllResourcesService {
 
     @Autowired
+    @Qualifier("HibernateResourceDAO")
     private ResourceDAO resourceDAO;
 
     @Override

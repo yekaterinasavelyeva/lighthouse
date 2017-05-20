@@ -6,6 +6,7 @@ import lv.javaguru.java2.domain.ReservationStatus;
 import lv.javaguru.java2.services.reservation.CreateReservationService;
 import lv.javaguru.java2.services.reservation.validate.CreateReservationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -19,7 +20,9 @@ import static lv.javaguru.java2.domain.ReservationBuilder.createReservation;
 public class CreateReservationServiceImpl implements CreateReservationService {
 
     @Autowired
+    @Qualifier("HibernateReservationDAO")
     private ReservationDAO reservationDAO;
+
     @Autowired
     private CreateReservationValidator createReservationValidator;
 
