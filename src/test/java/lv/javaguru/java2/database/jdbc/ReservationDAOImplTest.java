@@ -5,9 +5,18 @@ import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.database.ResourceDAO;
 import lv.javaguru.java2.database.UserAccountDAO;
 import lv.javaguru.java2.domain.*;
+import lv.javaguru.java2.servlet.mvc.SpringAppConfig;
+import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Optional;
 import static lv.javaguru.java2.domain.ReservationBuilder.createReservation;
 import static java.util.stream.Collectors.toList;
@@ -16,15 +25,24 @@ import static org.junit.Assert.*;
 /**
  * Created by user on 12/04/17.
  */
-
+@Transactional
+@Component
 public class ReservationDAOImplTest  extends DBUnitTestCase {
 
-
+    @Autowired
+    @Qualifier("HibernateUserAccountDAO")
     private UserAccountDAO accountDAO = new UserAccountDAOImpl();
+
+    @Autowired
+    @Qualifier("HibernateResourceDAO")
     private ResourceDAO resourceDAO = new ResourceDAOImpl();
+
+    @Autowired
+    @Qualifier("HibernateReservationDAO")
+    private ReservationDAO reservationDAO;
+
     private Reservation reservation;
     private Reservation newReservation;
-    private ReservationDAO reservationDAO = new ReservationDAOImpl();
     private Optional<Reservation> reservationFromDatabase;
     private UserAccount account;
     private Resource resource;
@@ -35,6 +53,14 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
         return "dbscripts/ReservationDAOImplTest.xml";
     }
 
+    @Before
+    public void init(){
+        ApplicationContext springContext =
+                new AnnotationConfigApplicationContext(SpringAppConfig.class);
+        accountDAO = springContext.getBean(UserAccountDAO.class);
+        resourceDAO = springContext.getBean(ResourceDAO.class);
+        reservationDAO = springContext.getBean(ReservationDAO.class);
+    }
     @Test
     public void testSave() throws DBException {
         setAccountAndResource();
