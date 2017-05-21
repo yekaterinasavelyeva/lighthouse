@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 import static lv.javaguru.java2.domain.UserAccountBuilder.createUserAccount;
@@ -24,12 +26,13 @@ import static org.junit.Assert.assertTrue;
  * Created by user on 22.03.2017.
  */
 
-
+@Transactional
+@Component
 public class UserAccountDAOImplTest extends DBUnitTestCase {
 
     @Autowired
     @Qualifier("HibernateUserAccountDAO")
-    private UserAccountDAO userAccountDAO ;
+    private UserAccountDAO userAccountDAO = new UserAccountDAOImpl();
 
     @Override
     protected String getDatabaseFile() {
@@ -57,7 +60,7 @@ public class UserAccountDAOImplTest extends DBUnitTestCase {
         assertEquals(account.getAccountId(), userAccountFromDB.get().getAccountId());
         assertEquals(account.getFirstName(), userAccountFromDB.get().getFirstName());
         assertEquals(account.getLastName(), userAccountFromDB.get().getLastName());
-       // assertEquals(account.getState(), userAccountFromDB.get().getState());
+        assertEquals(account.getState(), userAccountFromDB.get().getState());
     }
 
     @Test

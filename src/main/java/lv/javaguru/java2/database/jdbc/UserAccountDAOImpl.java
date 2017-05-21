@@ -17,7 +17,7 @@ import java.util.Optional;
 /**
  * Created by user Jekaterina Saveljeva on 22.03.2017.
  */
-@Component("JdbcUserAccountDAO")
+//@Component("JdbcUserAccountDAO")
 public class UserAccountDAOImpl extends DAOImpl implements UserAccountDAO {
 
     public UserAccount save(UserAccount account) throws DBException {
