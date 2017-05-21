@@ -16,7 +16,7 @@ import java.util.Optional;
 /**
  * Created by VBarbasins on 27/03/17.
  */
-@Component("JdbcResourceDAO")
+//@Component("JdbcResourceDAO")
 public class ResourceDAOImpl extends DAOImpl implements ResourceDAO {
 
     @Override

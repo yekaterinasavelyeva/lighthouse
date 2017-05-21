@@ -32,7 +32,7 @@ public class UserAccountDAOImplTest extends DBUnitTestCase {
 
     @Autowired
     @Qualifier("HibernateUserAccountDAO")
-    private UserAccountDAO userAccountDAO = new UserAccountDAOImpl();
+    private UserAccountDAO userAccountDAO;
 
     @Override
     protected String getDatabaseFile() {

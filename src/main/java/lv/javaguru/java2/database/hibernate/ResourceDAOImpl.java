@@ -1,7 +1,11 @@
 package lv.javaguru.java2.database.hibernate;
 
+import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.ResourceDAO;
 import lv.javaguru.java2.domain.Resource;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -16,14 +20,39 @@ import java.util.Optional;
 @Transactional
 public class ResourceDAOImpl implements ResourceDAO {
 
-    public Resource save(Resource resource){return new Resource();}
+    @Autowired
+    private SessionFactory sessionFactory;
 
-    public Optional<Resource> getByID(Long resourceID){return Optional.of(new Resource());}
+    @Override
+    public Resource save(Resource resource) throws DBException {
+        sessionFactory.getCurrentSession().save(resource);
+        return resource;
+    }
 
-    public void delete(Long resourceID){}
+    @Override
+    public Optional<Resource> getByID(Long id) throws DBException {
+        Resource resource =  (Resource) sessionFactory.getCurrentSession()
+                .createCriteria(Resource.class)
+                .add(Restrictions.eq("resourceID", id)).uniqueResult();
+        return Optional.ofNullable(resource);
+    }
 
-    public void update (Resource resource){}
+    @Override
+    public void delete(Long id) throws DBException {
+        Resource resource = (Resource) sessionFactory.getCurrentSession().load(Resource.class, id);
+        sessionFactory.getCurrentSession().delete(resource);
+        return;
+    }
 
-    public List<Resource> getAll(){return new ArrayList<Resource>();}
+    @Override
+    public void update (Resource resource) throws DBException {
+        sessionFactory.getCurrentSession().update(resource);
+        return;
+    }
+
+    @Override
+    public List<Resource> getAll() throws DBException {
+        return sessionFactory.getCurrentSession().createQuery("from Resource").list();
+    }
 
 }
