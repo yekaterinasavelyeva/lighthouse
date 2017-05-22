@@ -1,0 +1,80 @@
+package lv.javaguru.java2.services.validators.impls;
+
+import lv.javaguru.java2.database.ReservationDAO;
+import lv.javaguru.java2.domain.ReservationStatus;
+import lv.javaguru.java2.services.validators.ReservationRuleValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+
+/**
+ * Created by vbarbasins on 2017.04.28..
+ */
+@Component
+class ReservationRuleValidatorImpl implements ReservationRuleValidator {
+
+    private static final LocalDate MIN_START_DATE = LocalDate.now();
+    private static final LocalDate MAX_START_DATE = LocalDate.now();
+    private static final LocalDate MIN_END_DATE = LocalDate.now().plusDays(7);
+    private static final LocalDate MAX_END_DATE = LocalDate.now().plusDays(30);
+    @Autowired
+    @Qualifier("HibernateReservationDAO")
+    ReservationDAO reservationDAO;
+
+    @Override
+    public void validateResourceIdForNewReservation(Long resourceId) {
+        if (isAnyOpenedReservationForResource(resourceId)) {
+            throw new IllegalArgumentException("There are opened reservations for this resource. " +
+                    "Cannot create new reservation.");
+        }
+    }
+
+    @Override
+    public void validateReservationStatusForProlongation(Long reservationId){
+        if (isReservationClosed(reservationId)) {
+            throw new IllegalArgumentException("Closed Reservation can not be prolonged. " +
+                    "Try to make a new reservation for this resource");
+        }
+    }
+
+    @Override
+    public void validateStartDateForReservation(LocalDate dateFrom) {
+        if (isLessThanMinLimit(dateFrom, MIN_START_DATE)
+                || isMoreThanMaxLimit(dateFrom, MAX_START_DATE)) {
+            throw new IllegalArgumentException("Reservation Start Date must be set for today!");
+        }
+    }
+    @Override
+    public void validateEndDateForReservation(LocalDate dateTo){
+        if (isLessThanMinLimit(dateTo, MIN_END_DATE)
+                || isMoreThanMaxLimit(dateTo, MAX_END_DATE)) {
+            throw new IllegalArgumentException("Reservation End Date must be set for no less " +
+                    "than 7 and no more than 30 days from now!");
+        }
+    }
+
+    private boolean isLessThanMinLimit(LocalDate date, LocalDate minLimit) {
+        return date.isBefore(minLimit);
+    }
+
+    private boolean isMoreThanMaxLimit(LocalDate date, LocalDate maxLimit) {
+        return date.isAfter(maxLimit);
+    }
+
+    private boolean isAnyOpenedReservationForResource(Long resourceId) {
+        return reservationDAO.getByResourceID(resourceId)
+                .stream()
+                .anyMatch(reservation
+                        -> reservation
+                        .getStatus()
+                        .equals(ReservationStatus.OPEN));
+    }
+
+    private boolean isReservationClosed(Long reservationId){
+        return reservationDAO.getByID(reservationId).get()
+                .getStatus().equals(ReservationStatus.CLOSED);
+
+    }
+}

@@ -2,7 +2,7 @@ package lv.javaguru.java2.services.reservation.impls;
 
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.services.reservation.FindReservationByUserAccountIdService;
-import lv.javaguru.java2.services.reservation.validate.SearchValidator;
+import lv.javaguru.java2.services.validators.SearchValidator;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;

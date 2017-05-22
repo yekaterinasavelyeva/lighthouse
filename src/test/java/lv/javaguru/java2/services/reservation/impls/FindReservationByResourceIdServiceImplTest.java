@@ -2,8 +2,8 @@ package lv.javaguru.java2.services.reservation.impls;
 
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.services.reservation.FindReservationByResourceIdService;
-import lv.javaguru.java2.services.reservation.validate.SearchValidator;
-import lv.javaguru.java2.services.resource.validate.ResourceIdValidator;
+import lv.javaguru.java2.services.validators.InputValidator;
+import lv.javaguru.java2.services.validators.SearchValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
@@ -22,20 +22,19 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class FindReservationByResourceIdServiceImplTest {
 
-    @Mock
-    ResourceIdValidator resourceIdValidator;
-    @Mock
-    ReservationDAO reservationDAO;
-    @Mock
-    SearchValidator searchValidator;
+    @Mock InputValidator inputValidator;
+    @Mock ReservationDAO reservationDAO;
+    @Mock SearchValidator searchValidator;
+
     @InjectMocks
     private FindReservationByResourceIdService service = new FindReservationByResourceIdServiceImpl();
 
     @Test
     public void checkMethodsOrderForFindByResouceIdService() {
         service.find(any(Long.class));
-        InOrder inOrder = Mockito.inOrder(resourceIdValidator, reservationDAO, searchValidator);
-        inOrder.verify(resourceIdValidator).validate(any(Long.class));
+        InOrder inOrder = Mockito.inOrder(inputValidator, reservationDAO, searchValidator);
+        inOrder.verify(inputValidator).validateResourceIdInput(any(Long.class));
+        inOrder.verify(searchValidator).validateResourceIdExist(any(Long.class));
         inOrder.verify(searchValidator).validateReservationExistForResourceId(any(Long.class));
         inOrder.verify(reservationDAO).getByResourceID(any(Long.class));
     }

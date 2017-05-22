@@ -4,19 +4,17 @@ import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.domain.ReservationStatus;
 import lv.javaguru.java2.services.reservation.CloseReservationService;
-import lv.javaguru.java2.services.reservation.validate.InputValidator;
-import lv.javaguru.java2.services.reservation.validate.SearchValidator;
+import lv.javaguru.java2.services.validators.InputValidator;
+import lv.javaguru.java2.services.validators.SearchValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 /**
  * Created by user on 17.04.2017.
  */
 @Component
-public class CloseReservationServiceImpl implements CloseReservationService {
+class CloseReservationServiceImpl implements CloseReservationService {
 
     @Autowired
     @Qualifier("HibernateReservationDAO")

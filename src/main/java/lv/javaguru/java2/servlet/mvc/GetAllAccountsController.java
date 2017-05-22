@@ -1,7 +1,5 @@
 package lv.javaguru.java2.servlet.mvc;
 
-import lv.javaguru.java2.services.resource.GetAllResourcesService;
-import lv.javaguru.java2.services.resource.GetAllResourcesServiceImpl;
 import lv.javaguru.java2.services.useraccount.FindUserAccountService;
 import lv.javaguru.java2.services.useraccount.FindUserAccountServiceImpl;
 import lv.javaguru.java2.services.useraccount.GetAllAccountsService;
