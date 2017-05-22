@@ -6,10 +6,12 @@ import lv.javaguru.java2.services.validators.InputValidator;
 import lv.javaguru.java2.services.validators.ResourceRuleValidator;
 import lv.javaguru.java2.services.validators.SearchValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by Viktor on 2017.05.22..
  */
+@Component
 class DeleteResourceValidatorImpl implements DeleteResourceValidator {
 
     @Autowired
