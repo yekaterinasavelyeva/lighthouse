@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 public class GetAllAccountsController implements MVCController {
 
     @Autowired
-    GetAllAccountsService service = new GetAllAccountsServiceImpl();
-    FindUserAccountService findService = new FindUserAccountServiceImpl();
+    GetAllAccountsService service;
+    FindUserAccountService findService;
 
     @Override
     public MVCModel processGet(HttpServletRequest request) {
@@ -26,7 +26,8 @@ public class GetAllAccountsController implements MVCController {
 
     @Override
     public MVCModel processPost(HttpServletRequest request) {
-        Long accountId = Long.parseLong(request.getParameter("userAccountId"));
-        return new MVCModel("/userAccountSearchResult.jsp", findService.getUserAccount(accountId));
+        Long accountId = Long.parseLong(request.getParameter("accountId"));
+        System.out.println("Account ID is:" + accountId);
+        return new MVCModel("/userAccountSearchResult.jsp", "accountId");
     }
 }

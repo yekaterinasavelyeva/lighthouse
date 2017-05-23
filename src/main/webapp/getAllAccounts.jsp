@@ -23,14 +23,14 @@
     <BR>
     <%
       for(UserAccount account:accountsList){
-         Long accountId = account.getUserAccountId();
+         Long accountId = account.getAccountId();
       %>
 
       <table align="center" border="1" width="80%">
       <tr>
               <form method="post">
-              <td width="200"><input type="submit" name="userAccountId" value="<%=account.getUserAccountId()%>">
-              <input type="hidden" name="userAccountId" value="<%=account.getUserAccountId()%>">
+              <td width="200"><input type="submit" name="accountId" value="<%=account.getAccountId()%>">
+              <input type="hidden" name="accountId" value="<%=account.getAccountId()%>">
               </td>
               </form>
               <td width="200"><%=account.getFirstName()%></td>
