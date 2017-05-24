@@ -4,7 +4,7 @@ package lv.javaguru.java2.services.reservation.impls;
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.services.reservation.CreateReservationService;
-import lv.javaguru.java2.services.validators.CreateReservationValidator;
+import lv.javaguru.java2.services.validators.ReservationPropertyValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
@@ -34,15 +34,15 @@ public class CreateReservationServiceImplTest {
     @Mock
     ReservationDAO reservationDAO;
     @Mock
-    CreateReservationValidator createReservationValidator;
+    ReservationPropertyValidator reservationPropertyValidator;
     @InjectMocks
     CreateReservationService createReservationService = new CreateReservationServiceImpl();
 
     @Test
     public void checkMethodsOrderForReservationFactory() {
         createReservationService.create(DATEFROM, DATETO, ACCOUNTID, RESOURCEID);
-        InOrder inOrder = Mockito.inOrder(createReservationValidator, reservationDAO);
-        inOrder.verify(createReservationValidator).validate(DATEFROM, DATETO, ACCOUNTID, RESOURCEID);
+        InOrder inOrder = Mockito.inOrder(reservationPropertyValidator, reservationDAO);
+        inOrder.verify(reservationPropertyValidator).validate(DATEFROM, DATETO, ACCOUNTID, RESOURCEID);
         inOrder.verify(reservationDAO).save(any(Reservation.class));
     }
 }

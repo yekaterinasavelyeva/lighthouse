@@ -3,7 +3,7 @@ package lv.javaguru.java2.services.reservation.impls;
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.services.reservation.ProlongReservationService;
-import lv.javaguru.java2.services.validators.ProlongReservationValidator;
+import lv.javaguru.java2.services.validators.ReservationProlongValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -19,7 +19,7 @@ class ProlongReservationServiceImpl implements ProlongReservationService {
     @Qualifier("HibernateReservationDAO")
     private ReservationDAO reservationDAO;
     @Autowired
-    private ProlongReservationValidator validator;
+    private ReservationProlongValidator validator;
 
     public void prolongReservationToDate(Long reservationId, LocalDate dateTo) {
         validator.validate(reservationId, dateTo);

@@ -4,7 +4,7 @@ import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.domain.ReservationStatus;
 import lv.javaguru.java2.services.reservation.CreateReservationService;
-import lv.javaguru.java2.services.validators.CreateReservationValidator;
+import lv.javaguru.java2.services.validators.ReservationPropertyValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -24,7 +24,7 @@ class CreateReservationServiceImpl implements CreateReservationService {
     private ReservationDAO reservationDAO;
 
     @Autowired
-    private CreateReservationValidator validator;
+    private ReservationPropertyValidator validator;
 
     @Override
     public Reservation create(LocalDate dateFrom, LocalDate dateTo,

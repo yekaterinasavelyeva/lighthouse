@@ -1,7 +1,7 @@
 package lv.javaguru.java2.services.validators.impls;
 
 import lv.javaguru.java2.domain.ResourceType;
-import lv.javaguru.java2.services.validators.InputValidator;
+import lv.javaguru.java2.services.validators.DataInputValidator;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -10,7 +10,7 @@ import java.time.LocalDate;
  * Created by mobileqa on 28/04/17.
  */
 @Component
-class InputValidatorImpl implements InputValidator {
+class DataInputValidatorImpl implements DataInputValidator {
 
     @Override
     public void validateStartDateInput(LocalDate dateFrom) {

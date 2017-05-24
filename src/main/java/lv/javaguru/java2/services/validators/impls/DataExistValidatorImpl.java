@@ -4,7 +4,7 @@ import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.database.ResourceDAO;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.domain.Resource;
-import lv.javaguru.java2.services.validators.SearchValidator;
+import lv.javaguru.java2.services.validators.DataExistValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import java.util.Optional;
  * Created by mobileqa on 27/04/17.
  */
 @Component
-class SearchValidatorImpl implements SearchValidator {
+class DataExistValidatorImpl implements DataExistValidator {
 
 
     @Autowired
@@ -52,7 +52,7 @@ class SearchValidatorImpl implements SearchValidator {
     }
 
     @Override
-    public void validateResourceIdExist(Long resourceId) {
+    public void validateResourceIdExists(Long resourceId) {
         Optional<Resource> resourceFromDB = resourceDAO.getByID(resourceId);
         if (!resourceFromDB.isPresent()) {
             throw new IllegalArgumentException("Resource not found by id = " + resourceId);

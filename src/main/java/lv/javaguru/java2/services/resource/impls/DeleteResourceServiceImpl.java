@@ -2,7 +2,7 @@ package lv.javaguru.java2.services.resource.impls;
 
 import lv.javaguru.java2.database.ResourceDAO;
 import lv.javaguru.java2.services.resource.DeleteResourceService;
-import lv.javaguru.java2.services.validators.DeleteResourceValidator;
+import lv.javaguru.java2.services.validators.ResourceDeleteValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
     private ResourceDAO resourceDAO;
 
     @Autowired
-    private DeleteResourceValidator validator;
+    private ResourceDeleteValidator validator;
 
    @Override
    public void delete(Long resourceId){

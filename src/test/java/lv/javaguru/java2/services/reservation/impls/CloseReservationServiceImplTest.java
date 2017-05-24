@@ -4,8 +4,8 @@ import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.domain.ReservationStatus;
 import lv.javaguru.java2.services.reservation.CloseReservationService;
-import lv.javaguru.java2.services.validators.InputValidator;
-import lv.javaguru.java2.services.validators.SearchValidator;
+import lv.javaguru.java2.services.validators.DataExistValidator;
+import lv.javaguru.java2.services.validators.DataInputValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
@@ -34,20 +34,20 @@ public class CloseReservationServiceImplTest {
     @Mock
     ReservationDAO reservationDAO;
     @Mock
-    InputValidator inputValidator;
+    DataInputValidator dataInputValidator;
     @Mock
-    SearchValidator searchValidator;
+    DataExistValidator dataExistValidator;
     @InjectMocks
     private CloseReservationService service = new CloseReservationServiceImpl();
 
     @Test
     public void checkMethodsOrderForCloseReservationService() {
-        InOrder inOrder = Mockito.inOrder(inputValidator, reservationDAO, reservation, searchValidator);
+        InOrder inOrder = Mockito.inOrder(dataInputValidator, reservationDAO, reservation, dataExistValidator);
         when(reservationDAO.getByID(EXAMPLE_ID))
                 .thenReturn(Optional.of(reservation));
         service.closeByID(EXAMPLE_ID);
-        inOrder.verify(inputValidator).validateReservationIdInput(EXAMPLE_ID);
-        inOrder.verify(searchValidator).validateReservationIdExist(EXAMPLE_ID);
+        inOrder.verify(dataInputValidator).validateReservationIdInput(EXAMPLE_ID);
+        inOrder.verify(dataExistValidator).validateReservationIdExist(EXAMPLE_ID);
         inOrder.verify(reservation).setStatus(ReservationStatus.CLOSED);
         inOrder.verify(reservationDAO).update(reservation);
     }

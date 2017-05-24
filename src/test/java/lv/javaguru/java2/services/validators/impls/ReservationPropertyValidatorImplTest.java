@@ -1,10 +1,7 @@
 package lv.javaguru.java2.services.validators.impls;
 
-import lv.javaguru.java2.services.validators.CreateReservationValidator;
-import lv.javaguru.java2.services.validators.InputValidator;
-import lv.javaguru.java2.services.validators.ReservationRuleValidator;
-import lv.javaguru.java2.services.exceptions.CreateReservationException;
-import lv.javaguru.java2.services.validators.ResourceIdValidator;
+import lv.javaguru.java2.services.validators.*;
+import lv.javaguru.java2.services.exceptions.ReservationPropertyException;
 import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
 import org.junit.Before;
 import org.junit.Rule;
@@ -26,15 +23,15 @@ import static org.mockito.Mockito.doThrow;
  * Created by user on 09.04.2017.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class CreateReservationValidatorImplTest {
+public class ReservationPropertyValidatorImplTest {
 
-    @Mock InputValidator inputValidator;
-    @Mock ReservationRuleValidator ruleValidator;
-    @Mock ResourceIdValidator resourceIdValidator;
+    @Mock DataInputValidator dataInputValidator;
+    @Mock DataExistValidator dataExistValidator;
+    @Mock LibraryRuleValidator ruleValidator;
     @Mock UserAccountIdValidator userAccountIdValidator;
 
     @InjectMocks
-    private CreateReservationValidator validator = new CreateReservationValidatorImpl();
+    private ReservationPropertyValidator validator = new ReservationPropertyValidatorImpl();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -42,20 +39,20 @@ public class CreateReservationValidatorImplTest {
     @Before
     public void init() {
         doThrow(new IllegalArgumentException("smth1"))
-                .when(inputValidator).validateStartDateInput(null);
+                .when(dataInputValidator).validateStartDateInput(null);
         doThrow(new IllegalArgumentException("smth1"))
-                .when(ruleValidator).validateStartDateForReservation(any(LocalDate.class));
+                .when(ruleValidator).validateReservationStartDateLimits(any(LocalDate.class));
         doThrow(new IllegalArgumentException("smth2"))
-                .when(inputValidator).validateEndDateInput(null);
+                .when(dataInputValidator).validateEndDateInput(null);
         doThrow(new IllegalArgumentException("smth2"))
-                .when(ruleValidator).validateEndDateForReservation(any(LocalDate.class));
+                .when(ruleValidator).validateReservationEndDateLimits(any(LocalDate.class));
         doThrow(new IllegalArgumentException("smth3"))
-                .when(resourceIdValidator).validate(null);
+                .when(dataInputValidator).validateResourceIdInput(null);
         doThrow(new IllegalArgumentException("smth3"))
-                .when(ruleValidator).validateResourceIdForNewReservation(any(Long.class));
+                .when(ruleValidator).validateResourceReservationStatusWhenCreatingReservation(any(Long.class));
         doThrow(new IllegalArgumentException("smth4"))
                 .when(userAccountIdValidator).validate(null);
-        thrown.expect(CreateReservationException.class);
+        thrown.expect(ReservationPropertyException.class);
         thrown.expectMessage("smth1\nsmth2\nsmth3\nsmth4");
     }
 

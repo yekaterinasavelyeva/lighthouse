@@ -4,7 +4,7 @@ import lv.javaguru.java2.database.ResourceDAO;
 import lv.javaguru.java2.domain.Resource;
 import lv.javaguru.java2.domain.ResourceType;
 import lv.javaguru.java2.services.resource.CreateResourceService;
-import lv.javaguru.java2.services.validators.CreateResourceValidator;
+import lv.javaguru.java2.services.validators.ResourcePropertyValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,7 @@ class CreateResourceServiceImpl implements CreateResourceService {
     @Qualifier("HibernateResourceDAO")
     private ResourceDAO resourceDAO;
     @Autowired
-    private CreateResourceValidator validator;
+    private ResourcePropertyValidator validator;
 
     @Override
     public Resource create(ResourceType type, String title, String author, int releaseYear){

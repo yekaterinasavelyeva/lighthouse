@@ -7,7 +7,7 @@ import java.time.LocalDate;
 /**
  * Created by mobileqa on 28/04/17.
  */
-public interface InputValidator {
+public interface DataInputValidator {
 
     void validateStartDateInput(LocalDate dateFrom);
     void validateEndDateInput(LocalDate dateTo);

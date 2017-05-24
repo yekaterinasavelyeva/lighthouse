@@ -1,10 +1,7 @@
 package lv.javaguru.java2.services.validators.impls;
 
-import lv.javaguru.java2.services.validators.InputValidator;
-import lv.javaguru.java2.services.validators.ProlongReservationValidator;
-import lv.javaguru.java2.services.validators.ReservationRuleValidator;
-import lv.javaguru.java2.services.validators.SearchValidator;
-import lv.javaguru.java2.services.exceptions.ProlongReservationException;
+import lv.javaguru.java2.services.validators.*;
+import lv.javaguru.java2.services.exceptions.ReservationProlongException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,13 +11,13 @@ import java.time.LocalDate;
  * Created by mobileqa on 28/04/17.
  */
 @Component
-class ProlongReservationValidatorImpl implements ProlongReservationValidator {
+class ReservationProlongValidatorImpl implements ReservationProlongValidator {
     @Autowired
-    private InputValidator inputValidator;
+    private DataInputValidator dataInputValidator;
     @Autowired
-    private SearchValidator searchValidator;
+    private DataExistValidator dataExistValidator;
     @Autowired
-    private ReservationRuleValidator ruleValidator;
+    private LibraryRuleValidator ruleValidator;
 
     private StringBuilder validationMessages = new StringBuilder();
 
@@ -33,17 +30,17 @@ class ProlongReservationValidatorImpl implements ProlongReservationValidator {
 
     private void validateReservationId(Long reservationId) {
         try {
-            inputValidator.validateReservationIdInput(reservationId);
-            searchValidator.validateReservationIdExist(reservationId);
-            ruleValidator.validateReservationStatusForProlongation(reservationId);        } catch (IllegalArgumentException e) {
+            dataInputValidator.validateReservationIdInput(reservationId);
+            dataExistValidator.validateReservationIdExist(reservationId);
+            ruleValidator.validateReservationStatusWhenProlongingIt(reservationId);        } catch (IllegalArgumentException e) {
             collectMessage(e.getMessage());
         }
     }
 
     private void validateDateTo(LocalDate dateTo) {
         try {
-            inputValidator.validateEndDateInput(dateTo);
-            ruleValidator.validateEndDateForReservation(dateTo);
+            dataInputValidator.validateEndDateInput(dateTo);
+            ruleValidator.validateReservationEndDateLimits(dateTo);
         } catch (IllegalArgumentException e) {
             collectMessage(e.getMessage());
         }
@@ -52,7 +49,7 @@ class ProlongReservationValidatorImpl implements ProlongReservationValidator {
     private void handleValidationResult() {
         String resultMessage = validationMessages.toString();
         if (!resultMessage.isEmpty()) {
-            throw new ProlongReservationException(resultMessage);
+            throw new ReservationProlongException(resultMessage);
         }
     }
 

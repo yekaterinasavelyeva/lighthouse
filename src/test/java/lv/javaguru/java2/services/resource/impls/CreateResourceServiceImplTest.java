@@ -4,8 +4,7 @@ import lv.javaguru.java2.database.ResourceDAO;
 import lv.javaguru.java2.domain.Resource;
 import lv.javaguru.java2.domain.ResourceType;
 import lv.javaguru.java2.services.resource.CreateResourceService;
-import lv.javaguru.java2.services.resource.impls.CreateResourceServiceImpl;
-import lv.javaguru.java2.services.validators.CreateResourceValidator;
+import lv.javaguru.java2.services.validators.ResourcePropertyValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
@@ -33,7 +32,7 @@ public class CreateResourceServiceImplTest {
     @Mock
     private ResourceDAO resourceDAO;
     @Mock
-    private CreateResourceValidator validator;
+    private ResourcePropertyValidator validator;
 
     private static final String TITLE = "Game of Thrones";
     private static final String AUTHOR = "George R. Martin";

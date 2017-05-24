@@ -3,7 +3,7 @@ package lv.javaguru.java2.services.reservation.impls;
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.services.reservation.ProlongReservationService;
-import lv.javaguru.java2.services.validators.ProlongReservationValidator;
+import lv.javaguru.java2.services.validators.ReservationProlongValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
@@ -31,7 +31,7 @@ public class ProlongReservationServiceImplTest {
     @Mock
     ReservationDAO reservationDAO;
     @Mock
-    ProlongReservationValidator validator;
+    ReservationProlongValidator validator;
     @InjectMocks
     public ProlongReservationService service = new ProlongReservationServiceImpl();
 

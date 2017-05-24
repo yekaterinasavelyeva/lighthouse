@@ -2,8 +2,8 @@ package lv.javaguru.java2.services.reservation.impls;
 
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.services.reservation.FindReservationByResourceIdService;
-import lv.javaguru.java2.services.validators.InputValidator;
-import lv.javaguru.java2.services.validators.SearchValidator;
+import lv.javaguru.java2.services.validators.DataInputValidator;
+import lv.javaguru.java2.services.validators.DataExistValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
@@ -22,9 +22,11 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class FindReservationByResourceIdServiceImplTest {
 
-    @Mock InputValidator inputValidator;
+    @Mock
+    DataInputValidator dataInputValidator;
     @Mock ReservationDAO reservationDAO;
-    @Mock SearchValidator searchValidator;
+    @Mock
+    DataExistValidator dataExistValidator;
 
     @InjectMocks
     private FindReservationByResourceIdService service = new FindReservationByResourceIdServiceImpl();
@@ -32,10 +34,10 @@ public class FindReservationByResourceIdServiceImplTest {
     @Test
     public void checkMethodsOrderForFindByResouceIdService() {
         service.find(any(Long.class));
-        InOrder inOrder = Mockito.inOrder(inputValidator, reservationDAO, searchValidator);
-        inOrder.verify(inputValidator).validateResourceIdInput(any(Long.class));
-        inOrder.verify(searchValidator).validateResourceIdExist(any(Long.class));
-        inOrder.verify(searchValidator).validateReservationExistForResourceId(any(Long.class));
+        InOrder inOrder = Mockito.inOrder(dataInputValidator, reservationDAO, dataExistValidator);
+        inOrder.verify(dataInputValidator).validateResourceIdInput(any(Long.class));
+        inOrder.verify(dataExistValidator).validateResourceIdExists(any(Long.class));
+        inOrder.verify(dataExistValidator).validateReservationExistForResourceId(any(Long.class));
         inOrder.verify(reservationDAO).getByResourceID(any(Long.class));
     }
 }

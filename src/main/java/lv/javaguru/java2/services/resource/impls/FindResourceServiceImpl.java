@@ -3,12 +3,11 @@ package lv.javaguru.java2.services.resource.impls;
 import lv.javaguru.java2.database.ResourceDAO;
 import lv.javaguru.java2.domain.Resource;
 import lv.javaguru.java2.services.resource.FindResourceService;
-import lv.javaguru.java2.services.validators.ResourceIdValidator;
+import lv.javaguru.java2.services.validators.DataExistValidator;
+import lv.javaguru.java2.services.validators.DataInputValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 /**
  * Created by user on 17.04.2017.
@@ -21,18 +20,14 @@ class FindResourceServiceImpl implements FindResourceService {
     private ResourceDAO resourceDAO;
 
     @Autowired
-    private ResourceIdValidator resourceIdValidator;
+    private DataInputValidator inputValidator;
+    @Autowired
+    private DataExistValidator existValidator;
 
     @Override
     public Resource findResource(Long resourceId){
-        resourceIdValidator.validate(resourceId);
-        Optional<Resource> resourceOpt = resourceDAO.getByID(resourceId);
-        if (!resourceOpt.isPresent()) {
-            throw new IllegalArgumentException("Resource not found by id = " + resourceId);
-        }
-        Resource resource = resourceOpt.get();
-        return resource;
+        inputValidator.validateResourceIdInput(resourceId);
+        existValidator.validateResourceIdExists(resourceId);
+        return resourceDAO.getByID(resourceId).get();
     }
-
-    // TODO: 2017.05.23. update this class > new validation
 }

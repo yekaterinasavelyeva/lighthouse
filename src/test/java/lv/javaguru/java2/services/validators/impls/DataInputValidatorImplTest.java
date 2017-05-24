@@ -1,7 +1,7 @@
 package lv.javaguru.java2.services.validators.impls;
 
 import lv.javaguru.java2.domain.ResourceType;
-import lv.javaguru.java2.services.validators.InputValidator;
+import lv.javaguru.java2.services.validators.DataInputValidator;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -9,12 +9,12 @@ import org.junit.rules.ExpectedException;
 /**
  * Created by mobileqa on 28/04/17.
  */
-public class InputValidatorImplTest {
+public class DataInputValidatorImplTest {
 
     private static final Long NEGATIVE_ID = -2l;
     private static final Long POSITIVE_ID = 1234L;
 
-    private InputValidator validator = new InputValidatorImpl();
+    private DataInputValidator validator = new DataInputValidatorImpl();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

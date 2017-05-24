@@ -4,8 +4,7 @@ import lv.javaguru.java2.database.ResourceDAO;
 import lv.javaguru.java2.domain.Resource;
 import lv.javaguru.java2.domain.ResourceType;
 import lv.javaguru.java2.services.resource.EditResourceService;
-import lv.javaguru.java2.services.validators.ResourceIdValidator;
-import lv.javaguru.java2.services.validators.CreateResourceValidator;
+import lv.javaguru.java2.services.validators.ResourceEditValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
@@ -13,11 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+
 import java.util.Optional;
 
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -27,61 +25,33 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class EditResourceServiceImplTest {
 
-    @InjectMocks
-    private EditResourceService service = new EditResourceServiceImpl();
-    @Mock
-    private ResourceDAO resourceDAO;
-    @Mock
-    private CreateResourceValidator validator;
-    @Mock
-    private ResourceIdValidator idValidator;
-    @Mock
-    private Resource resource;
-
     private static final ResourceType TYPE = ResourceType.BOOK;
     private static final String TITLE = "title";
     private static final String AUTHOR = "author";
-    private static final int RELEASEYEAR = 2013;
-    private static final Long RESOURCEID = 1234l;
+    private static final int RELEASE_YEAR = 2013;
+    private static final Long RESOURCE_ID = 1234L;
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionIfResourceNotFoundTest() {
-        service.edit(RESOURCEID, TYPE, TITLE, AUTHOR, RELEASEYEAR);
-    }
+    @Mock
+    private ResourceDAO resourceDAO;
+    @Mock
+    private ResourceEditValidator validator;
 
-    @Test
-    public void shouldBePossibilityToProvideResourceDetailsForEdit() {
-        service = mock(EditResourceService.class);
-        service.edit(RESOURCEID, TYPE, TITLE, AUTHOR, RELEASEYEAR);
-        verify(service).edit(RESOURCEID, TYPE, TITLE, AUTHOR, RELEASEYEAR);
-    }
+    @InjectMocks
+    private EditResourceService service = new EditResourceServiceImpl();
 
     @Test
-    public void checkResourceEditMethodsOrder() {
-        when(resourceDAO.getByID(RESOURCEID)).thenReturn(Optional.of(resource));
-        service.edit(RESOURCEID, TYPE, TITLE, AUTHOR, RELEASEYEAR);
-        InOrder inOrder = Mockito.inOrder(idValidator, validator, resourceDAO);
-        inOrder.verify(idValidator).validate(RESOURCEID);
-        inOrder.verify(validator).validate(TYPE, TITLE, AUTHOR, RELEASEYEAR);
-        inOrder.verify(resourceDAO).update(any(Resource.class));
+    public void checkEditMethodsOrder() {
+        Resource resource = Mockito.mock(Resource.class);
+        when(resourceDAO.getByID(RESOURCE_ID))
+                .thenReturn(Optional.of(resource));
+        InOrder inOrder = Mockito.inOrder(resourceDAO, validator, resource);
+        service.edit(RESOURCE_ID, TYPE, TITLE, AUTHOR, RELEASE_YEAR);
+        inOrder.verify(validator).validate(RESOURCE_ID, TYPE, TITLE, AUTHOR, RELEASE_YEAR);
+        inOrder.verify(resourceDAO).getByID(RESOURCE_ID);
+        inOrder.verify(resource).setResourceType(TYPE);
+        inOrder.verify(resource).setTitle(TITLE);
+        inOrder.verify(resource).setAuthor(AUTHOR);
+        inOrder.verify(resource).setReleaseYear(RELEASE_YEAR);
+        inOrder.verify(resourceDAO).update(resource);
     }
-
-    @Test
-    public void editResourceTest() {
-        resource.setResourceID(RESOURCEID);
-        resource.setTitle(TITLE);
-        resource.setAuthor(AUTHOR);
-        resource.setResourceType(TYPE);
-        resource.setReleaseYear(RELEASEYEAR);
-        when(resourceDAO.getByID(any(Long.class))).thenReturn(Optional.of(resource));
-        service.edit(resource.getResourceID(), ResourceType.ARTICLE, "new Title",
-                "new Author", 2014);
-        Optional <Resource> changedResource = resourceDAO.getByID(resource.getResourceID());
-        assertTrue(changedResource.isPresent());
-        assertEquals(resource.getResourceType(), changedResource.get().getResourceType());
-        assertEquals(resource.getReleaseYear(), changedResource.get().getReleaseYear());
-        assertEquals(resource.getTitle(), changedResource.get().getTitle());
-        assertEquals(resource.getAuthor(), changedResource.get().getAuthor());
-    }
-
 }

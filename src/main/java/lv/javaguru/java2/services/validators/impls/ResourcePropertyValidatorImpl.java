@@ -1,10 +1,10 @@
 package lv.javaguru.java2.services.validators.impls;
 
 import lv.javaguru.java2.domain.ResourceType;
-import lv.javaguru.java2.services.exceptions.CreateResourceException;
-import lv.javaguru.java2.services.validators.CreateResourceValidator;
-import lv.javaguru.java2.services.validators.InputValidator;
-import lv.javaguru.java2.services.validators.ResourceRuleValidator;
+import lv.javaguru.java2.services.exceptions.ResourcePropertyException;
+import lv.javaguru.java2.services.validators.ResourcePropertyValidator;
+import lv.javaguru.java2.services.validators.DataInputValidator;
+import lv.javaguru.java2.services.validators.LibraryRuleValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
  * Created by user on 11.04.2017.
  */
 @Component
-class CreateResourceValidatorImpl implements CreateResourceValidator {
+class ResourcePropertyValidatorImpl implements ResourcePropertyValidator {
 
     @Autowired
-    private InputValidator inputValidator;
+    private DataInputValidator dataInputValidator;
     @Autowired
-    private ResourceRuleValidator ruleValidator;
+    private LibraryRuleValidator ruleValidator;
 
     private StringBuilder validationErrors = new StringBuilder();
 
@@ -32,7 +32,7 @@ class CreateResourceValidatorImpl implements CreateResourceValidator {
 
     private void validateResourceType(ResourceType type){
         try {
-            inputValidator.validateResourceTypeInput(type);
+            dataInputValidator.validateResourceTypeInput(type);
         } catch (IllegalArgumentException e) {
             collectMessage(e.getMessage());
         }
@@ -40,7 +40,7 @@ class CreateResourceValidatorImpl implements CreateResourceValidator {
 
     private void validateTitle(String title){
         try {
-            inputValidator.validateResourceTitleInput(title);
+            dataInputValidator.validateResourceTitleInput(title);
         } catch (IllegalArgumentException e) {
             collectMessage(e.getMessage());
         }
@@ -48,7 +48,7 @@ class CreateResourceValidatorImpl implements CreateResourceValidator {
 
     private void validateAuthor(String author){
         try {
-            inputValidator.validateResourceAuthorInput(author);
+            dataInputValidator.validateResourceAuthorInput(author);
         } catch (IllegalArgumentException e) {
             collectMessage(e.getMessage());
         }
@@ -56,7 +56,7 @@ class CreateResourceValidatorImpl implements CreateResourceValidator {
 
     private void validateReleaseYear(int releaseYear){
         try {
-            ruleValidator.validateReleaseYearForNewResource(releaseYear);
+            ruleValidator.validateResourceReleaseYearLimits(releaseYear);
         } catch (IllegalArgumentException e) {
             collectMessage(e.getMessage());
         }
@@ -65,7 +65,7 @@ class CreateResourceValidatorImpl implements CreateResourceValidator {
     private void handleValidationErrors() {
         String errors = validationErrors.toString();
         if (!errors.isEmpty()) {
-            throw new CreateResourceException(errors);
+            throw new ResourcePropertyException(errors);
         }
     }
 

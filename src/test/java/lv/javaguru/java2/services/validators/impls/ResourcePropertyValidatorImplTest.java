@@ -1,11 +1,10 @@
 package lv.javaguru.java2.services.validators.impls;
 
 import lv.javaguru.java2.domain.ResourceType;
-import lv.javaguru.java2.services.exceptions.CreateResourceException;
-import lv.javaguru.java2.services.validators.CreateResourceValidator;
-import lv.javaguru.java2.services.validators.InputValidator;
-import lv.javaguru.java2.services.validators.ResourceRuleValidator;
-import lv.javaguru.java2.services.validators.impls.CreateResourceValidatorImpl;
+import lv.javaguru.java2.services.exceptions.ResourcePropertyException;
+import lv.javaguru.java2.services.validators.ResourcePropertyValidator;
+import lv.javaguru.java2.services.validators.DataInputValidator;
+import lv.javaguru.java2.services.validators.LibraryRuleValidator;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -21,17 +20,19 @@ import static org.mockito.Mockito.doThrow;
  * Created by user on 11.04.2017.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class CreateResourceValidatorImplTest {
+public class ResourcePropertyValidatorImplTest {
 
     private static final ResourceType NULL_TYPE = null;
     private static final String NULL_TITLE = null;
     private static final String NULL_AUTHOR = null;
 
-    @Mock InputValidator inputValidator;
-    @Mock ResourceRuleValidator ruleValidator;
+    @Mock
+    DataInputValidator dataInputValidator;
+    @Mock
+    LibraryRuleValidator ruleValidator;
 
     @InjectMocks
-    CreateResourceValidator validator = new CreateResourceValidatorImpl();
+    ResourcePropertyValidator validator = new ResourcePropertyValidatorImpl();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -39,18 +40,18 @@ public class CreateResourceValidatorImplTest {
     @Before
     public void init() {
         doThrow(new IllegalArgumentException("smth1"))
-                .when(inputValidator).validateResourceTypeInput(null);
+                .when(dataInputValidator).validateResourceTypeInput(null);
         doThrow(new IllegalArgumentException("smth2"))
-                .when(inputValidator).validateResourceTitleInput(null);
+                .when(dataInputValidator).validateResourceTitleInput(null);
         doThrow(new IllegalArgumentException("smth3"))
-                .when(inputValidator).validateResourceAuthorInput(null);
+                .when(dataInputValidator).validateResourceAuthorInput(null);
         doThrow(new IllegalArgumentException("smth4"))
-                .when(ruleValidator).validateReleaseYearForNewResource(0);
+                .when(ruleValidator).validateResourceReleaseYearLimits(0);
     }
 
     @Test
     public void shouldThrowExceptionWithCorrectMessageWhenAllIsNull() {
-        thrown.expect(CreateResourceException.class);
+        thrown.expect(ResourcePropertyException.class);
         thrown.expectMessage("smth1\n" +
                 "smth2\n" +
                 "smth3\n" +

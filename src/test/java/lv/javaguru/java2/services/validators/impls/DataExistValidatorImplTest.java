@@ -4,8 +4,7 @@ import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.database.ResourceDAO;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.domain.Resource;
-import lv.javaguru.java2.services.validators.SearchValidator;
-import lv.javaguru.java2.services.validators.impls.SearchValidatorImpl;
+import lv.javaguru.java2.services.validators.DataExistValidator;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,7 +24,7 @@ import static org.mockito.Mockito.when;
  * Created by mobileqa on 27/04/17.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class SearchValidatorImplTest {
+public class DataExistValidatorImplTest {
 
     private static final Long EXAMPLE_ID = 1234l;
     private List<Reservation> reservations;
@@ -38,7 +37,7 @@ public class SearchValidatorImplTest {
     ResourceDAO resourceDAO;
 
     @InjectMocks
-    private SearchValidator validator = new SearchValidatorImpl();
+    private DataExistValidator validator = new DataExistValidatorImpl();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -106,13 +105,13 @@ public class SearchValidatorImplTest {
                 .thenReturn(Optional.empty());
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Resource not found by id = " + EXAMPLE_ID);
-        validator.validateResourceIdExist(EXAMPLE_ID);
+        validator.validateResourceIdExists(EXAMPLE_ID);
     }
 
     @Test
     public void noExceptionWhenResourceIdExists() {
         when(resourceDAO.getByID(EXAMPLE_ID))
                 .thenReturn(Optional.of(resource));
-        validator.validateResourceIdExist(EXAMPLE_ID);
+        validator.validateResourceIdExists(EXAMPLE_ID);
     }
 }

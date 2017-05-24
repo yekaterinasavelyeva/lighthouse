@@ -3,8 +3,8 @@ package lv.javaguru.java2.services.reservation.impls;
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.services.reservation.FindReservationByResourceIdService;
-import lv.javaguru.java2.services.validators.InputValidator;
-import lv.javaguru.java2.services.validators.SearchValidator;
+import lv.javaguru.java2.services.validators.DataExistValidator;
+import lv.javaguru.java2.services.validators.DataInputValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -20,15 +20,15 @@ class FindReservationByResourceIdServiceImpl implements FindReservationByResourc
     @Qualifier("HibernateReservationDAO")
     private ReservationDAO reservationDAO;
     @Autowired
-    private SearchValidator searchValidator;
+    private DataExistValidator dataExistValidator;
     @Autowired
-    private InputValidator inputValidator;
+    private DataInputValidator dataInputValidator;
 
     @Override
     public List<Reservation> find(Long resourceId){
-        inputValidator.validateResourceIdInput(resourceId);
-        searchValidator.validateResourceIdExist(resourceId);
-        searchValidator.validateReservationExistForResourceId(resourceId);
+        dataInputValidator.validateResourceIdInput(resourceId);
+        dataExistValidator.validateResourceIdExists(resourceId);
+        dataExistValidator.validateReservationExistForResourceId(resourceId);
         return reservationDAO.getByResourceID(resourceId);
     }
 }
