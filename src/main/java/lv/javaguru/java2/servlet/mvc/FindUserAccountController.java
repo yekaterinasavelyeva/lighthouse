@@ -17,7 +17,7 @@ public class FindUserAccountController implements MVCController {
 
     @Override
     public MVCModel processGet(HttpServletRequest request) {
-        Long accountId = Long.parseLong(request.getParameter("userAccountId"));
+        Long accountId = Long.parseLong(request.getParameter("accountId"));
         return new MVCModel("/userAccountSearchResult.jsp", findService.getUserAccount(accountId));
     }
 

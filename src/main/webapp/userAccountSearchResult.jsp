@@ -7,7 +7,6 @@
 </head>
 <body>
 <div align="center">
-<%UserAccount account = (UserAccount)request.getAttribute("model");%>
 <h2><b><U>User Accounts Id: <%=(Long)request.getAttribute("accountId")%></U></b></h2>
 
 <h1>${requestScope.data}</h1>
