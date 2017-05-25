@@ -1,8 +1,8 @@
-package lv.javaguru.java2.services.useraccount;
+package lv.javaguru.java2.services.useraccount.impls;
 
 import lv.javaguru.java2.database.UserAccountDAO;
 import lv.javaguru.java2.domain.UserAccount;
-import org.junit.Before;
+import lv.javaguru.java2.services.useraccount.GetAllAccountsService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

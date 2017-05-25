@@ -47,7 +47,7 @@ public class CloseReservationServiceImplTest {
                 .thenReturn(Optional.of(reservation));
         service.closeByID(EXAMPLE_ID);
         inOrder.verify(dataInputValidator).validateReservationIdInput(EXAMPLE_ID);
-        inOrder.verify(dataExistValidator).validateReservationIdExist(EXAMPLE_ID);
+        inOrder.verify(dataExistValidator).validateReservationIdExists(EXAMPLE_ID);
         inOrder.verify(reservation).setStatus(ReservationStatus.CLOSED);
         inOrder.verify(reservationDAO).update(reservation);
     }

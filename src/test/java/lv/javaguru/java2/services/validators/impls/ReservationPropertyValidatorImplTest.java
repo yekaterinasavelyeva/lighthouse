@@ -2,7 +2,6 @@ package lv.javaguru.java2.services.validators.impls;
 
 import lv.javaguru.java2.services.validators.*;
 import lv.javaguru.java2.services.exceptions.ReservationPropertyException;
-import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,7 +27,6 @@ public class ReservationPropertyValidatorImplTest {
     @Mock DataInputValidator dataInputValidator;
     @Mock DataExistValidator dataExistValidator;
     @Mock LibraryRuleValidator ruleValidator;
-    @Mock UserAccountIdValidator userAccountIdValidator;
 
     @InjectMocks
     private ReservationPropertyValidator validator = new ReservationPropertyValidatorImpl();
@@ -51,7 +49,7 @@ public class ReservationPropertyValidatorImplTest {
         doThrow(new IllegalArgumentException("smth3"))
                 .when(ruleValidator).validateResourceReservationStatusWhenCreatingReservation(any(Long.class));
         doThrow(new IllegalArgumentException("smth4"))
-                .when(userAccountIdValidator).validate(null);
+                .when(dataInputValidator).validateUserAccountIdInput(null);
         thrown.expect(ReservationPropertyException.class);
         thrown.expectMessage("smth1\nsmth2\nsmth3\nsmth4");
     }

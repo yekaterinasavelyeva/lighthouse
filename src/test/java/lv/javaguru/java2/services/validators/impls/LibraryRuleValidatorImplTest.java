@@ -58,6 +58,8 @@ public class LibraryRuleValidatorImplTest {
                 .thenReturn(reservations);
         when(reservationDAO.getByID(EXAMPLE_ID))
                 .thenReturn(Optional.of(reservation));
+        when(reservationDAO.getByAccountID(EXAMPLE_ID))
+                .thenReturn(reservations);
 
     }
 
@@ -120,6 +122,22 @@ public class LibraryRuleValidatorImplTest {
         reservation.setStatus(ReservationStatus.CLOSED);
         reservations.add(reservation);
         validator.validateResourceReservationStatusWhenCreatingReservation(EXAMPLE_ID);
+    }
+
+    @Test
+    public void shouldThrowExceptionIfThereIsOpenReservationOnUserAccount() {
+        reservation.setStatus(ReservationStatus.OPEN);
+        reservations.add(reservation);
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Cannot delete user account. There is open reservation on it");
+        validator.validateReservationStatusWhenDeletingUserAccount(EXAMPLE_ID);
+    }
+
+    @Test
+    public void noExceptionWhenAllReservationsAreClosedOnUserAccount() {
+        reservation.setStatus(ReservationStatus.CLOSED);
+        reservations.add(reservation);
+        validator.validateReservationStatusWhenDeletingUserAccount(EXAMPLE_ID);
     }
 
     @Test

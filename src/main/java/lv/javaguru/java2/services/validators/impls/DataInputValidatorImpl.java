@@ -1,6 +1,7 @@
 package lv.javaguru.java2.services.validators.impls;
 
 import lv.javaguru.java2.domain.ResourceType;
+import lv.javaguru.java2.domain.UserAccountState;
 import lv.javaguru.java2.services.validators.DataInputValidator;
 import org.springframework.stereotype.Component;
 
@@ -58,6 +59,34 @@ class DataInputValidatorImpl implements DataInputValidator {
     public void validateResourceAuthorInput(String resourceAuthor) {
         if (resourceAuthor == null || resourceAuthor.isEmpty()) {
             throw new IllegalArgumentException("Resource Author cannot be empty!");
+        }
+    }
+
+    @Override
+    public void validateUserAccountIdInput(Long userAccountId) {
+        if (userAccountId == null || userAccountId<0) {
+            throw new IllegalArgumentException("Account ID cannot be null or negative");
+        }
+    }
+
+    @Override
+    public void validateUserAccountFirstNameInput(String firstName) {
+        if (firstName == null || firstName.isEmpty()) {
+            throw new IllegalArgumentException("First Name cannot be empty!");
+        }
+    }
+
+    @Override
+    public void validateUserAccountLastNameInput(String lastName) {
+        if (lastName == null || lastName.isEmpty()) {
+            throw new IllegalArgumentException("Last Name cannot be empty!");
+        }
+    }
+
+    @Override
+    public void validateUserAccountStateInput(UserAccountState state) {
+        if (state == null) {
+            throw new IllegalArgumentException("Account type cannot be empty!");
         }
     }
 }

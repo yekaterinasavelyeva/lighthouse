@@ -1,9 +1,7 @@
 package lv.javaguru.java2.servlet.mvc;
 
 import lv.javaguru.java2.services.useraccount.FindUserAccountService;
-import lv.javaguru.java2.services.useraccount.FindUserAccountServiceImpl;
 import lv.javaguru.java2.services.useraccount.GetAllAccountsService;
-import lv.javaguru.java2.services.useraccount.GetAllAccountsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

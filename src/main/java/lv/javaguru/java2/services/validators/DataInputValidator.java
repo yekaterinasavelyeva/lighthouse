@@ -1,6 +1,7 @@
 package lv.javaguru.java2.services.validators;
 
 import lv.javaguru.java2.domain.ResourceType;
+import lv.javaguru.java2.domain.UserAccountState;
 
 import java.time.LocalDate;
 
@@ -16,4 +17,9 @@ public interface DataInputValidator {
     void validateResourceTypeInput(ResourceType resourceType);
     void validateResourceTitleInput(String resourceTitle);
     void validateResourceAuthorInput(String resourceAuthor);
+
+    void validateUserAccountIdInput(Long userAccountId);
+    void validateUserAccountFirstNameInput(String firstName);
+    void validateUserAccountLastNameInput(String lastName);
+    void validateUserAccountStateInput(UserAccountState state);
 }

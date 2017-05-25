@@ -31,7 +31,7 @@ class ReservationProlongValidatorImpl implements ReservationProlongValidator {
     private void validateReservationId(Long reservationId) {
         try {
             dataInputValidator.validateReservationIdInput(reservationId);
-            dataExistValidator.validateReservationIdExist(reservationId);
+            dataExistValidator.validateReservationIdExists(reservationId);
             ruleValidator.validateReservationStatusWhenProlongingIt(reservationId);        } catch (IllegalArgumentException e) {
             collectMessage(e.getMessage());
         }

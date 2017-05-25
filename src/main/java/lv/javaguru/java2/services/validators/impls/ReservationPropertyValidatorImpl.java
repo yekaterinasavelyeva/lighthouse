@@ -2,7 +2,6 @@ package lv.javaguru.java2.services.validators.impls;
 
 import lv.javaguru.java2.services.exceptions.ReservationPropertyException;
 import lv.javaguru.java2.services.validators.*;
-import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,8 +19,6 @@ class ReservationPropertyValidatorImpl implements ReservationPropertyValidator {
     private DataExistValidator dataExistValidator;
     @Autowired
     private LibraryRuleValidator ruleValidator;
-    @Autowired
-    private UserAccountIdValidator userAccountIdValidator;
 
     private StringBuilder validationMessages = new StringBuilder();
 
@@ -64,7 +61,8 @@ class ReservationPropertyValidatorImpl implements ReservationPropertyValidator {
 
     private void validateUserAccountId(Long userAccountId){
         try {
-            userAccountIdValidator.validate(userAccountId);
+            dataInputValidator.validateUserAccountIdInput(userAccountId);
+            dataExistValidator.validateResourceIdExists(userAccountId);
         } catch (IllegalArgumentException e) {
             collectMessage(e.getMessage());
         }

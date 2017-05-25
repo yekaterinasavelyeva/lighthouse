@@ -2,8 +2,10 @@ package lv.javaguru.java2.services.validators.impls;
 
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.database.ResourceDAO;
+import lv.javaguru.java2.database.UserAccountDAO;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.domain.Resource;
+import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.services.validators.DataExistValidator;
 import org.junit.Before;
 import org.junit.Rule;
@@ -30,12 +32,11 @@ public class DataExistValidatorImplTest {
     private List<Reservation> reservations;
     private Reservation reservation;
     private Resource resource;
+    private UserAccount userAccount;
 
-    @Mock
-    ReservationDAO reservationDAO;
-    @Mock
-    ResourceDAO resourceDAO;
-
+    @Mock ReservationDAO reservationDAO;
+    @Mock ResourceDAO resourceDAO;
+    @Mock UserAccountDAO userAccountDAO;
     @InjectMocks
     private DataExistValidator validator = new DataExistValidatorImpl();
 
@@ -47,6 +48,7 @@ public class DataExistValidatorImplTest {
         reservations = new ArrayList<>();
         reservation = new Reservation();
         resource = new Resource();
+        userAccount = new UserAccount();
     }
 
     @Test
@@ -89,14 +91,14 @@ public class DataExistValidatorImplTest {
                 .thenReturn(Optional.empty());
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Reservation not found by id = " + EXAMPLE_ID);
-        validator.validateReservationIdExist(EXAMPLE_ID);
+        validator.validateReservationIdExists(EXAMPLE_ID);
     }
 
     @Test
     public void noExceptionWhenReservationIdExists() {
         when(reservationDAO.getByID(EXAMPLE_ID))
                 .thenReturn(Optional.of(reservation));
-        validator.validateReservationIdExist(EXAMPLE_ID);
+        validator.validateReservationIdExists(EXAMPLE_ID);
     }
 
     @Test
@@ -113,5 +115,21 @@ public class DataExistValidatorImplTest {
         when(resourceDAO.getByID(EXAMPLE_ID))
                 .thenReturn(Optional.of(resource));
         validator.validateResourceIdExists(EXAMPLE_ID);
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenUserAccountIdNotExist() {
+        when(userAccountDAO.getById(EXAMPLE_ID))
+                .thenReturn(Optional.empty());
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("User account not found by id = " + EXAMPLE_ID);
+        validator.validateUserAccountIdExists(EXAMPLE_ID);
+    }
+
+    @Test
+    public void noExceptionWhenUserAccountIdExists() {
+        when(userAccountDAO.getById(EXAMPLE_ID))
+                .thenReturn(Optional.of(userAccount));
+        validator.validateUserAccountIdExists(EXAMPLE_ID);
     }
 }

@@ -3,7 +3,7 @@ package lv.javaguru.java2.services.reservation.impls;
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.services.reservation.FindReservationByUserAccountIdService;
 import lv.javaguru.java2.services.validators.DataExistValidator;
-import lv.javaguru.java2.services.useraccount.validate.UserAccountIdValidator;
+import lv.javaguru.java2.services.validators.DataInputValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
@@ -22,21 +22,19 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class FindReservationByUserAccountIdServiceImplTest {
 
-    @Mock
-    ReservationDAO reservationDAO;
-    @Mock
-    UserAccountIdValidator userAccountIdValidator;
-    @Mock
-    DataExistValidator dataExistValidator;
+    @Mock ReservationDAO reservationDAO;
+    @Mock DataExistValidator existValidator;
+    @Mock DataInputValidator inputValidator;
     @InjectMocks
     private FindReservationByUserAccountIdService service = new FindReservationByUserAccountIdServiceImpl();
 
     @Test
     public void checkMethodsOrderInFindByUserAccountIdService() {
         service.find(any(Long.class));
-        InOrder inOrder = Mockito.inOrder(reservationDAO, userAccountIdValidator, dataExistValidator);
-        inOrder.verify(userAccountIdValidator).validate(any(Long.class));
-        inOrder.verify(dataExistValidator).validateReservationExistForUserAccountId(any(Long.class));
+        InOrder inOrder = Mockito.inOrder(reservationDAO, inputValidator, existValidator);
+        inOrder.verify(inputValidator).validateUserAccountIdInput(any(Long.class));
+        inOrder.verify(existValidator).validateUserAccountIdExists(any(Long.class));
+        inOrder.verify(existValidator).validateReservationExistForUserAccountId(any(Long.class));
         inOrder.verify(reservationDAO).getByAccountID(any(Long.class));
     }
 }

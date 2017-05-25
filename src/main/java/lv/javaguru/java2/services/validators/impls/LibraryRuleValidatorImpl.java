@@ -1,6 +1,7 @@
 package lv.javaguru.java2.services.validators.impls;
 
 import lv.javaguru.java2.database.ReservationDAO;
+import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.domain.ReservationStatus;
 import lv.javaguru.java2.services.validators.LibraryRuleValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Created by Viktor on 2017.05.22..
@@ -38,6 +40,13 @@ class LibraryRuleValidatorImpl implements LibraryRuleValidator {
     public void validateResourceReservationStatusWhenDeletingResource(Long resourceId) {
         if (isAnyOpenedReservationForResource(resourceId)) {
             throw new IllegalArgumentException("Cannot delete resource. There is open reservation for it");
+        }
+    }
+
+    @Override
+    public void validateReservationStatusWhenDeletingUserAccount(Long userAccountId) {
+        if (isAnyOpenedReservationOnUserAccount(userAccountId)) {
+            throw new IllegalArgumentException("Cannot delete user account. There is open reservation on it");
         }
     }
 
@@ -83,6 +92,15 @@ class LibraryRuleValidatorImpl implements LibraryRuleValidator {
 
     private boolean isAnyOpenedReservationForResource(Long resourceId) {
         return reservationDAO.getByResourceID(resourceId)
+                .stream()
+                .anyMatch(reservation
+                        -> reservation
+                        .getStatus()
+                        .equals(ReservationStatus.OPEN));
+    }
+
+    private boolean isAnyOpenedReservationOnUserAccount(Long userAccountId) {
+        return reservationDAO.getByAccountID(userAccountId)
                 .stream()
                 .anyMatch(reservation
                         -> reservation

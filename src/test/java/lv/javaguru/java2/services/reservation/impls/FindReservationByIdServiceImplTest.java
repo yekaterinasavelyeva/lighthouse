@@ -45,7 +45,7 @@ public class FindReservationByIdServiceImplTest {
         InOrder inOrder = Mockito.inOrder(dataInputValidator, reservationDAO, dataExistValidator);
         service.find(EXAMPLE_ID);
         inOrder.verify(dataInputValidator).validateReservationIdInput(EXAMPLE_ID);
-        inOrder.verify(dataExistValidator).validateReservationIdExist(EXAMPLE_ID);
+        inOrder.verify(dataExistValidator).validateReservationIdExists(EXAMPLE_ID);
         inOrder.verify(reservationDAO).getByID(EXAMPLE_ID);
     }
 

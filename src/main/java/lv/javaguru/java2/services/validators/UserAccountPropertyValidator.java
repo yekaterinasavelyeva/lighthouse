@@ -1,4 +1,4 @@
-package lv.javaguru.java2.services.useraccount.validate;
+package lv.javaguru.java2.services.validators;
 
 import lv.javaguru.java2.domain.UserAccountState;
 
@@ -6,7 +6,7 @@ import lv.javaguru.java2.domain.UserAccountState;
  * Created by user Jekaterina Saveljeva on 26.03.2017.
  */
 
-public interface UserAccountValidator {
+public interface UserAccountPropertyValidator {
     void validate(String firstName, String lastName, UserAccountState state);
 
 }

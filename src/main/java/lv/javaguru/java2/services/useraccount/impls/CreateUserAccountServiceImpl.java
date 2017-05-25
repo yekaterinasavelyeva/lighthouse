@@ -1,11 +1,10 @@
-package lv.javaguru.java2.services.useraccount;
+package lv.javaguru.java2.services.useraccount.impls;
 
 import lv.javaguru.java2.database.UserAccountDAO;
-import lv.javaguru.java2.database.jdbc.UserAccountDAOImpl;
 import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.domain.UserAccountState;
-import lv.javaguru.java2.services.useraccount.validate.UserAccountValidator;
-import lv.javaguru.java2.services.useraccount.validate.impls.UserAccountValidatorImpl;
+import lv.javaguru.java2.services.useraccount.CreateUserAccountService;
+import lv.javaguru.java2.services.validators.UserAccountPropertyValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -16,18 +15,18 @@ import static lv.javaguru.java2.domain.UserAccountBuilder.createUserAccount;
  * Created by user on 26.03.2017.
  */
 @Component
-public class CreateUserAccountServiceImpl implements CreateUserAccountService {
+class CreateUserAccountServiceImpl implements CreateUserAccountService {
 
     @Autowired
-    private UserAccountValidator userAccountValidator;
+    private UserAccountPropertyValidator validator;
 
     @Autowired
     @Qualifier("HibernateUserAccountDAO")
     private UserAccountDAO userAccountDAO;
 
-     @Override
+    @Override
     public UserAccount create(String firstName, String lastName, UserAccountState state) {
-        userAccountValidator.validate(firstName, lastName, state);
+        validator.validate(firstName, lastName, state);
 
         UserAccount account = createUserAccount()
                 .withFirstName(firstName)

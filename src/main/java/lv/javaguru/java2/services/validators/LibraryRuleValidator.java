@@ -11,6 +11,8 @@ public interface LibraryRuleValidator {
 
     void validateResourceReservationStatusWhenDeletingResource(Long resourceId);
 
+    void validateReservationStatusWhenDeletingUserAccount(Long userAccountId);
+
     void validateResourceReservationStatusWhenCreatingReservation(Long resourceId);
 
     void validateReservationStatusWhenProlongingIt(Long reservationId);

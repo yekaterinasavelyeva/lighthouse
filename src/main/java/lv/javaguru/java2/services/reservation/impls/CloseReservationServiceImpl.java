@@ -26,7 +26,7 @@ class CloseReservationServiceImpl implements CloseReservationService {
 
     public void closeByID(Long reservationId){
         dataInputValidator.validateReservationIdInput(reservationId);
-        dataExistValidator.validateReservationIdExist(reservationId);
+        dataExistValidator.validateReservationIdExists(reservationId);
         Reservation reservation = reservationDAO.getByID(reservationId).get();
         reservation.setStatus(ReservationStatus.CLOSED);
         reservationDAO.update(reservation);

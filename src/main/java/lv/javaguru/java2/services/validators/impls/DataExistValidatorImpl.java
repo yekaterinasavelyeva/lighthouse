@@ -2,8 +2,10 @@ package lv.javaguru.java2.services.validators.impls;
 
 import lv.javaguru.java2.database.ReservationDAO;
 import lv.javaguru.java2.database.ResourceDAO;
+import lv.javaguru.java2.database.UserAccountDAO;
 import lv.javaguru.java2.domain.Reservation;
 import lv.javaguru.java2.domain.Resource;
+import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.services.validators.DataExistValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,6 +29,10 @@ class DataExistValidatorImpl implements DataExistValidator {
     @Qualifier("HibernateResourceDAO")
     private ResourceDAO resourceDAO;
 
+    @Autowired
+    @Qualifier("HibernateUserAccountDAO")
+    private UserAccountDAO userAccountDAO;
+
     @Override
     public void validateReservationExistForResourceId(Long resourceId) {
         List<Reservation> reservations = reservationDAO.getByResourceID(resourceId);
@@ -44,7 +50,7 @@ class DataExistValidatorImpl implements DataExistValidator {
     }
 
     @Override
-    public void validateReservationIdExist(Long reservationId) {
+    public void validateReservationIdExists(Long reservationId) {
         Optional<Reservation> reservationFromDB = reservationDAO.getByID(reservationId);
         if (!reservationFromDB.isPresent()) {
             throw new IllegalArgumentException("Reservation not found by id = " + reservationId);
@@ -56,6 +62,14 @@ class DataExistValidatorImpl implements DataExistValidator {
         Optional<Resource> resourceFromDB = resourceDAO.getByID(resourceId);
         if (!resourceFromDB.isPresent()) {
             throw new IllegalArgumentException("Resource not found by id = " + resourceId);
+        }
+    }
+
+    @Override
+    public void validateUserAccountIdExists(Long userAccountId) {
+        Optional<UserAccount> userAccountFromDB = userAccountDAO.getById(userAccountId);
+        if (!userAccountFromDB.isPresent()) {
+            throw new IllegalArgumentException("User account not found by id = " + userAccountId);
         }
     }
 

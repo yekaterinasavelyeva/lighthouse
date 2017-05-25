@@ -24,7 +24,7 @@ class FindReservationByIdServiceImpl implements FindReservationByIdService {
 
     public Reservation find(Long reservationId){
         dataInputValidator.validateReservationIdInput(reservationId);
-        dataExistValidator.validateReservationIdExist(reservationId);
+        dataExistValidator.validateReservationIdExists(reservationId);
         return reservationDAO.getByID(reservationId).get();
 
     }

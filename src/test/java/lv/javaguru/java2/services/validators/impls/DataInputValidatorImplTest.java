@@ -1,6 +1,7 @@
 package lv.javaguru.java2.services.validators.impls;
 
 import lv.javaguru.java2.domain.ResourceType;
+import lv.javaguru.java2.domain.UserAccountState;
 import lv.javaguru.java2.services.validators.DataInputValidator;
 import org.junit.Rule;
 import org.junit.Test;
@@ -119,5 +120,74 @@ public class DataInputValidatorImplTest {
     @Test
     public void noExceptionWhenResourceAuthorIsValid() {
         validator.validateResourceAuthorInput("smth");
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenUserAccountIdIsNull() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Account ID cannot be null or negative");
+        validator.validateUserAccountIdInput(null);
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenUserAccountIdIsNegative() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Account ID cannot be null or negative");
+        validator.validateUserAccountIdInput(NEGATIVE_ID);
+    }
+
+    @Test
+    public void noExceptionWhenUserAccountIdIsValid() {
+        validator.validateUserAccountIdInput(POSITIVE_ID);
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenUserAccountFirstNameIsNull() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("First Name cannot be empty!");
+        validator.validateUserAccountFirstNameInput(null);
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenUserAccountFirstNameIsEmpty() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("First Name cannot be empty!");
+        validator.validateUserAccountFirstNameInput("");
+    }
+
+    @Test
+    public void noExceptionWhenUserAccountFirstNameIsValid() {
+        validator.validateUserAccountFirstNameInput("smth");
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenUserAccountLastNameIsNull() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Last Name cannot be empty!");
+        validator.validateUserAccountLastNameInput(null);
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenUserAccountLastNameIsEmpty() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Last Name cannot be empty!");
+        validator.validateUserAccountLastNameInput("");
+    }
+
+    @Test
+    public void noExceptionWhenUserAccountLastNameIsValid() {
+        validator.validateUserAccountLastNameInput("smth");
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenUserAccountStateIsNull() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Account type cannot be empty!");
+        validator.validateUserAccountStateInput(null);
+    }
+
+    @Test
+    public void noExceptionWhenUserAccountStateIsValid() {
+        validator.validateUserAccountStateInput(UserAccountState.ADMIN);
     }
 }

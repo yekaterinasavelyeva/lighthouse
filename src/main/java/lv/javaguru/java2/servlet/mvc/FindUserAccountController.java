@@ -1,7 +1,6 @@
 package lv.javaguru.java2.servlet.mvc;
 
 import lv.javaguru.java2.services.useraccount.FindUserAccountService;
-import lv.javaguru.java2.services.useraccount.FindUserAccountServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class FindUserAccountController implements MVCController {
     @Autowired
-    FindUserAccountService findService = new FindUserAccountServiceImpl();
+    FindUserAccountService findService;
 
     @Override
     public MVCModel processGet(HttpServletRequest request) {
