@@ -16,12 +16,17 @@ public class FindUserAccountController implements MVCController {
 
     @Override
     public MVCModel processGet(HttpServletRequest request) {
-        Long accountId = Long.parseLong(request.getParameter("accountId"));
-        return new MVCModel("/userAccountSearchResult.jsp", findService.getUserAccount(accountId));
+        String accountId = request.getParameter("accountId");
+        System.out.println(accountId);
+        Long accountID = Long.parseLong(accountId);
+        return new MVCModel("/userAccountSearchResult.jsp", findService.getUserAccount(accountID));
     }
 
     @Override
     public MVCModel processPost(HttpServletRequest request) {
-        return null;
+        Long accountId = Long.parseLong(request.getParameter("accountId"));
+        request.getSession().setAttribute("accountId", accountId);
+        //return null;
+        return new MVCModel("/userAccountSearchResult.jsp", findService.getUserAccount(accountId));
     }
 }

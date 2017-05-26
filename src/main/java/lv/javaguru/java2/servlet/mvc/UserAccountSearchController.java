@@ -1,31 +1,32 @@
 package lv.javaguru.java2.servlet.mvc;
 
+import lv.javaguru.java2.domain.UserAccount;
 import lv.javaguru.java2.services.useraccount.FindUserAccountService;
-import lv.javaguru.java2.services.useraccount.GetAllAccountsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by user on 04.05.2017.
+ * Created by user on 26.05.2017.
  */
 @Component
-public class GetAllAccountsController implements MVCController {
+public class UserAccountSearchController implements MVCController {
 
     @Autowired
-    GetAllAccountsService service;
     FindUserAccountService findService;
 
     @Override
     public MVCModel processGet(HttpServletRequest request) {
-        return new MVCModel("/getAllAccounts.jsp", service.getAllAccountsList());
+        return new MVCModel("/userAccountSearch.jsp");
     }
 
     @Override
     public MVCModel processPost(HttpServletRequest request) {
+        //return null;
         Long accountId = Long.parseLong(request.getParameter("accountId"));
-        System.out.println("Account ID is:" + accountId);
+        request.getSession().setAttribute("accountId", accountId);
+        //return null;
         return new MVCModel("/userAccountSearchResult.jsp", findService.getUserAccount(accountId));
     }
 }

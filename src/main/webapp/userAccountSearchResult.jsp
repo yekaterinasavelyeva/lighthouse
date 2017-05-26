@@ -7,7 +7,17 @@
 </head>
 <body>
 <div align="center">
-<h2><b><U>User Accounts Id: <%=(Long)request.getAttribute("accountId")%></U></b></h2>
+<%UserAccount account = (UserAccount)request.getAttribute("model");%>
+<h2><b><U>User Account Id: <%=(Long)account.getAccountId()%></U></b></h2>
+
+      <table align="center" border="1" width="80%">
+        <tr>
+              <td width="200"><%=account.getAccountId()%></td>
+              <td width="200"><%=account.getFirstName()%></td>
+              <td width="200"><%=account.getLastName()%></td>
+              <td width="200"><%=account.getState()%></td>
+        </tr>
+      </table>
 
 <h1>${requestScope.data}</h1>
     <a href="/">Return to back</a>
