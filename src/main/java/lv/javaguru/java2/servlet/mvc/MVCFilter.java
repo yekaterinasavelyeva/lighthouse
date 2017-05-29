@@ -53,6 +53,8 @@ public class MVCFilter implements Filter {
         controllerMapping.put("/userAccountSearch", getBean(UserAccountSearchController.class));
         controllerMapping.put("/userAccountSearchResult", getBean(FindUserAccountController.class));
         controllerMapping.put("/adminPage", getBean(AdminController.class));
+        controllerMapping.put("/resourceSearch", getBean(ResourceSearchPageController.class));
+        controllerMapping.put("/resourceSearchResult", getBean(ResourceSearchResultController.class));
     }
 
     @Override
@@ -77,9 +79,9 @@ public class MVCFilter implements Filter {
 
             req.setAttribute("model", model.getData());
             ServletContext context = req.getServletContext();
-            RequestDispatcher requestDispacher =
+            RequestDispatcher requestDispatcher =
                     context.getRequestDispatcher(model.getView());
-            requestDispacher.forward(req, resp);
+            requestDispatcher.forward(req, resp);
         }
         else {
             filterChain.doFilter(request,response);

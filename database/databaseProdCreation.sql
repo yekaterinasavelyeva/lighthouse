@@ -70,3 +70,5 @@ VALUES (default, 'Laura', 'Jansone', 'VISITOR');
 INSERT INTO `accounts` (AccountID, FirstName, LastName, Status)
 VALUES (default, 'Arturs', 'Kurms', 'VISITOR');
 
+INSERT INTO `resources` (ResourceID, ResourceType, Title, Author, ReleaseYear)
+VALUES (default, 'BOOK', 'Harry Potter', 'Joan Rowling', '1996');

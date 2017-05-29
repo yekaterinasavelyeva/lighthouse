@@ -27,12 +27,12 @@ public class Resource {
     @Column(name="ReleaseYear", columnDefinition = "int(7)")
     private int releaseYear;
 
-    public Long getResourceID() {
+    public Long getResourceId() {
         return resourceID;
     }
 
-    public void setResourceID(Long resourceID) {
-        this.resourceID = resourceID;
+    public void setResourceId(Long resourceId) {
+        this.resourceID = resourceId;
     }
 
     public String getTitle() {

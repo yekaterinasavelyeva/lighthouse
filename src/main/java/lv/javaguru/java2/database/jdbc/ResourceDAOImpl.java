@@ -4,7 +4,6 @@ import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.ResourceDAO;
 import lv.javaguru.java2.domain.Resource;
 import lv.javaguru.java2.domain.ResourceType;
-import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,7 +34,7 @@ public class ResourceDAOImpl extends DAOImpl implements ResourceDAO {
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (rs.next()) {
-                resource.setResourceID(rs.getLong(1));
+                resource.setResourceId(rs.getLong(1));
             }
         } catch (Throwable e) {
             System.out.println("Exception while execute ResourceDAOImpl.save");
@@ -61,7 +60,7 @@ public class ResourceDAOImpl extends DAOImpl implements ResourceDAO {
             Resource resource = null;
             if (resultSet.next()) {
                 resource = new Resource();
-                resource.setResourceID(
+                resource.setResourceId(
                         resultSet.getLong(
                                 "ResourceID"));
                 resource.setResourceType(ResourceType.valueOf(
@@ -129,7 +128,7 @@ public class ResourceDAOImpl extends DAOImpl implements ResourceDAO {
             preparedStatement.setInt(4,
                     resource.getReleaseYear());
             preparedStatement.setLong(5,
-                    resource.getResourceID());
+                    resource.getResourceId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
             System.out.println("Exception while execute ResourceDAOImpl.delete");
@@ -150,7 +149,7 @@ public class ResourceDAOImpl extends DAOImpl implements ResourceDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Resource resource = new Resource();
-                resource.setResourceID(
+                resource.setResourceId(
                         resultSet.getLong(
                                 "ResourceID"));
                 resource.setResourceType(ResourceType.valueOf(

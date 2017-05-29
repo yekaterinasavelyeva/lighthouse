@@ -60,13 +60,13 @@ public class CreateResourceServiceImplTest {
         resource.setTitle(TITLE);
         resource.setReleaseYear(releaseYear);
         resource.setResourceType(ResourceType.BOOK);
-        resource.setResourceID(1234l);
+        resource.setResourceId(1234l);
         when(resourceDAO.save(any(Resource.class))).thenReturn(resource);
         when(resourceDAO.getByID(any(Long.class))).thenReturn(Optional.of(resource));
         Resource newResource = service.create(ResourceType.BOOK,TITLE, AUTHOR, releaseYear);
 
         Optional <Resource> resourceFromDB = resourceDAO.getByID(1234l);
-        assertEquals(newResource.getResourceID(), resourceFromDB.get().getResourceID());
+        assertEquals(newResource.getResourceId(), resourceFromDB.get().getResourceId());
         assertEquals(newResource.getResourceType(), resourceFromDB.get().getResourceType());
         assertEquals(newResource.getTitle(), resourceFromDB.get().getTitle());
         assertEquals(newResource.getAuthor(), resourceFromDB.get().getAuthor());

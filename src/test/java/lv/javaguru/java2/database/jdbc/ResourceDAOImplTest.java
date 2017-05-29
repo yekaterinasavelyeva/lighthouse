@@ -2,7 +2,6 @@ package lv.javaguru.java2.database.jdbc;
 
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.ResourceDAO;
-import lv.javaguru.java2.database.UserAccountDAO;
 import lv.javaguru.java2.domain.Resource;
 import lv.javaguru.java2.domain.ResourceType;
 import lv.javaguru.java2.servlet.mvc.SpringAppConfig;
@@ -67,13 +66,13 @@ public class ResourceDAOImplTest  extends DBUnitTestCase {
     @Test
     public void testDelete() throws DBException {
         prepareResourceAsFirstFromDB();
-        resourceDAO.delete(resource.getResourceID());
+        resourceDAO.delete(resource.getResourceId());
         getResourceFromDB();
         assertFalse(resourceFromDB.isPresent());
     }
 
     private void assertEqualsAllProperties(Resource a, Resource b) {
-        assertEquals(a.getResourceID(), b.getResourceID());
+        assertEquals(a.getResourceId(), b.getResourceId());
         assertEquals(a.getResourceType(), b.getResourceType());
         assertEquals(a.getTitle(), b.getTitle());
         assertEquals(a.getAuthor(), b.getAuthor());
@@ -81,7 +80,7 @@ public class ResourceDAOImplTest  extends DBUnitTestCase {
     }
 
     private void getResourceFromDB() {
-        resourceFromDB = resourceDAO.getByID(resource.getResourceID());
+        resourceFromDB = resourceDAO.getByID(resource.getResourceId());
     }
 
     private void prepareResourceAsNew() {

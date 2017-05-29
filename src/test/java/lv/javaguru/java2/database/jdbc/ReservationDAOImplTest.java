@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Optional;
 import static lv.javaguru.java2.domain.ReservationBuilder.createReservation;
 import static java.util.stream.Collectors.toList;
@@ -104,7 +103,7 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
         createNewReservation();
         saveReservationToDatabase();
         getReservationFromDatabase();
-        getReservationFromDatabaseByResourceID(resource.getResourceID());
+        getReservationFromDatabaseByResourceID(resource.getResourceId());
         assertThatReservationWasSavedWithCorrectProperties();
         Reservation a = reservation;
         Reservation b = newReservation;
@@ -175,7 +174,7 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
                 .withDateFrom(LocalDate.parse("2017-03-30"))
                 .withDateTo(LocalDate.parse("2017-04-04"))
                 .withAccountID(account.getAccountId())
-                .withResourceID(resource.getResourceID())
+                .withResourceID(resource.getResourceId())
                 .withStatus(ReservationStatus.OPEN)
                 .build();
     }
