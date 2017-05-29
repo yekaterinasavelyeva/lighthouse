@@ -20,6 +20,6 @@
       </table>
 
 <h1>${requestScope.data}</h1>
-    <a href="/">Return to back</a>
+    <a href="/java2/adminPage">Return to back</a>
 </body>
 </html>

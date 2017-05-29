@@ -12,5 +12,7 @@
         <input type="submit" value="Search" />
     </form>
 </div>
+<h1>${requestScope.data}</h1>
+    <a href="/java2/adminPage">Return to back</a>
 </body>
 </html>
