@@ -12,7 +12,7 @@ class ResourceSearchController implements MVCController {
 
     @Override
     public MVCModel processGet(HttpServletRequest request) {
-        return new MVCModel("/resourceSearchPage.jsp");
+        return new MVCModel("/resourceSearch.jsp");
     }
 
     @Override
