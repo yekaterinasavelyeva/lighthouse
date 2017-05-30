@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by Viktor on 2017.05.29..
  */
 @Component
-public class ResourceSearchPageController implements MVCController {
+class ResourceSearchController implements MVCController {
 
     @Override
     public MVCModel processGet(HttpServletRequest request) {

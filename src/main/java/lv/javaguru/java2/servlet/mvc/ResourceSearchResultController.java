@@ -22,8 +22,13 @@ public class ResourceSearchResultController implements MVCController {
 
     @Override
     public MVCModel processPost(HttpServletRequest request) {
-        Long resourceIdFromRequest = Long.parseLong(request.getParameter("resourceId"));
-        Resource resourceFoundByService = service.findResource(resourceIdFromRequest);
-        return new MVCModel("/resourceSearchResult.jsp", resourceFoundByService);
+        try {
+            Long resourceIdFromRequest = Long.parseLong(request.getParameter("resourceId"));
+            Resource resourceFoundByService = service.findResource(resourceIdFromRequest);
+            return new MVCModel("/resourceSearchSuccess.jsp", resourceFoundByService);
+        } catch (RuntimeException e) {
+            return new MVCModel("/resourceSearchFailed.jsp", e.getMessage());
+        }
+
     }
 }

@@ -53,7 +53,7 @@ public class MVCFilter implements Filter {
         controllerMapping.put("/userAccountSearch", getBean(UserAccountSearchController.class));
         controllerMapping.put("/userAccountSearchResult", getBean(FindUserAccountController.class));
         controllerMapping.put("/adminPage", getBean(AdminController.class));
-        controllerMapping.put("/resourceSearch", getBean(ResourceSearchPageController.class));
+        controllerMapping.put("/resourceSearch", getBean(ResourceSearchController.class));
         controllerMapping.put("/resourceSearchResult", getBean(ResourceSearchResultController.class));
     }
 
