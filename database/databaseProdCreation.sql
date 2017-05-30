@@ -72,3 +72,7 @@ VALUES (default, 'Arturs', 'Kurms', 'VISITOR');
 
 INSERT INTO `resources` (ResourceID, ResourceType, Title, Author, ReleaseYear)
 VALUES (default, 'BOOK', 'Harry Potter', 'Joan Rowling', '1996');
+VALUES (default, 'BOOK', 'Anna Karenina', 'Lev Tolstoy', 1878);
+
+INSERT INTO `reservations` (ReservationID, DateFrom, DateTo, AccountID, ResourceID, Status)
+VALUES (default, '2017-06-03', '2017-06-13', 1002, 1, 'OPEN');
