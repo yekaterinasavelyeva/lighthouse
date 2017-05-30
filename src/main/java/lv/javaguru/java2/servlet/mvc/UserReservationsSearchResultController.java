@@ -18,18 +18,13 @@ public class UserReservationsSearchResultController implements MVCController{
 
     @Override
     public MVCModel processGet(HttpServletRequest request) {
-        request.getAttribute("accountId");
-        Long accountId = Long.parseLong(request.getParameter("accountId"));
-        request.getSession().setAttribute("accountId", accountId);
-        //return null;
-        return new MVCModel("/userReservationsSearchResult.jsp", reservationFindService.find(accountId));
+        return null;
     }
 
     @Override
     public MVCModel processPost(HttpServletRequest request) {
         request.getAttribute("accountId");
         Long accountId = Long.parseLong(request.getParameter("accountId"));
-        request.getSession().setAttribute("accountId", accountId);
         //return null;
         return new MVCModel("/userReservationsSearchResult.jsp", reservationFindService.find(accountId));
     }

@@ -22,6 +22,10 @@
 
 <div align="left">
        <h2><b><U>User Account Reservations Search</U></b></h2>
+                  <form action="/java2/userReservationsSearchResult" method="post">
+                  <td width="200"><input type="submit" name="accountId" value="<%=account.getAccountId()%>">
+                  </td>
+                  </form>
 
 
 <h1>${requestScope.data}</h1>

@@ -15,9 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class UserAccountSearchController implements MVCController {
 
-    @Autowired
-    FindUserAccountService findService;
-
     @Override
     public MVCModel processGet(HttpServletRequest request) {
         return new MVCModel("/userAccountSearch.jsp");
