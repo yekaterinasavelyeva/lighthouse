@@ -29,7 +29,7 @@
       <table align="center" border="1" width="80%">
       <tr>
               <form action="/java2/userAccountSearchResult" method="post">
-              <td width="200"><input type="submit" name="accountId" value="<%=account.getAccountId()%>">
+              <td width="200"><input type="submit" name="accountId" value="Search">
               </td>
               </form>
               <td width="200"><%=account.getFirstName()%></td>
@@ -43,6 +43,6 @@
       <%}%>
 
     <h1>${requestScope.data}</h1>
-    <a href="/">Return to back</a>
+    <a href="/">Return to administrator menu</a>
 </body>
 </html>
