@@ -11,6 +11,7 @@ First UI start window has options in links:
 2. Add a book;
 3. Find a user;
 4. Open Overdue Bookings;
+5. View all accounts
 
 1 "Find a book" link will open new window with search mode. 
 Simple search has mandatory empty fields:
