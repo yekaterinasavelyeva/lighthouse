@@ -29,7 +29,7 @@
       <table align="center" border="1" width="80%">
       <tr>
               <form action="/java2/userAccountSearchResult" method="post">
-              <td width="200"><input type="submit" name="accountId" value="Search">
+              <td width="200"><input type="submit" name="accountId" value="<%=account.getAccountId()%>">
               </td>
               </form>
               <td width="200"><%=account.getFirstName()%></td>

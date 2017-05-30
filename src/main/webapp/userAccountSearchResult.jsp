@@ -21,11 +21,14 @@
       </table>
 
 <div align="left">
-       <h2><b><U>User Account Reservations Search</U></b></h2>
-                  <form action="/java2/userReservationsSearchResult" method="post">
-                  <td width="200"><input type="submit" name="accountId" value="<%=account.getAccountId()%>">
-                  </td>
-                  </form>
+       <nav>
+           <ul class="nav nav-justified">
+               <li class="item1">
+                   <form action="/java2/userReservationsSearchResult" method="post">
+                       <a href="javascript:;" onclick="parentNode.submit();">View Bookings</a>
+                           <input type="hidden" name="accountId" value=<%=(Long)account.getAccountId()%>></form>
+           </ul>
+       </nav>
 
 
 <h1>${requestScope.data}</h1>
