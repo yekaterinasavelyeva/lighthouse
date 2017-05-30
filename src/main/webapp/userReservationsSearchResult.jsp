@@ -24,24 +24,21 @@
           </td>
           </tr>
           </table>
-
       <HR>
       <BR>
-       <%
-         for(Reservation reservation:reservations){
+       <% for(Reservation reservation:reservations){
             Long reservationId = reservation.getReservationID();
          %>
-           <table align="center" border="1" width="80%">
-                <tr>
-                        <td width="200"><%=reservation.getReservationID()%></td>
-                        <td width="200"><%=reservation.getAccountID()%></td>
-                        <td width="200"><%=reservation.getDateFrom()%></td>
-                        <td width="200"><%=reservation.getDateTo()%></td>
-                        <td width="200"><%=reservation.getResourceID()%></td>
-                        <td width="200"><%=reservation.getStatus()%></td>
-
-                </tr>
-                </table>
+       <table align="center" border="1" width="80%">
+         <tr>
+           <td width="200"><%=reservation.getReservationID()%></td>
+           <td width="200"><%=reservation.getAccountID()%></td>
+           <td width="200"><%=reservation.getDateFrom()%></td>
+           <td width="200"><%=reservation.getDateTo()%></td>
+           <td width="200"><%=reservation.getResourceID()%></td>
+           <td width="200"><%=reservation.getStatus()%></td>
+         </tr>
+       </table>
 <%}%>
 
 <h1>${requestScope.data}</h1>
