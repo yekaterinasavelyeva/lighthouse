@@ -25,10 +25,6 @@ public class UserAccountSearchController implements MVCController {
 
     @Override
     public MVCModel processPost(HttpServletRequest request) {
-        //return null;
-        Long accountId = Long.parseLong(request.getParameter("accountId"));
-        request.getSession().setAttribute("accountId", accountId);
-        //return null;
-        return new MVCModel("/userAccountSearchResult.jsp", findService.getUserAccount(accountId));
+        return null;
     }
 }
