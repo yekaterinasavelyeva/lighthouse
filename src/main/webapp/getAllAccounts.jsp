@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link href= <c:url value="/resources/css/styles.css" /> rel="stylesheet" type="text/css">
+    <link href= <c:url value="/resources/css/styles.css" rel="stylesheet" type="text/css"/>
     <title>All Accounts</title>
 </head>
 <body>
