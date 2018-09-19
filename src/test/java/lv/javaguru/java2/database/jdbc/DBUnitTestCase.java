@@ -9,9 +9,10 @@ public abstract class DBUnitTestCase {
 
     @Before
     public void init() throws Exception {
-        databaseUtil.setupDatabaseFromFile(getDatabaseFile());
+        databaseUtil.setupDatabaseFromFile(getDatabaseFile(),getSchemaName());
     }
 
     protected abstract String getDatabaseFile();
+    protected abstract String getSchemaName();
 
 }

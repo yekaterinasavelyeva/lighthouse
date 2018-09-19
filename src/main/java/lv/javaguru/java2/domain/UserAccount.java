@@ -1,5 +1,9 @@
 package lv.javaguru.java2.domain;
 
+import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 import javax.persistence.*;
 
 /**
@@ -8,21 +12,26 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "accounts")
+@TypeDef(
+        name = "pgsql_enum",
+        typeClass = PostgreSQLEnumType.class
+)
 public class UserAccount {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="AccountID", columnDefinition = "int(11)")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="AccountID", columnDefinition = "serial")
     private Long accountId;
 
-    @Column(name="FirstName", columnDefinition = "char(32)")
+    @Column(name="FirstName", columnDefinition = "bpchar")
     private String firstName;
 
-    @Column(name="LastName", columnDefinition = "char(32)")
+    @Column(name="LastName", columnDefinition = "bpchar")
     private String lastName;
 
-    @Column(name="Status", columnDefinition = "enum(`ADMIN`,`VISITOR`)")
     @Enumerated(EnumType.STRING)
+    @Column(name="Status", columnDefinition = "status")
+    @Type( type = "pgsql_enum" )
     private UserAccountState state;
 
 

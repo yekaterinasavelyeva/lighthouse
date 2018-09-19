@@ -21,6 +21,9 @@ public class UserDAOImplTest extends DBUnitTestCase {
         return "dbscripts/UserDAOImplTest.xml";
     }
 
+    @Override
+    protected String getSchemaName(){return "java2_test";}
+
     @Test
     public void testCreate() throws Exception {
         User user = createUser()

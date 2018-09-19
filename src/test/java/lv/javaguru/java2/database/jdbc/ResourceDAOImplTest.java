@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
  */
 @Transactional
 @Component
-public class ResourceDAOImplTest  extends DBUnitTestCase {
+public class ResourceDAOImplTest extends DBUnitTestCase {
     @Autowired
     @Qualifier("HibernateResourceDAO")
     private ResourceDAO resourceDAO;
@@ -37,8 +37,12 @@ public class ResourceDAOImplTest  extends DBUnitTestCase {
         return "dbscripts/ResourceDAOImplTest.xml";
     }
 
+    @Override
+    protected String getSchemaName(){return "java2_test";}
+
     @Before
-    public void init(){
+    public void init() throws Exception{
+        //super.init();
         ApplicationContext springContext =
                 new AnnotationConfigApplicationContext(SpringAppConfig.class);
         resourceDAO = springContext.getBean(ResourceDAO.class);

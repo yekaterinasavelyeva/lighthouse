@@ -1,4 +1,4 @@
 <dataset>
-    <ACCOUNTS FirstName="Bob" LastName="Doe" Status="VISITOR"/>
-    <ACCOUNTS FirstName="Alice" LastName="Foo" Status="ADMIN"/>
+    <ACCOUNTS firstname="Bob" lastname="Doe" status="VISITOR"/>
+    <ACCOUNTS firstname="Alice" lastname="Foo" status="ADMIN"/>
 </dataset>

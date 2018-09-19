@@ -1,5 +1,9 @@
 package lv.javaguru.java2.domain;
 
+import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 import javax.persistence.*;
 
 /**
@@ -7,24 +11,29 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "resources")
+@TypeDef(
+        name = "pgsql_enum_res",
+        typeClass = PostgreSQLEnumType.class
+)
 public class Resource {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ResourceID", columnDefinition = "int(11)")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="ResourceID", columnDefinition = "serial")
     private Long resourceID;
 
-    @Column(name="ResourceType", columnDefinition = "enum(`BOOK`, `ARTICLE`, `MAGAZINE`, `NEWSPAPER`, `JOURNAL`)")
+    @Column(name="ResourceType", columnDefinition = "resourcetype")
     @Enumerated(EnumType.STRING)
+    @Type( type = "pgsql_enum_res" )
     private ResourceType type;
 
-    @Column(name="Title", columnDefinition = "char(32)")
+    @Column(name="Title", columnDefinition = "bpchar")
     private String title;
 
-    @Column(name="Author", columnDefinition = "char(32)")
+    @Column(name="Author", columnDefinition = "bpchar")
     private String author;
 
-    @Column(name="ReleaseYear", columnDefinition = "int(7)")
+    @Column(name="ReleaseYear", columnDefinition = "int4")
     private int releaseYear;
 
     public Long getResourceId() {

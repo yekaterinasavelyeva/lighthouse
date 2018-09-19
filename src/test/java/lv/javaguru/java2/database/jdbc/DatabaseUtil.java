@@ -7,6 +7,7 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
+import org.dbunit.dataset.ReplacementDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 
@@ -18,15 +19,16 @@ import java.util.List;
 
 public class DatabaseUtil extends DAOImpl {
 
-    void setupDatabaseFromFile(String fileName) throws Exception {
+    void setupDatabaseFromFile(String fileName, String schemaName) throws Exception {
         IDatabaseTester databaseTester = new JdbcDatabaseTester(
                 driverClass, jdbcUrl, userName, password);
 
         databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
 
         IDataSet dataSet = loadDataSetFromFile(fileName);
-
+        databaseTester.setSchema(schemaName);
         databaseTester.setDataSet(dataSet);
+
         databaseTester.onSetup();
     }
 

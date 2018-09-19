@@ -52,8 +52,12 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
         return "dbscripts/ReservationDAOImplTest.xml";
     }
 
+    @Override
+    protected String getSchemaName(){return "java2_test";}
+
     @Before
-    public void init(){
+    public void init() throws Exception{
+       // super.init();
         ApplicationContext springContext =
                 new AnnotationConfigApplicationContext(SpringAppConfig.class);
         accountDAO = springContext.getBean(UserAccountDAO.class);
@@ -182,8 +186,8 @@ public class ReservationDAOImplTest  extends DBUnitTestCase {
     private void updateReservationProperties() {
         Long thisAccountId = reservation.getAccountID();
         Long thisResourceId = reservation.getResourceID();
-        reservation.setDateFrom(LocalDate.parse("2018-02-03"));
-        reservation.setDateTo(LocalDate.parse("2018-02-04"));
+        reservation.setDateFrom(LocalDate.parse("2018-12-03"));
+        reservation.setDateTo(LocalDate.parse("2018-12-17"));
         reservation.setAccountID(thisAccountId);
         reservation.setResourceID(thisResourceId);
         reservation.setStatus(ReservationStatus.CLOSED);

@@ -6,7 +6,7 @@ COMMENT ON SCHEMA java2_test
 SET search_path TO java2_test;
 
 -- -----------------------------------------------------
--- Table Java2_test.users
+-- Table `Java2_test`.`users`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS users;
 
@@ -19,20 +19,20 @@ CREATE TABLE IF NOT EXISTS USERS(
 );
 
 -- -----------------------------------------------------
--- Table Java2_test.accounts
+-- Table `Java2_test`.`accounts`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS accounts;
+DROP TABLE IF EXISTS java2_test.accounts;
 CREATE TYPE STATUS AS ENUM ('ADMIN', 'VISITOR');
 
 CREATE TABLE IF NOT EXISTS accounts(
    AccountID  SERIAL PRIMARY KEY,
-   FirstName      CHAR(50)      NOT NULL,
-   LastName       CHAR(50)       NOT NULL,
+   FirstName      VARCHAR(20)      NOT NULL,
+   LastName       VARCHAR(20)       NOT NULL,
    Status         STATUS 		NOT NULL
 );
 
 -- -----------------------------------------------------
--- Table Java2_test.resources
+-- Table `Java2_test`.`resources`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS resources;
 CREATE TYPE RESOURCETYPE AS ENUM ('BOOK', 'ARTICLE', 'MAGAZINE', 'NEWSPAPER', 'JOURNAL');
@@ -40,15 +40,10 @@ CREATE TYPE RESOURCETYPE AS ENUM ('BOOK', 'ARTICLE', 'MAGAZINE', 'NEWSPAPER', 'J
 CREATE TABLE IF NOT EXISTS resources(
   ResourceID SERIAL PRIMARY KEY,
   ResourceType RESOURCETYPE NOT NULL,
-  Title CHAR(50) NOT NULL,
-  Author CHAR(50) NOT NULL,
+  Title VARCHAR(20) NOT NULL,
+  Author VARCHAR(30) NOT NULL,
   ReleaseYear INT NOT NULL
 );
-
-
--- -----------------------------------------------------
--- Table Java2_test.reservations
--- -----------------------------------------------------
 
 DROP TABLE IF EXISTS reservations;
 CREATE TYPE RESOURCESTATUS AS ENUM ('OPEN', 'CLOSED');
@@ -122,3 +117,6 @@ VALUES (default, 'BOOK', 'Anna Karenina', 'Lev Tolstoy', 1878);
 
 INSERT INTO reservations (ReservationID, DateFrom, DateTo, AccountID, ResourceID, Status)
 VALUES (default, '2018-08-10', '2018-08-24', 1, 1, 'OPEN');
+
+INSERT INTO reservations (ReservationID, DateFrom, DateTo, AccountID, ResourceID, Status)
+VALUES (default, '2018-08-14', '2018-08-28', 2, 2, 'OPEN');

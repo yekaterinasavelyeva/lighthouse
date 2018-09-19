@@ -39,8 +39,12 @@ public class UserAccountDAOImplTest extends DBUnitTestCase {
         return "dbscripts/UserAccountDAOImplTest.xml";
     }
 
+    @Override
+    protected String getSchemaName(){return "java2_test";}
+
    @Before
-    public void init(){
+    public void init() throws Exception{
+      // super.init();
         ApplicationContext springContext =
                 new AnnotationConfigApplicationContext(SpringAppConfig.class);
                 userAccountDAO = springContext.getBean(UserAccountDAO.class);

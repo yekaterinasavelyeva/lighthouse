@@ -1,6 +1,9 @@
 package lv.javaguru.java2.domain;
 
+import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
 import lv.javaguru.java2.configs.LocalDatePersistenceConverter;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,11 +13,15 @@ import java.time.LocalDate;
  */
 @Entity
 @Table(name = "reservations")
+@TypeDef(
+        name = "pgsql_enum_reserv",
+        typeClass = PostgreSQLEnumType.class
+)
 public class Reservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ReservationID", columnDefinition = "int(11)")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="ReservationID", columnDefinition = "serial")
     private Long reservationID;
 
     @Convert(converter = LocalDatePersistenceConverter.class)
@@ -25,14 +32,15 @@ public class Reservation {
     @Column(name = "DateTo", columnDefinition = "date")
     private LocalDate dateTo;
 
-    @Column(name="AccountID", columnDefinition = "int(11)")
+    @Column(name="AccountID", columnDefinition = "int4")
     private Long accountID;
 
-    @Column(name="ResourceID", columnDefinition = "int(11)")
+    @Column(name="ResourceID", columnDefinition = "int4")
     private Long resourceID;
 
-    @Column(name="Status", columnDefinition = "enum(`OPEN`,`CLOSED`)")
+    @Column(name="Status", columnDefinition = "resourcestatus")
     @Enumerated(EnumType.STRING)
+    @Type( type = "pgsql_enum_reserv" )
     private ReservationStatus status;
 
     public Long getReservationID() {
